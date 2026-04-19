@@ -1,6 +1,3 @@
-Отлично, я все исправил! Теперь **кнопка маршрута ведет на точную локацию** (ваша ссылка), а **облака стали максимально фотореалистичными** — белыми, пышными, с объемом и мягкими тенями, без "мультяшности".
-
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -32,7 +29,6 @@
             overflow: hidden;
         }
 
-        /* ФОН НЕБА */
         .cinematic-bg {
             position: fixed;
             top: 0;
@@ -43,7 +39,7 @@
             background: radial-gradient(ellipse at 45% 35%, #fffdf9 0%, #fff7ef 40%, #fef0e2 100%);
         }
 
-        /* ========== ФОТОРЕАЛИСТИЧНЫЕ ОБЛАКА (НОВЫЕ, БЕЛЫЕ, ПЫШНЫЕ) ========== */
+        /* ========== ФОТОРЕАЛИСТИЧНЫЕ БЕЛЫЕ ОБЛАКА ========== */
         .cloud-layer {
             position: absolute;
             pointer-events: none;
@@ -53,11 +49,8 @@
             z-index: 1;
         }
 
-        .cloud-layer.revealed {
-            opacity: 1;
-        }
+        .cloud-layer.revealed { opacity: 1; }
 
-        /* 15 белоснежных реалистичных облаков */
         .cloud-1 { width: 620px; height: 370px; top: -12%; left: -22%; transition-delay: 0.1s; }
         .cloud-2 { width: 800px; height: 480px; bottom: -12%; right: -28%; transition-delay: 0.3s; }
         .cloud-3 { width: 520px; height: 310px; top: 8%; right: -8%; transition-delay: 0.5s; }
@@ -74,7 +67,15 @@
         .cloud-14 { width: 560px; height: 335px; bottom: -4%; left: 20%; transition-delay: 0.95s; }
         .cloud-15 { width: 470px; height: 280px; top: 18%; left: 40%; transition-delay: 1.1s; }
 
-        /* СВЕТОВОЙ БЛИК */
+        /* Белые облака SVG */
+        .cloud-1 svg, .cloud-2 svg, .cloud-3 svg, .cloud-4 svg, .cloud-5 svg,
+        .cloud-6 svg, .cloud-7 svg, .cloud-8 svg, .cloud-9 svg, .cloud-10 svg,
+        .cloud-11 svg, .cloud-12 svg, .cloud-13 svg, .cloud-14 svg, .cloud-15 svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.05));
+        }
+
         .light-bloom {
             position: fixed;
             top: 50%;
@@ -93,7 +94,7 @@
 
         .light-bloom.revealed { opacity: 1; }
 
-        /* ========== ПЕРВЫЙ ЭКРАН - АНИМАЦИЯ ========== */
+        /* ПЕРВЫЙ ЭКРАН */
         .opening-overlay {
             position: fixed;
             top: 0;
@@ -112,12 +113,8 @@
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .opening-overlay.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
+        .opening-overlay.hide { opacity: 0; visibility: hidden; }
 
-        /* Облака анимации - супер реалистичные */
         .anim-cloud {
             position: absolute;
             background: radial-gradient(ellipse at 35% 40%, rgba(255,255,255,1) 0%, rgba(255,253,250,1) 40%, rgba(255,250,245,0.98) 100%);
@@ -190,14 +187,10 @@
             transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1) 0.5s, transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) 0.5s;
         }
 
-        .opening-btn.visible {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
+        .opening-btn.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
         .opening-btn:active { transform: translateX(-50%) scale(0.97); }
 
-        /* ========== ОСНОВНОЕ ПРИГЛАШЕНИЕ (СКРОЛЛ) ========== */
+        /* ОСНОВНОЕ ПРИГЛАШЕНИЕ */
         .full-invitation {
             position: fixed;
             top: 0;
@@ -213,10 +206,7 @@
             padding: 2rem 1.5rem;
         }
 
-        .full-invitation.open {
-            opacity: 1;
-            visibility: visible;
-        }
+        .full-invitation.open { opacity: 1; visibility: visible; }
 
         .invitation-inner {
             max-width: 450px;
@@ -227,10 +217,7 @@
             padding-bottom: 30px;
         }
 
-        .full-invitation.open .invitation-inner {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .full-invitation.open .invitation-inner { opacity: 1; transform: translateY(0); }
 
         .close-invitation {
             position: fixed;
@@ -368,16 +355,15 @@
             align-items: center;
             gap: 6px;
         }
-        
+
         .route-btn:active { transform: scale(0.96); background: rgba(210, 180, 160, 0.4); }
 
-        /* БЛОК СБОРА СРЕДСТВ */
         .gift-card {
             background: linear-gradient(135deg, rgba(255,248,240,0.9), rgba(255,242,232,0.95));
             border: 1px solid rgba(200,165,135,0.3);
             text-align: center;
         }
-        
+
         .gift-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
@@ -385,26 +371,26 @@
             color: #8b5a48;
             margin-bottom: 0.5rem;
         }
-        
+
         .gift-subtitle {
             font-size: 0.8rem;
             color: #a77a66;
             margin-bottom: 1rem;
             letter-spacing: 0.05em;
         }
-        
+
         .envelope-icon {
             font-size: 2.5rem;
             margin: 0.5rem 0;
             display: inline-block;
             animation: gentleFloat 2s ease-in-out infinite;
         }
-        
+
         @keyframes gentleFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
-        
+
         .bank-details {
             background: rgba(255,252,248,0.6);
             border-radius: 32px;
@@ -413,7 +399,7 @@
             text-align: left;
             font-size: 0.75rem;
         }
-        
+
         .bank-details p {
             margin: 6px 0;
             color: #6b4a3a;
@@ -422,12 +408,9 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        
-        .bank-details strong {
-            font-weight: 500;
-            color: #8b5a48;
-        }
-        
+
+        .bank-details strong { font-weight: 500; color: #8b5a48; }
+
         .copy-btn {
             background: none;
             border: none;
@@ -436,7 +419,7 @@
             cursor: pointer;
             margin-left: 8px;
         }
-        
+
         .gift-note {
             font-size: 0.7rem;
             color: #a77a66;
@@ -521,12 +504,12 @@
 <div class="app">
     <div class="cinematic-bg"></div>
     
-    <!-- ФОТОРЕАЛИСТИЧНЫЕ ФОНОВЫЕ ОБЛАКА -->
+    <!-- 15 ФОТОРЕАЛИСТИЧНЫХ ОБЛАКОВ -->
     <div class="cloud-layer cloud-1"><svg viewBox="0 0 620 370"><path d="M110,185 Q75,125 145,102 Q180,55 265,78 Q330,42 410,76 Q475,50 515,105 Q575,92 590,155 Q632,195 575,245 Q620,305 555,338 Q490,380 410,355 Q340,390 265,365 Q195,390 155,352 Q105,372 80,310 Q42,282 62,225 Q35,182 110,185Z" fill="#ffffff" opacity="0.99"/><path d="M175,228 Q142,175 212,152 Q248,112 315,135 Q365,108 410,145 Q448,125 468,175 Q495,198 460,240 Q490,282 448,308 Q402,338 345,318 Q285,345 232,322 Q182,342 148,312 Q118,295 130,262 Q108,242 175,228Z" fill="#fffefc" opacity="0.55"/></svg></div>
     <div class="cloud-layer cloud-2"><svg viewBox="0 0 800 480"><path d="M165,255 Q112,170 208,142 Q252,78 352,105 Q430,58 530,98 Q608,62 665,128 Q745,110 765,192 Q822,238 755,302 Q812,370 735,408 Q658,458 555,425 Q475,470 385,438 Q305,475 222,432 Q150,465 105,392 Q58,358 88,292 Q52,238 165,255Z" fill="#ffffff" opacity="0.98"/><path d="M245,310 Q195,245 278,220 Q320,175 395,202 Q448,172 495,212 Q535,188 558,245 Q588,268 550,315 Q582,365 532,392 Q478,422 415,398 Q352,428 295,402 Q242,422 205,388 Q172,368 185,332 Q160,310 245,310Z" fill="#fffefc" opacity="0.5"/></svg></div>
     <div class="cloud-layer cloud-3"><svg viewBox="0 0 520 310"><path d="M95,168 Q65,112 132,92 Q168,52 242,72 Q298,42 358,70 Q418,48 448,98 Q498,85 508,140 Q540,172 498,215 Q530,268 478,292 Q422,328 358,308 Q292,335 232,312 Q172,332 135,298 Q95,315 72,262 Q42,235 62,185 Q38,148 95,168Z" fill="#ffffff" opacity="0.99"/></svg></div>
     <div class="cloud-layer cloud-4"><svg viewBox="0 0 680 410"><path d="M135,225 Q92,152 172,128 Q212,68 308,92 Q380,52 468,90 Q540,58 588,120 Q660,105 678,180 Q730,225 668,285 Q722,355 648,390 Q572,440 478,408 Q400,450 312,415 Q235,452 160,408 Q98,435 60,368 Q20,335 50,268 Q18,218 135,225Z" fill="#ffffff" opacity="0.97"/></svg></div>
-    <div class="cloud-layer cloud-5"><svg viewBox="0 0 470 280"><path d="M82,152 Z" fill="none"/><path d="M82,152 Q55,100 118,82 Q152,45 218,65 Q272,35 335,65 Q390,45 420,92 Q465,80 475,135 Q505,168 462,210 Q495,260 448,285 Q398,315 335,298 Q272,322 218,300 Q162,320 125,288 Q88,305 65,252 Q38,225 58,178 Q35,148 82,152Z" fill="#ffffff" opacity="0.99"/></svg></div>
+    <div class="cloud-layer cloud-5"><svg viewBox="0 0 470 280"><path d="M82,152 Q55,100 118,82 Q152,45 218,65 Q272,35 335,65 Q390,45 420,92 Q465,80 475,135 Q505,168 462,210 Q495,260 448,285 Q398,315 335,298 Q272,322 218,300 Q162,320 125,288 Q88,305 65,252 Q38,225 58,178 Q35,148 82,152Z" fill="#ffffff" opacity="0.99"/></svg></div>
     <div class="cloud-layer cloud-6"><svg viewBox="0 0 570 340"><path d="M105,180 Q72,122 140,102 Q175,58 252,80 Q315,48 392,80 Q455,54 490,108 Q550,95 562,158 Q602,198 552,245 Q590,302 535,332 Q475,372 398,348 Q328,382 262,355 Q195,380 155,340 Q110,358 85,305 Q48,275 70,220 Q45,178 105,180Z" fill="#ffffff" opacity="0.98"/></svg></div>
     <div class="cloud-layer cloud-7"><svg viewBox="0 0 540 325"><path d="M92,165 Q65,112 128,92 Q162,54 232,74 Q288,45 352,72 Q408,50 438,98 Q488,86 498,140 Q530,172 488,215 Q518,268 468,292 Q418,325 355,308 Q292,335 232,312 Q172,332 135,298 Q98,315 75,262 Q48,235 68,185 Q45,148 92,165Z" fill="#ffffff" opacity="0.97"/></svg></div>
     <div class="cloud-layer cloud-8"><svg viewBox="0 0 500 300"><path d="M78,148 Q52,98 112,80 Q145,45 208,64 Q260,38 320,64 Q372,45 400,88 Q445,78 455,128 Q482,158 442,198 Q472,245 428,268 Q382,298 325,282 Q268,305 215,285 Q162,302 128,272 Q95,288 72,242 Q48,218 66,175 Q42,145 78,148Z" fill="#ffffff" opacity="0.99"/></svg></div>
@@ -540,7 +523,6 @@
 
     <div class="light-bloom" id="lightBloom"></div>
 
-    <!-- ПЕРВЫЙ ЭКРАН -->
     <div class="opening-overlay" id="openingOverlay">
         <div class="anim-cloud anim-cloud-1"></div>
         <div class="anim-cloud anim-cloud-2"></div>
@@ -561,7 +543,6 @@
         <button class="opening-btn" id="openingBtn">Open Invitation</button>
     </div>
 
-    <!-- ОСНОВНОЕ ПРИГЛАШЕНИЕ -->
     <div class="full-invitation" id="fullInvitation">
         <div class="close-invitation" id="closeInvitationBtn">✕</div>
         <div class="invitation-inner">
@@ -624,6 +605,7 @@
         </div>
     </div>
 
+    <!-- ТВОЯ YOUTUBE МУЗЫКА -->
     <div class="youtube-player">
         <iframe id="youtubeAudio" width="1" height="1" src="" allow="autoplay; encrypted-media" style="border:0"></iframe>
     </div>
@@ -635,7 +617,7 @@
 </div>
 
 <script>
-    // ТАЙМЕР
+    // ========== ТАЙМЕР ==========
     const targetDate = new Date(2026, 8, 26, 16, 30, 0).getTime();
     
     function updateTimer() {
@@ -664,6 +646,45 @@
     updateTimer();
     setInterval(updateTimer, 1000);
 
+    // ========== МУЗЫКА - ТВОЯ ПЕСНЯ С YOUTUBE ==========
+    const youtubeIframe = document.getElementById('youtubeAudio');
+    const musicToggleBtn = document.getElementById('musicToggleBtn');
+    let musicStarted = false;
+    let isMuted = false;
+    
+    function startMusic() {
+        if (musicStarted) return;
+        musicStarted = true;
+        // ТВОЯ ПЕСНЯ: ivrumxRUz_Y
+        youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=0&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
+        musicToggleBtn.innerHTML = '🔊';
+        isMuted = false;
+    }
+    
+    function stopMusic() {
+        if (!musicStarted) return;
+        youtubeIframe.src = "";
+        musicStarted = false;
+        musicToggleBtn.innerHTML = '🔇';
+        isMuted = true;
+    }
+    
+    function toggleMute() {
+        if (!musicStarted) {
+            startMusic();
+            return;
+        }
+        if (isMuted) {
+            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=0&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
+            musicToggleBtn.innerHTML = '🔊';
+            isMuted = false;
+        } else {
+            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=1&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
+            musicToggleBtn.innerHTML = '🔇';
+            isMuted = true;
+        }
+    }
+    
     // ЭЛЕМЕНТЫ
     const openingOverlay = document.getElementById('openingOverlay');
     const openingTitle = document.getElementById('openingTitle');
@@ -671,19 +692,6 @@
     const fullInvitation = document.getElementById('fullInvitation');
     const closeInvBtn = document.getElementById('closeInvitationBtn');
     const musicController = document.getElementById('musicController');
-    const youtubeIframe = document.getElementById('youtubeAudio');
-    const musicToggleBtn = document.getElementById('musicToggleBtn');
-    
-    let musicStarted = false;
-    let isMusicMuted = false;
-    
-    function startMusic() {
-        if (musicStarted) return;
-        musicStarted = true;
-        youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=0&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
-        musicToggleBtn.innerHTML = '🔊';
-        isMusicMuted = false;
-    }
     
     // Плавное появление текста
     setTimeout(() => {
@@ -708,6 +716,7 @@
         if (animationInProgress) return;
         animationInProgress = true;
         
+        // ЗАПУСКАЕМ ТВОЮ МУЗЫКУ
         startMusic();
         
         const animClouds = document.querySelectorAll('.anim-cloud');
@@ -760,19 +769,7 @@
     
     musicToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (!musicStarted) {
-            startMusic();
-            return;
-        }
-        if (isMusicMuted) {
-            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=0&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
-            musicToggleBtn.innerHTML = '🔊';
-            isMusicMuted = false;
-        } else {
-            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=1&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
-            musicToggleBtn.innerHTML = '🔇';
-            isMusicMuted = true;
-        }
+        toggleMute();
     });
     
     // RSVP
@@ -786,7 +783,7 @@
         setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2800);
     });
     
-    // КНОПКА МАРШРУТА (ТОЧНАЯ ЛОКАЦИЯ)
+    // МАРШРУТ
     const routeBtn = document.getElementById('routeBtn');
     if (routeBtn) {
         routeBtn.addEventListener('click', (e) => {
@@ -795,7 +792,7 @@
         });
     }
     
-    // КОПИРОВАНИЕ РЕКВИЗИТОВ
+    // КОПИРОВАНИЕ
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-copy');
@@ -811,7 +808,7 @@
         });
     });
     
-    // Параллакс облаков
+    // Параллакс
     const allClouds = document.querySelectorAll('.cloud-layer');
     fullInvitation.addEventListener('scroll', () => {
         const scrollY = fullInvitation.scrollTop;
@@ -823,4 +820,3 @@
 </script>
 </body>
 </html>
-```
