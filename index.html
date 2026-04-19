@@ -1,6 +1,3 @@
-Я исправил твой код. Главная проблема была в том, что YouTube автовоспроизведение часто блокируется браузерами. Я добавил надёжный запасной вариант: если твоя песня с YouTube не заиграет, автоматически включится красивая свадебная мелодия.
-
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -42,7 +39,7 @@
             background: radial-gradient(ellipse at 45% 35%, #fffdf9 0%, #fff7ef 40%, #fef0e2 100%);
         }
 
-        /* ========== ОБЛАКА ========== */
+        /* ========== ФОТОРЕАЛИСТИЧНЫЕ БЕЛЫЕ ОБЛАКА ========== */
         .cloud-layer {
             position: absolute;
             pointer-events: none;
@@ -70,6 +67,7 @@
         .cloud-14 { width: 560px; height: 335px; bottom: -4%; left: 20%; transition-delay: 0.95s; }
         .cloud-15 { width: 470px; height: 280px; top: 18%; left: 40%; transition-delay: 1.1s; }
 
+        /* Белые облака SVG */
         .cloud-1 svg, .cloud-2 svg, .cloud-3 svg, .cloud-4 svg, .cloud-5 svg,
         .cloud-6 svg, .cloud-7 svg, .cloud-8 svg, .cloud-9 svg, .cloud-10 svg,
         .cloud-11 svg, .cloud-12 svg, .cloud-13 svg, .cloud-14 svg, .cloud-15 svg {
@@ -280,7 +278,7 @@
             font-size: 1.8rem;
             font-weight: 500;
             color: #4f2d27;
-            font-family: monospace;
+            font-family: 'Jost', monospace;
         }
 
         .timer-label {
@@ -481,6 +479,16 @@
             color: #b27760;
         }
 
+        .youtube-player {
+            position: fixed;
+            bottom: -100px;
+            left: -100px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
         @media (max-width: 500px) {
             .opening-title .names-big { font-size: 2.5rem; }
             .timer-cell { min-width: 65px; }
@@ -496,9 +504,9 @@
 <div class="app">
     <div class="cinematic-bg"></div>
     
-    <!-- 15 ОБЛАКОВ (КОД СОКРАЩЕН, НО ВСЕ 15 РАБОТАЮТ) -->
-    <div class="cloud-layer cloud-1"><svg viewBox="0 0 620 370"><path d="M110,185 Q75,125 145,102 Q180,55 265,78 Q330,42 410,76 Q475,50 515,105 Q575,92 590,155 Q632,195 575,245 Q620,305 555,338 Q490,380 410,355 Q340,390 265,365 Q195,390 155,352 Q105,372 80,310 Q42,282 62,225 Q35,182 110,185Z" fill="#ffffff" opacity="0.99"/></svg></div>
-    <div class="cloud-layer cloud-2"><svg viewBox="0 0 800 480"><path d="M165,255 Q112,170 208,142 Q252,78 352,105 Q430,58 530,98 Q608,62 665,128 Q745,110 765,192 Q822,238 755,302 Q812,370 735,408 Q658,458 555,425 Q475,470 385,438 Q305,475 222,432 Q150,465 105,392 Q58,358 88,292 Q52,238 165,255Z" fill="#ffffff" opacity="0.98"/></svg></div>
+    <!-- 15 ФОТОРЕАЛИСТИЧНЫХ ОБЛАКОВ -->
+    <div class="cloud-layer cloud-1"><svg viewBox="0 0 620 370"><path d="M110,185 Q75,125 145,102 Q180,55 265,78 Q330,42 410,76 Q475,50 515,105 Q575,92 590,155 Q632,195 575,245 Q620,305 555,338 Q490,380 410,355 Q340,390 265,365 Q195,390 155,352 Q105,372 80,310 Q42,282 62,225 Q35,182 110,185Z" fill="#ffffff" opacity="0.99"/><path d="M175,228 Q142,175 212,152 Q248,112 315,135 Q365,108 410,145 Q448,125 468,175 Q495,198 460,240 Q490,282 448,308 Q402,338 345,318 Q285,345 232,322 Q182,342 148,312 Q118,295 130,262 Q108,242 175,228Z" fill="#fffefc" opacity="0.55"/></svg></div>
+    <div class="cloud-layer cloud-2"><svg viewBox="0 0 800 480"><path d="M165,255 Q112,170 208,142 Q252,78 352,105 Q430,58 530,98 Q608,62 665,128 Q745,110 765,192 Q822,238 755,302 Q812,370 735,408 Q658,458 555,425 Q475,470 385,438 Q305,475 222,432 Q150,465 105,392 Q58,358 88,292 Q52,238 165,255Z" fill="#ffffff" opacity="0.98"/><path d="M245,310 Q195,245 278,220 Q320,175 395,202 Q448,172 495,212 Q535,188 558,245 Q588,268 550,315 Q582,365 532,392 Q478,422 415,398 Q352,428 295,402 Q242,422 205,388 Q172,368 185,332 Q160,310 245,310Z" fill="#fffefc" opacity="0.5"/></svg></div>
     <div class="cloud-layer cloud-3"><svg viewBox="0 0 520 310"><path d="M95,168 Q65,112 132,92 Q168,52 242,72 Q298,42 358,70 Q418,48 448,98 Q498,85 508,140 Q540,172 498,215 Q530,268 478,292 Q422,328 358,308 Q292,335 232,312 Q172,332 135,298 Q95,315 72,262 Q42,235 62,185 Q38,148 95,168Z" fill="#ffffff" opacity="0.99"/></svg></div>
     <div class="cloud-layer cloud-4"><svg viewBox="0 0 680 410"><path d="M135,225 Q92,152 172,128 Q212,68 308,92 Q380,52 468,90 Q540,58 588,120 Q660,105 678,180 Q730,225 668,285 Q722,355 648,390 Q572,440 478,408 Q400,450 312,415 Q235,452 160,408 Q98,435 60,368 Q20,335 50,268 Q18,218 135,225Z" fill="#ffffff" opacity="0.97"/></svg></div>
     <div class="cloud-layer cloud-5"><svg viewBox="0 0 470 280"><path d="M82,152 Q55,100 118,82 Q152,45 218,65 Q272,35 335,65 Q390,45 420,92 Q465,80 475,135 Q505,168 462,210 Q495,260 448,285 Q398,315 335,298 Q272,322 218,300 Q162,320 125,288 Q88,305 65,252 Q38,225 58,178 Q35,148 82,152Z" fill="#ffffff" opacity="0.99"/></svg></div>
@@ -597,7 +605,11 @@
         </div>
     </div>
 
-    <!-- МУЗЫКА - YouTube + FALLBACK -->
+    <!-- ТВОЯ YOUTUBE МУЗЫКА -->
+    <div class="youtube-player">
+        <iframe id="youtubeAudio" width="1" height="1" src="" allow="autoplay; encrypted-media" style="border:0"></iframe>
+    </div>
+
     <div class="music-controller" id="musicController">
         <button class="music-btn" id="musicToggleBtn">🔇</button>
         <span style="font-size:0.7rem;">Romantic Melody</span>
@@ -634,143 +646,25 @@
     updateTimer();
     setInterval(updateTimer, 1000);
 
-    // ========== МУЗЫКА - YouTube + FALLBACK (ВСТРОЕННАЯ МЕЛОДИЯ) ==========
-    let currentAudioType = 'youtube'; // 'youtube' or 'fallback'
-    let fallbackCtx = null;
-    let fallbackOsc = null;
-    let fallbackGain = null;
-    let fallbackInterval = null;
-    let isMusicPlaying = false;
-    let isMuted = false;
-    let musicStarted = false;
-    
+    // ========== МУЗЫКА - ТВОЯ ПЕСНЯ С YOUTUBE ==========
+    const youtubeIframe = document.getElementById('youtubeAudio');
     const musicToggleBtn = document.getElementById('musicToggleBtn');
-    
-    // YouTube элементы
-    let youtubeIframe = null;
-    let youtubeReady = false;
-    
-    // Создаем YouTube iframe динамически
-    function createYouTubePlayer() {
-        const playerDiv = document.createElement('div');
-        playerDiv.style.position = 'fixed';
-        playerDiv.style.bottom = '-100px';
-        playerDiv.style.left = '-100px';
-        playerDiv.style.width = '1px';
-        playerDiv.style.height = '1px';
-        playerDiv.style.opacity = '0';
-        playerDiv.style.pointerEvents = 'none';
-        document.body.appendChild(playerDiv);
-        
-        youtubeIframe = document.createElement('iframe');
-        youtubeIframe.width = '1';
-        youtubeIframe.height = '1';
-        youtubeIframe.style.border = '0';
-        youtubeIframe.allow = 'autoplay; encrypted-media';
-        youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?enablejsapi=1&autoplay=0&mute=1&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
-        playerDiv.appendChild(youtubeIframe);
-        return playerDiv;
-    }
-    
-    // Fallback мелодия (красивая свадебная музыка)
-    const melodyNotes = [523.25, 587.33, 659.25, 523.25, 493.88, 523.25, 587.33, 659.25, 698.46, 659.25, 587.33, 523.25, 783.99, 698.46, 659.25, 587.33, 523.25, 493.88, 440.00, 493.88, 523.25];
-    
-    function initFallbackAudio() {
-        if (fallbackCtx) return;
-        fallbackCtx = new (window.AudioContext || window.webkitAudioContext)();
-        fallbackGain = fallbackCtx.createGain();
-        fallbackGain.gain.value = 0.3;
-        fallbackGain.connect(fallbackCtx.destination);
-    }
-    
-    function startFallbackMelody() {
-        if (fallbackCtx && fallbackCtx.state === 'suspended') {
-            fallbackCtx.resume();
-        }
-        if (fallbackOsc) {
-            try { fallbackOsc.stop(); } catch(e) {}
-        }
-        fallbackOsc = fallbackCtx.createOscillator();
-        fallbackOsc.type = 'sine';
-        fallbackOsc.frequency.value = melodyNotes[0];
-        fallbackOsc.connect(fallbackGain);
-        fallbackOsc.start();
-        
-        let noteIdx = 0;
-        if (fallbackInterval) clearInterval(fallbackInterval);
-        fallbackInterval = setInterval(() => {
-            if (!isMusicPlaying) return;
-            noteIdx = (noteIdx + 1) % melodyNotes.length;
-            try {
-                fallbackOsc.frequency.value = melodyNotes[noteIdx];
-            } catch(e) {}
-        }, 560);
-    }
-    
-    function stopFallbackMelody() {
-        if (fallbackInterval) {
-            clearInterval(fallbackInterval);
-            fallbackInterval = null;
-        }
-        if (fallbackOsc) {
-            try { fallbackOsc.stop(); } catch(e) {}
-            fallbackOsc = null;
-        }
-    }
-    
-    function startYouTubeMusic() {
-        if (youtubeIframe) {
-            // Перезагружаем с autoplay и без mute
-            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=0&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
-            youtubeReady = true;
-        }
-    }
-    
-    function stopYouTubeMusic() {
-        if (youtubeIframe) {
-            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?enablejsapi=1&autoplay=0&mute=1&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
-            youtubeReady = false;
-        }
-    }
+    let musicStarted = false;
+    let isMuted = false;
     
     function startMusic() {
         if (musicStarted) return;
         musicStarted = true;
-        isMusicPlaying = true;
-        
-        // Пытаемся запустить YouTube
-        if (currentAudioType === 'youtube') {
-            if (!youtubeIframe) {
-                createYouTubePlayer();
-            }
-            startYouTubeMusic();
-            
-            // Через 3 секунды проверяем, заиграл ли YouTube
-            setTimeout(() => {
-                if (musicStarted && currentAudioType === 'youtube') {
-                    // Переключаемся на fallback
-                    currentAudioType = 'fallback';
-                    stopYouTubeMusic();
-                    initFallbackAudio();
-                    startFallbackMelody();
-                }
-            }, 3000);
-        } else {
-            initFallbackAudio();
-            startFallbackMelody();
-        }
-        
+        // ТВОЯ ПЕСНЯ: ivrumxRUz_Y
+        youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=0&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
         musicToggleBtn.innerHTML = '🔊';
         isMuted = false;
     }
     
     function stopMusic() {
-        isMusicPlaying = false;
-        if (currentAudioType === 'youtube') {
-            stopYouTubeMusic();
-        } else {
-            stopFallbackMelody();
-        }
+        if (!musicStarted) return;
+        youtubeIframe.src = "";
+        musicStarted = false;
         musicToggleBtn.innerHTML = '🔇';
         isMuted = true;
     }
@@ -781,27 +675,11 @@
             return;
         }
         if (isMuted) {
-            isMusicPlaying = true;
-            if (currentAudioType === 'youtube') {
-                startYouTubeMusic();
-            } else {
-                if (fallbackCtx) {
-                    if (fallbackCtx.state === 'suspended') fallbackCtx.resume();
-                    startFallbackMelody();
-                } else {
-                    initFallbackAudio();
-                    startFallbackMelody();
-                }
-            }
+            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=0&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
             musicToggleBtn.innerHTML = '🔊';
             isMuted = false;
         } else {
-            isMusicPlaying = false;
-            if (currentAudioType === 'youtube') {
-                stopYouTubeMusic();
-            } else {
-                stopFallbackMelody();
-            }
+            youtubeIframe.src = "https://www.youtube.com/embed/ivrumxRUz_Y?autoplay=1&mute=1&loop=1&playlist=ivrumxRUz_Y&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0";
             musicToggleBtn.innerHTML = '🔇';
             isMuted = true;
         }
@@ -838,7 +716,7 @@
         if (animationInProgress) return;
         animationInProgress = true;
         
-        // ЗАПУСКАЕМ МУЗЫКУ
+        // ЗАПУСКАЕМ ТВОЮ МУЗЫКУ
         startMusic();
         
         const animClouds = document.querySelectorAll('.anim-cloud');
@@ -942,4 +820,3 @@
 </script>
 </body>
 </html>
-```
