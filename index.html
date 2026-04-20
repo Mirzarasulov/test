@@ -37,11 +37,11 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: linear-gradient(145deg, #a8cce0 0%, #bddae8 50%, #d0e6f0 100%);
+            background: linear-gradient(145deg, #a8cce0 0%, #c2deec 50%, #dceef5 100%);
             pointer-events: none;
         }
 
-        /* ========== ОСНОВНЫЕ ОБЛАКА — ПЛЫВУТ И МЕНЯЮТ ФОРМУ (БЕЛЫЕ, ПЛОТНЫЕ) ========== */
+        /* ========== ОБЛАКА — ПЛЫВУТ ========== */
         .cloud-layer {
             position: fixed;
             pointer-events: none;
@@ -51,30 +51,16 @@
             opacity: 1 !important;
             animation: floatAndTransform 28s infinite ease-in-out;
         }
-
         .cloud-layer.cloud-slow { animation-duration: 38s; }
         .cloud-layer.cloud-medium { animation-duration: 30s; }
         .cloud-layer.cloud-fast { animation-duration: 22s; }
-
         @keyframes floatAndTransform {
-            0% {
-                transform: translateX(-5%) translateY(0%) scale(1);
-            }
-            25% {
-                transform: translateX(0%) translateY(-1.5%) scale(1.03);
-            }
-            50% {
-                transform: translateX(6%) translateY(0%) scale(0.98);
-            }
-            75% {
-                transform: translateX(11%) translateY(1.5%) scale(1.02);
-            }
-            100% {
-                transform: translateX(16%) translateY(0%) scale(1);
-            }
+            0% { transform: translateX(-5%) translateY(0%) scale(1); }
+            25% { transform: translateX(0%) translateY(-1.5%) scale(1.03); }
+            50% { transform: translateX(6%) translateY(0%) scale(0.98); }
+            75% { transform: translateX(11%) translateY(1.5%) scale(1.02); }
+            100% { transform: translateX(16%) translateY(0%) scale(1); }
         }
-
-        /* Размеры облаков */
         .cloud-1 { width: 850px; height: 500px; top: -18%; left: -28%; }
         .cloud-2 { width: 980px; height: 580px; bottom: -20%; right: -32%; }
         .cloud-3 { width: 700px; height: 420px; top: 2%; right: -15%; }
@@ -90,53 +76,14 @@
         .cloud-13 { width: 680px; height: 410px; top: 62%; left: 22%; }
         .cloud-14 { width: 740px; height: 440px; bottom: -12%; left: 12%; }
         .cloud-15 { width: 650px; height: 390px; top: 8%; left: 42%; }
+        .cloud-layer svg { width: 100%; height: 100%; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.08)); animation: cloudMorph 14s infinite ease-in-out; }
+        @keyframes cloudMorph { 0% { transform: scaleX(1) scaleY(1); } 50% { transform: scaleX(1.02) scaleY(0.98); } 100% { transform: scaleX(1) scaleY(1); } }
+        .cloud-layer svg path { fill: #ffffff !important; opacity: 1 !important; }
 
-        /* Анимация лёгкого изменения формы облаков */
-        .cloud-layer svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 30px 40px rgba(0,0,0,0.08));
-            animation: cloudMorph 14s infinite ease-in-out;
-        }
+        .white-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%); pointer-events: none; }
+        .light-bloom { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 900px; height: 900px; background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,250,240,0.08) 40%, transparent 75%); border-radius: 50%; pointer-events: none; z-index: 1; filter: blur(80px); }
         
-        @keyframes cloudMorph {
-            0% { transform: scaleX(1) scaleY(1); }
-            50% { transform: scaleX(1.02) scaleY(0.98); }
-            100% { transform: scaleX(1) scaleY(1); }
-        }
-
-        .cloud-layer svg path {
-            fill: #ffffff !important;
-            opacity: 1 !important;
-        }
-
-        /* Белое свечение поверх всего */
-        .white-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
-            pointer-events: none;
-        }
-
-        .light-bloom {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 900px;
-            height: 900px;
-            background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, rgba(255,250,240,0.1) 40%, transparent 75%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-            filter: blur(80px);
-        }
-        
-        /* ЭКРАН ВХОДА — БЕЛЫЕ ОБЛАКА НА АНИМАЦИИ */
+        /* ЭКРАН ВХОДА */
         .opening-overlay {
             position: fixed;
             top: 0;
@@ -157,7 +104,6 @@
         }
         .opening-overlay.hide { opacity: 0; visibility: hidden; }
         
-        /* Анимированные облака входа — МАКСИМАЛЬНО БЕЛЫЕ И ПЛОТНЫЕ */
         .anim-cloud {
             position: absolute;
             background: radial-gradient(ellipse at 35% 40%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,250,245,1) 100%);
@@ -165,7 +111,7 @@
             filter: blur(3px);
             opacity: 0;
             transform: scale(0.65);
-            box-shadow: 0 40px 60px rgba(0,0,0,0.05), inset 0 2px 8px rgba(255,255,255,0.9);
+            box-shadow: 0 40px 60px rgba(0,0,0,0.05);
             will-change: transform, opacity;
             pointer-events: none;
         }
@@ -229,7 +175,7 @@
         .opening-btn.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
         .opening-btn:active { transform: translateX(-50%) scale(0.97); }
         
-        /* ОСНОВНОЕ ПРИГЛАШЕНИЕ (БЕЗ БЛОКА "НАША ИСТОРИЯ") */
+        /* ========== ОСНОВНОЕ ПРИГЛАШЕНИЕ — С ЭФФЕКТОМ ПЕРЕЛИСТЫВАНИЯ И ЦВЕТАМИ ========== */
         .full-invitation {
             position: fixed;
             top: 0;
@@ -255,6 +201,7 @@
             padding-bottom: 30px;
         }
         .full-invitation.open .invitation-inner { opacity: 1; transform: translateY(0); }
+        
         .close-invitation {
             position: fixed;
             top: 20px;
@@ -274,14 +221,114 @@
             color: #8b6b58;
         }
         .close-invitation:active { transform: scale(0.92); }
+        
+        /* КАРТОЧКИ С ЭФФЕКТОМ ПЕРЕЛИСТЫВАНИЯ И ЦВЕТАМИ */
         .invite-card {
-            background: rgba(255,252,248,0.8);
+            background: rgba(255,252,248,0.85);
             backdrop-filter: blur(16px);
             border-radius: 48px;
             padding: 2rem;
-            margin-bottom: 1.5rem;
-            border: 0.5px solid rgba(255,252,245,0.9);
+            margin-bottom: 1.8rem;
+            border: 1px solid rgba(200,165,135,0.25);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: cardReveal 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
         }
+        
+        /* Анимация появления карточек (как перелистывание) */
+        @keyframes cardReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Эффект при наведении/скролле (на телефоне — при касании) */
+        .invite-card:hover, .invite-card:active {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        /* ЦВЕТОЧНЫЕ УКРАШЕНИЯ (только для телефона — видны) */
+        .flower-left {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, rgba(255,200,180,0.6) 0%, rgba(255,180,150,0.3) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .flower-left::before,
+        .flower-left::after {
+            content: "🌹";
+            position: absolute;
+            font-size: 1.4rem;
+            opacity: 0.7;
+        }
+        .flower-left::before { top: 12px; left: 12px; transform: rotate(-15deg); }
+        .flower-left::after { top: 30px; left: 30px; font-size: 1rem; content: "🌸"; opacity: 0.5; }
+        
+        .flower-right {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, rgba(200,180,220,0.5) 0%, rgba(180,150,200,0.2) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .flower-right::before,
+        .flower-right::after {
+            content: "🌿";
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.6;
+        }
+        .flower-right::before { bottom: 15px; right: 15px; transform: rotate(10deg); }
+        .flower-right::after { bottom: 35px; right: 35px; content: "💮"; font-size: 0.9rem; opacity: 0.4; }
+        
+        /* Дополнительные маленькие цветы по углам */
+        .tiny-flower {
+            position: absolute;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .flower-tl { top: 8px; left: 8px; content: "✿"; }
+        .flower-tr { top: 8px; right: 8px; content: "❀"; }
+        .flower-bl { bottom: 8px; left: 8px; content: "✾"; }
+        .flower-br { bottom: 8px; right: 8px; content: "❁"; }
+        
+        /* РАМКА В ТЕКСТЕ */
+        .decorated-text {
+            position: relative;
+            display: inline-block;
+            padding: 0 8px;
+        }
+        .decorated-text::before,
+        .decorated-text::after {
+            content: "✦";
+            position: absolute;
+            font-size: 0.7rem;
+            color: #b88a72;
+            opacity: 0.6;
+        }
+        .decorated-text::before { left: -12px; top: 50%; transform: translateY(-50%); }
+        .decorated-text::after { right: -12px; top: 50%; transform: translateY(-50%); }
+        
         .section-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
@@ -289,7 +336,9 @@
             text-align: center;
             color: #674438;
             margin-bottom: 1.2rem;
+            position: relative;
         }
+        
         .timer-grid {
             display: flex;
             justify-content: center;
@@ -303,6 +352,16 @@
             padding: 0.6rem 0.8rem;
             border-radius: 32px;
             min-width: 70px;
+            position: relative;
+        }
+        .timer-cell::before {
+            content: "🌼";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            opacity: 0.6;
         }
         .timer-number { font-size: 1.8rem; font-weight: 500; color: #4f2d27; font-family: 'Jost', monospace; }
         .timer-label { font-size: 0.6rem; letter-spacing: 0.15em; color: #a17363; }
@@ -332,7 +391,13 @@
             gap: 6px;
         }
         .route-btn:active { transform: scale(0.96); background: rgba(210,180,160,0.4); }
-        .gift-card { background: linear-gradient(135deg, rgba(255,248,240,0.9), rgba(255,242,232,0.95)); border: 1px solid rgba(200,165,135,0.3); text-align: center; }
+        
+        .gift-card { 
+            background: linear-gradient(135deg, rgba(255,248,240,0.9), rgba(255,242,232,0.95)); 
+            border: 1px solid rgba(200,165,135,0.3); 
+            text-align: center;
+            position: relative;
+        }
         .gift-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 500; color: #8b5a48; margin-bottom: 0.5rem; }
         .gift-subtitle { font-size: 0.8rem; color: #a77a66; margin-bottom: 1rem; letter-spacing: 0.05em; }
         .envelope-icon { font-size: 2.5rem; margin: 0.5rem 0; display: inline-block; animation: gentleFloat 2s ease-in-out infinite; }
@@ -357,10 +422,29 @@
             width: 100%;
             cursor: pointer;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .rsvp-action::before {
+            content: "🌷";
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        .rsvp-action::after {
+            content: "🌷";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            opacity: 0.7;
         }
         .rsvp-action:active { transform: scale(0.98); }
         
-        /* ТОЛЬКО ИКОНКА МУЗЫКИ (БЕЗ ТЕКСТА) */
         .music-controller {
             position: fixed;
             bottom: 25px;
@@ -379,40 +463,23 @@
             transition: opacity 0.4s ease;
             pointer-events: none;
         }
-        .music-controller.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-        .music-btn {
-            background: none;
-            border: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-            color: #b27760;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .youtube-player {
-            position: fixed;
-            bottom: -100px;
-            left: -100px;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-        }
+        .music-controller.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .music-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #b27760; display: flex; align-items: center; justify-content: center; }
+        .youtube-player { position: fixed; bottom: -100px; left: -100px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+        
+        /* Задержки для карточек (эффект перелистывания по очереди) */
+        .invite-card:nth-child(1) { animation-delay: 0.05s; }
+        .invite-card:nth-child(2) { animation-delay: 0.15s; }
+        .invite-card:nth-child(3) { animation-delay: 0.25s; }
+        .invite-card:nth-child(4) { animation-delay: 0.35s; }
+        .invite-card:nth-child(5) { animation-delay: 0.45s; }
         
         @media (max-width: 500px) {
             .opening-title .names-big { font-size: 2.5rem; }
             .timer-cell { min-width: 65px; }
             .timer-number { font-size: 1.5rem; }
             .gift-title { font-size: 1.3rem; }
-            @keyframes floatAndTransform {
-                0% { transform: translateX(-3%) translateY(0%) scale(1); }
-                100% { transform: translateX(12%) translateY(0%) scale(1); }
-            }
+            .flower-left, .flower-right { transform: scale(0.8); }
         }
         @media (max-width: 768px) {
             .cloud-1, .cloud-2, .cloud-3, .cloud-4, .cloud-5, .cloud-6, .cloud-7, .cloud-8, .cloud-9, .cloud-10,
@@ -425,7 +492,7 @@
     <div class="sky-bg"></div>
     <div class="white-glow"></div>
     
-    <!-- 15 СУПЕР-БЕЛЫХ ОБЛАКОВ — ПЛЫВУТ И МЕНЯЮТ ФОРМУ -->
+    <!-- 15 ОБЛАКОВ (как в предыдущей версии) -->
     <div class="cloud-layer cloud-1 cloud-slow"><svg viewBox="0 0 850 500"><path d="M160,250 Q110,170 200,145 Q250,80 350,105 Q440,60 550,105 Q640,70 700,145 Q780,130 800,220 Q860,270 780,340 Q850,420 760,460 Q680,510 560,470 Q470,520 370,480 Q280,520 210,470 Q140,500 95,420 Q45,380 80,310 Q45,250 160,250Z" fill="#ffffff"/><path d="M240,310 Q200,245 280,225 Q320,175 400,200 Q465,170 510,220 Q550,200 570,260 Q605,285 570,335 Q605,395 550,420 Q495,460 430,435 Q365,470 305,440 Q250,465 215,420 Q185,405 200,365 Q180,345 240,310Z" fill="#ffffff" opacity="0.95"/><path d="M350,360 Q320,320 380,300 Q410,270 460,290 Q500,270 520,310 Q545,330 520,370 Q545,415 500,440 Q455,465 405,445 Q355,470 315,440 Q290,425 305,395 Q285,380 350,360Z" fill="#ffffff" opacity="0.9"/></svg></div>
     <div class="cloud-layer cloud-2 cloud-fast"><svg viewBox="0 0 980 580"><path d="M210,320 Q145,225 260,195 Q315,120 440,150 Q540,90 670,140 Q780,95 860,180 Q970,160 990,270 Q1060,330 970,415 Q1050,510 950,555 Q840,620 700,575 Q595,635 480,590 Q370,640 280,580 Q185,625 130,530 Q65,485 105,400 Q55,330 210,320Z" fill="#ffffff"/><path d="M310,390 Q255,315 355,290 Q400,230 500,260 Q575,225 630,285 Q680,260 705,330 Q745,360 705,420 Q745,490 680,520 Q615,565 540,535 Q465,580 395,540 Q330,570 290,520 Q250,505 270,455 Q245,435 310,390Z" fill="#ffffff" opacity="0.95"/><path d="M440,450 Q400,400 475,380 Q515,335 590,360 Q650,335 690,390 Q730,370 750,430 Q780,455 750,505 Q780,560 730,585 Q670,620 605,595 Q540,630 485,595 Q435,620 400,580 Q370,565 390,525 Q370,505 440,450Z" fill="#ffffff" opacity="0.9"/></svg></div>
     <div class="cloud-layer cloud-3 cloud-medium"><svg viewBox="0 0 700 420"><path d="M130,210 Q85,145 175,120 Q220,65 320,90 Q400,55 490,95 Q570,65 620,130 Q690,115 710,195 Q760,240 705,305 Q750,375 685,405 Q615,450 535,425 Q460,465 385,430 Q310,465 245,420 Q185,445 145,385 Q100,355 125,290 Q90,250 130,210Z" fill="#ffffff"/><path d="M220,270 Q180,210 265,190 Q305,145 380,170 Q440,145 480,195 Q520,175 540,235 Q570,255 540,305 Q570,365 520,390 Q465,425 405,400 Q345,435 290,400 Q240,425 205,385 Q175,370 190,335 Q170,315 220,270Z" fill="#ffffff" opacity="0.95"/><path d="M330,330 Q300,290 365,275 Q395,245 445,265 Q485,245 505,285 Q530,305 505,345 Q530,390 485,415 Q440,440 395,420 Q350,445 315,415 Q295,400 310,370 Q290,355 330,330Z" fill="#ffffff" opacity="0.9"/></svg></div>
@@ -459,10 +526,69 @@
     <div class="full-invitation" id="fullInvitation">
         <div class="close-invitation" id="closeInvitationBtn">✕</div>
         <div class="invitation-inner">
-            <div class="invite-card"><div style="font-size:2.5rem;">Celeste & Julian</div><div style="margin-top:0.5rem;">26 СЕНТЯБРЯ 2026</div><div style="margin-top:0.3rem;">Piramit Tower · Istanbul, Turkey</div></div>
-            <div class="invite-card"><div class="section-title" style="font-size:1.5rem;">До нашей свадьбы</div><div class="timer-grid"><div class="timer-cell"><div class="timer-number" id="daysCount">00</div><div class="timer-label">ДНЕЙ</div></div><div class="timer-cell"><div class="timer-number" id="hoursCount">00</div><div class="timer-label">ЧАСОВ</div></div><div class="timer-cell"><div class="timer-number" id="minutesCount">00</div><div class="timer-label">МИНУТ</div></div><div class="timer-cell"><div class="timer-number" id="secondsCount">00</div><div class="timer-label">СЕКУНД</div></div></div></div>
-            <div class="invite-card"><div class="section-title">Торжество</div><div class="details-list"><div class="detail-line"><span class="detail-label">Церемония</span><span>16:30 · Главный зал</span></div><div class="detail-line"><span class="detail-label">Фуршет</span><span>17:30 · Терраса</span></div><div class="detail-line"><span class="detail-label">Ужин и танцы</span><span>19:00 · Банкетный зал</span></div><div class="detail-line"><span class="detail-label">Место</span><span>Piramit Tower, Istanbul</span></div><div class="detail-line" style="justify-content: center; border-bottom: none; padding-top: 8px;"><button id="routeBtn" class="route-btn">📍 Проложить маршрут →</button></div><div class="detail-line"><span class="detail-label">Дресс-код</span><span>Black-Tie Optional</span></div></div></div>
-            <div class="invite-card gift-card"><div class="envelope-icon">💝✉️💑</div><div class="gift-title">Свадебный конверт</div><div class="gift-subtitle">для жениха и невесты</div><div class="bank-details"><p><strong>📱 Тойон (Kaspi Gold):</strong> <span id="kaspiNum">+7 777 123 45 67</span> <button class="copy-btn" data-copy="kaspiNum">📋</button></p><p><strong>💳 Номер карты:</strong> <span id="cardNum">4400 1234 5678 9012</span> <button class="copy-btn" data-copy="cardNum">📋</button></p><p><strong>🏦 Банк / Счет:</strong> <span id="iban">KZ86123KASPI987654321</span> <button class="copy-btn" data-copy="iban">📋</button></p></div><div class="gift-note">✨ Ваше тепло и внимание — лучший подарок.<br>Если захотите порадовать нас, конверт с пожеланиями станет прекрасным знаком любви 💌</div></div>
+            <!-- Карточка 1: Имена -->
+            <div class="invite-card">
+                <div class="flower-left"></div>
+                <div class="flower-right"></div>
+                <span class="tiny-flower flower-tl">✿</span>
+                <span class="tiny-flower flower-tr">❀</span>
+                <span class="tiny-flower flower-bl">✾</span>
+                <span class="tiny-flower flower-br">❁</span>
+                <div style="font-size:2.5rem; text-align:center;"><span class="decorated-text">Celeste & Julian</span></div>
+                <div style="margin-top:0.8rem; text-align:center; font-size:0.9rem;">26 СЕНТЯБРЯ 2026</div>
+                <div style="margin-top:0.3rem; text-align:center; font-size:0.8rem; color:#a77a66;">Piramit Tower · Istanbul, Turkey</div>
+            </div>
+            
+            <!-- Карточка 2: Таймер -->
+            <div class="invite-card">
+                <div class="flower-left"></div>
+                <div class="flower-right"></div>
+                <span class="tiny-flower flower-tl">✽</span>
+                <span class="tiny-flower flower-tr">❋</span>
+                <div class="section-title" style="font-size:1.5rem;">До нашей свадьбы</div>
+                <div class="timer-grid">
+                    <div class="timer-cell"><div class="timer-number" id="daysCount">00</div><div class="timer-label">ДНЕЙ</div></div>
+                    <div class="timer-cell"><div class="timer-number" id="hoursCount">00</div><div class="timer-label">ЧАСОВ</div></div>
+                    <div class="timer-cell"><div class="timer-number" id="minutesCount">00</div><div class="timer-label">МИНУТ</div></div>
+                    <div class="timer-cell"><div class="timer-number" id="secondsCount">00</div><div class="timer-label">СЕКУНД</div></div>
+                </div>
+            </div>
+            
+            <!-- Карточка 3: Торжество -->
+            <div class="invite-card">
+                <div class="flower-left"></div>
+                <div class="flower-right"></div>
+                <span class="tiny-flower flower-tl">✼</span>
+                <span class="tiny-flower flower-tr">❈</span>
+                <div class="section-title">Торжество</div>
+                <div class="details-list">
+                    <div class="detail-line"><span class="detail-label">Церемония</span><span>16:30 · Главный зал</span></div>
+                    <div class="detail-line"><span class="detail-label">Фуршет</span><span>17:30 · Терраса</span></div>
+                    <div class="detail-line"><span class="detail-label">Ужин и танцы</span><span>19:00 · Банкетный зал</span></div>
+                    <div class="detail-line"><span class="detail-label">Место</span><span>Piramit Tower, Istanbul</span></div>
+                    <div class="detail-line" style="justify-content: center; border-bottom: none; padding-top: 8px;"><button id="routeBtn" class="route-btn">📍 Проложить маршрут →</button></div>
+                    <div class="detail-line"><span class="detail-label">Дресс-код</span><span>Black-Tie Optional</span></div>
+                </div>
+            </div>
+            
+            <!-- Карточка 4: Свадебный конверт -->
+            <div class="invite-card gift-card">
+                <div class="flower-left"></div>
+                <div class="flower-right"></div>
+                <span class="tiny-flower flower-tl">✿</span>
+                <span class="tiny-flower flower-tr">❀</span>
+                <div class="envelope-icon">💝✉️💑</div>
+                <div class="gift-title">Свадебный конверт</div>
+                <div class="gift-subtitle">для жениха и невесты</div>
+                <div class="bank-details">
+                    <p><strong>📱 Тойон (Kaspi Gold):</strong> <span id="kaspiNum">+7 777 123 45 67</span> <button class="copy-btn" data-copy="kaspiNum">📋</button></p>
+                    <p><strong>💳 Номер карты:</strong> <span id="cardNum">4400 1234 5678 9012</span> <button class="copy-btn" data-copy="cardNum">📋</button></p>
+                    <p><strong>🏦 Банк / Счет:</strong> <span id="iban">KZ86123KASPI987654321</span> <button class="copy-btn" data-copy="iban">📋</button></p>
+                </div>
+                <div class="gift-note">✨ Ваше тепло и внимание — лучший подарок.<br>Если захотите порадовать нас, конверт с пожеланиями станет прекрасным знаком любви 💌</div>
+            </div>
+            
+            <!-- Кнопка RSVP -->
             <button class="rsvp-action" id="rsvpConfirmBtn">Подтвердить присутствие</button>
         </div>
     </div>
@@ -474,7 +600,6 @@
 </div>
 
 <script>
-    // ТАЙМЕР
     const targetDate = new Date(2026, 8, 26, 16, 30, 0).getTime();
     function updateTimer() {
         const now = Date.now();
@@ -492,7 +617,6 @@
     updateTimer();
     setInterval(updateTimer, 1000);
     
-    // МУЗЫКА (ТОЛЬКО ИКОНКА)
     const youtubeIframe = document.getElementById('youtubeAudio');
     const musicToggleBtn = document.getElementById('musicToggleBtn');
     let musicStarted = false, isMuted = false;
