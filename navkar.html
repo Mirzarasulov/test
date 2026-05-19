@@ -276,39 +276,63 @@ body {
 }
 
 .hero-text { text-align: center; }
-.hero-small {
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.5em;
-  color: var(--text-light);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
+
+/* ========== НОВЫЙ ИЗЯЩНЫЙ ШРИФТ ДЛЯ ИМЁН ========== */
 .hero-names {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3.4rem;
+  text-align: center;
+  margin: 20px 0 25px;
+}
+
+.name-line {
+  font-family: 'Great Vibes', 'Segoe UI', 'Apple Chancery', cursive;
+  font-size: 4rem;
+  font-weight: normal;
   color: var(--green-dark);
-  line-height: 1.15;
-  text-shadow: 0 2px 12px rgba(45,90,61,0.15);
+  text-shadow: 0 2px 12px rgba(45,90,61,0.1);
+  line-height: 1.2;
+  letter-spacing: 1px;
 }
-.hero-names .va {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-style: italic;
+
+.amp-line {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  font-weight: normal;
   color: var(--gold);
-  display: block;
-  margin: -4px 0;
+  margin: 5px 0;
+  line-height: 1;
 }
-.hero-invite {
+
+/* Стиль для текста приглашения */
+.hero-invite-new {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+  font-weight: 500;
   font-size: 1rem;
   color: var(--text-light);
-  margin: 14px 0 20px;
+  text-align: center;
+  line-height: 1.7;
+  margin-top: 20px;
+  letter-spacing: 0.5px;
 }
+
+.hero-invite-new div {
+  margin: 3px 0;
+}
+
+.hero-invite-new div:first-child {
+  font-weight: 600;
+  color: var(--green-dark);
+  letter-spacing: 1px;
+}
+
+.hero-invite-new div:nth-child(2) {
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 12px;
+}
+
 .hero-ayat {
   max-width: 340px;
-  margin: 0 auto;
+  margin: 30px auto 0;
   padding: 16px 20px;
   border-top: 1px solid rgba(201,169,110,0.4);
   border-bottom: 1px solid rgba(201,169,110,0.4);
@@ -681,7 +705,7 @@ body {
   text-transform: uppercase;
 }
 
-/* ========== СТИЛЬНАЯ КАРТА ========== */
+/* ========== КАРТА ========== */
 .card-section {
   padding: 20px 20px 60px;
   display: flex;
@@ -704,7 +728,6 @@ body {
   padding: 0 8px;
 }
 
-/* Стиль пластиковой карты - кликабельная */
 .bank-card {
   background: linear-gradient(135deg, #1a2a1a, #0d1f0d);
   border-radius: 28px;
@@ -828,7 +851,6 @@ body {
   color: #f0e6c8;
 }
 
-/* Одна кнопка копирования */
 .copy-btn-card {
   background: linear-gradient(135deg, var(--green-dark), var(--green-med));
   border: none;
@@ -949,6 +971,9 @@ body {
   .splash-salom { font-size: 2.6rem; }
   .bank-card { padding: 20px 18px; }
   .card-number { letter-spacing: 1.5px; font-size: 16px; }
+  .name-line { font-size: 2.8rem; }
+  .amp-line { font-size: 2rem; }
+  .hero-invite-new { font-size: 0.85rem; }
 }
 </style>
 </head>
@@ -962,7 +987,7 @@ body {
   <div class="video-progress" id="videoProgress"></div>
   <div class="splash-content">
     <div class="splash-salom">Assalomu alaykum!</div>
-    <div class="splash-sub">Hurmatli Mehmonimiz</div>
+    <div class="splash-sub">Hurmatli aziz mehmonimiz!</div>
     <div class="splash-divider">✦</div>
     <button class="btn-open" id="openBtn">TAKLIFNOMA</button>
   </div>
@@ -979,7 +1004,32 @@ body {
     <div class="hero-bg"></div>
     <div class="hero-stars" id="heroStars"></div>
     <div class="hero-img-wrap reveal"><div class="hero-badge">NIKOH TO'YI TAKLIFNOMASI</div><img class="hero-img" src="https://i.postimg.cc/632DZnRF/kitob.webp" alt="kitob"></div>
-    <div class="hero-text reveal" style="transition-delay:0.15s"><div class="hero-small">Sizni farzandlarimiz</div><div class="hero-names">Abdullaziz<span class="va">va</span>Begoyim</div><div class="hero-invite">nikoh to'ylari munosabati bilan lutfan taklif etamiz</div><div class="hero-ayat reveal" style="transition-delay:0.3s"><div class="ayat-bismillah">۞</div><div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div><div class="ayat-source">Rum surasi · 21-oyat</div></div></div>
+    
+    <div class="hero-text reveal" style="transition-delay:0.15s">
+      
+      <!-- ИМЕНА - изящный курсивный шрифт -->
+      <div class="hero-names">
+        <div class="name-line">Abdullaziz</div>
+        <div class="amp-line">&</div>
+        <div class="name-line">Begoyim</div>
+      </div>
+      
+      <!-- ТЕКСТ ПРИГЛАШЕНИЯ -->
+      <div class="hero-invite-new">
+        <div>ASSALOMU ALAYKUM</div>
+        <div>HURMATLI AZIZ MEHMONIMIZ!</div>
+        <div>SIZNI HAYOTIMIZNING ENG GO'ZAL</div>
+        <div>VA BAXTLI ONLARIDA BIZ BILAN</div>
+        <div>BO'LISHINGIZ ISTAGIDA NIKOH</div>
+        <div>SHODIYONAMIZGA TAKLIF ETAMIZ.</div>
+      </div>
+      
+      <div class="hero-ayat reveal" style="transition-delay:0.3s">
+        <div class="ayat-bismillah">۞</div>
+        <div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div>
+        <div class="ayat-source">Rum surasi · 21-oyat</div>
+      </div>
+    </div>
   </div>
 
   <div class="section-divider reveal"><div class="div-line"></div><div class="div-gem">✦</div><div class="div-line r"></div></div>
@@ -991,12 +1041,11 @@ body {
 
   <div class="section"><div class="container"><div class="venue-card reveal"><img class="venue-img" src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg" alt="Grant Elite"><div class="venue-body"><div class="sec-label">To'y o'tkaziladigan joy</div><div class="venue-name">Grant Elite</div><div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div><div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div><div class="map-btns"><a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a><a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a><a href="navkar.html" class="map-btn navkar">✨ Navkar ✨</a></div></div></div></div></div>
 
-  <!-- СТИЛЬНЫЙ БЛОК С КАРТОЙ -->
+  <!-- БЛОК С КАРТОЙ -->
   <div class="card-section">
     <div class="card-wrapper">
       <div class="card-text reveal">Sizning tashrifingiz va duolaringiz biz uchun eng katta baxtdir.</div>
       
-      <!-- Карта кликабельна для копирования номера -->
       <div class="bank-card reveal" id="copyCardOnClick">
         <div class="card-chip">
           <div class="chip-icon"></div>
@@ -1006,14 +1055,15 @@ body {
         <div class="card-details">
           <div class="card-holder">
             <div class="card-label">Karta egasi</div>
-            <div class="card-name">Abdullaziz Sadikov</div>
+            <div class="card-name">ABDULLAZIZ & BEGOYIM</div>
           </div>
           <div class="card-valid">
+            <div class="card-label">Amal qilish muddati</div>
+            <div class="card-date">06/29</div>
           </div>
         </div>
       </div>
       
-      <!-- Одна кнопка копирования -->
       <button class="copy-btn-card" id="copyMainBtn">💳 Karta raqamini nusxalash</button>
       
       <div class="card-text" style="font-size:0.85rem; margin-top:20px;">Qo'shimcha ehtirom bildirmoqchi bo'lgan mehmonlar uchun karta raqami qoldirilgan.</div>
@@ -1029,7 +1079,6 @@ body {
 
 <script>
 (async function(){
-  // ========== МУЗЫКА С CATBOX ==========
   const MUSIC_URL = 'https://files.catbox.moe/ijpp50.mp3';
   let isMusicPlaying = false;
   const musicBtn = document.getElementById('musicBtn');
@@ -1070,7 +1119,6 @@ body {
     else startMusic();
   });
   
-  // ========== КАРТА И КОПИРОВАНИЕ ==========
   const REAL_CARD = "8600 1234 5678 9012";
   const CLEAN_CARD = REAL_CARD.replace(/\s/g, '');
   
@@ -1089,7 +1137,6 @@ body {
   function copyCardNumber() {
     navigator.clipboard.writeText(CLEAN_CARD).then(() => {
       showCopyToast();
-      // Анимация нажатия на карту
       if(cardElement) {
         cardElement.style.transform = 'scale(0.98)';
         setTimeout(() => { if(cardElement) cardElement.style.transform = ''; }, 150);
@@ -1097,12 +1144,9 @@ body {
     }).catch(() => alert("Nusxalash amalga oshmadi: " + CLEAN_CARD));
   }
   
-  // Клик по карте - копирование номера
   if(cardElement) cardElement.addEventListener('click', copyCardNumber);
-  // Клик по кнопке - копирование номера
   if(copyBtn) copyBtn.addEventListener('click', copyCardNumber);
   
-  // ========== ЗВЁЗДЫ И ПРОЧАЯ ЛОГИКА ==========
   const sc = document.getElementById('starsCanvas');
   const ctx = sc.getContext('2d');
   let sw, sh, stars = [];
