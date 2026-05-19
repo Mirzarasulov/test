@@ -105,7 +105,6 @@ body {
 }
 .splash-divider::after { background: linear-gradient(to left, transparent, var(--gold)); }
 
-/* КНОПКА TAKLIFNOMA */
 .btn-open {
   position: relative;
   background: linear-gradient(135deg, var(--green-dark), var(--green-med));
@@ -134,7 +133,6 @@ body {
 .btn-open:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(45,90,61,0.5); }
 .btn-open:active { transform: scale(0.97) translateY(0); }
 
-/* progress bar while video plays */
 .video-progress {
   position: absolute;
   bottom: 0; left: 0;
@@ -145,7 +143,6 @@ body {
   z-index: 20;
 }
 
-/* ── TRANSITION SCREEN ── */
 #transitionScreen {
   position: fixed;
   inset: 0;
@@ -183,7 +180,6 @@ body {
 }
 #transitionScreen.show .trans-ornament { opacity: 1; }
 
-/* ── ПЕТАЛКИ ── */
 #petalsCanvas {
   position: fixed;
   inset: 0;
@@ -192,14 +188,12 @@ body {
   z-index: 999;
 }
 
-/* ── MAIN CONTENT ── */
 #mainContent {
   opacity: 0;
   transition: opacity 1s ease;
 }
 #mainContent.visible { opacity: 1; }
 
-/* ── HERO SECTION ── */
 .hero {
   min-height: 100svh;
   position: relative;
@@ -242,12 +236,8 @@ body {
 .hero-img {
   width: 100%;
   border-radius: 48px 48px 80px 80px;
-  box-shadow:
-    0 30px 70px rgba(0,0,0,0.15),
-    0 0 0 1px rgba(201,169,110,0.2),
-    inset 0 0 40px rgba(255,255,255,0.4);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.15), 0 0 0 1px rgba(201,169,110,0.2), inset 0 0 40px rgba(255,255,255,0.4);
   display: block;
-  transform: translateY(0);
   animation: heroFloat 4s ease-in-out infinite;
 }
 @keyframes heroFloat {
@@ -330,7 +320,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ── SECTION BASE ── */
 .section {
   padding: 60px 20px;
   display: flex;
@@ -338,10 +327,7 @@ body {
 }
 .container { max-width: 480px; width: 100%; }
 
-/* ── CALENDAR SECTION ── */
-.cal-wrap {
-  position: relative;
-}
+.cal-wrap { position: relative; }
 .cal-card {
   background: white;
   border-radius: 40px;
@@ -424,7 +410,6 @@ body {
   top: -10px; right: -6px;
 }
 
-/* ── TIMER ── */
 .timer-section {
   padding: 10px 20px 60px;
   display: flex; justify-content: center;
@@ -447,7 +432,7 @@ body {
     radial-gradient(ellipse at 20% 50%, rgba(106,170,128,0.15) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 50%, rgba(201,169,110,0.1) 0%, transparent 50%);
 }
-#timerStarCanvas {
+#timerStarCanvas, #starCanvas2 {
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
@@ -460,7 +445,6 @@ body {
   font-size: 2.5rem;
   opacity: 0.08;
   pointer-events: none;
-  line-height: 1;
 }
 .timer-label-top {
   font-family: 'Cinzel', serif;
@@ -531,7 +515,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ── VIDEO SECTION ── */
 .video-section {
   padding: 0 20px 60px;
   display: flex; justify-content: center;
@@ -544,11 +527,6 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-}
-#starCanvas2 {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
 }
 #video2 {
   width: 100%;
@@ -567,7 +545,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ── VENUE ── */
 .venue-card {
   background: white;
   border-radius: 40px;
@@ -604,6 +581,7 @@ body {
 }
 .map-btns {
   display: flex; gap: 12px; justify-content: center;
+  flex-wrap: wrap;
 }
 .map-btn {
   background: var(--green-dark);
@@ -614,13 +592,19 @@ body {
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   font-weight: 500;
-  transition: background 0.2s, transform 0.2s;
+  transition: all 0.2s ease;
   display: flex; align-items: center; gap: 6px;
 }
 .map-btn:active { transform: scale(0.96); }
 .map-btn.alt { background: white; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+.map-btn.navkar {
+  background: linear-gradient(135deg, #c9a96e, #b8884a);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(185, 130, 50, 0.3);
+}
+.map-btn.navkar:active { transform: scale(0.96); }
 
-/* ── CONTACTS ── */
 .contacts-card {
   background: white;
   border-radius: 40px;
@@ -683,7 +667,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ── MUSIC BTN ── */
 .music-btn {
   position: fixed;
   bottom: 22px; right: 18px;
@@ -717,64 +700,49 @@ body {
   to { transform: scaleY(1); opacity: 1; }
 }
 
-/* ── SCROLL REVEAL ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+/* === ПЛАВНЫЕ АНИМАЦИИ === */
+.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider {
+  transition-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
-.reveal.in { opacity: 1; transform: translateY(0); }
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
-}
-.reveal-left.in { opacity: 1; transform: translateX(0); }
-.reveal-right {
-  opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
-}
-.reveal-right.in { opacity: 1; transform: translateX(0); }
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.88);
-  transition: opacity 0.9s cubic-bezier(0.34,1.56,0.64,1), transform 0.9s cubic-bezier(0.34,1.56,0.64,1);
-}
-.reveal-scale.in { opacity: 1; transform: scale(1); }
+.reveal { opacity: 0; transform: translateY(60px) scale(0.97); transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); will-change: transform, opacity; }
+.reveal.in { opacity: 1; transform: translateY(0) scale(1); }
+.reveal-left { opacity: 0; transform: translateX(-50px) rotate(-2deg); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.reveal-left.in { opacity: 1; transform: translateX(0) rotate(0deg); }
+.reveal-right { opacity: 0; transform: translateX(50px) rotate(2deg); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.reveal-right.in { opacity: 1; transform: translateX(0) rotate(0deg); }
+.reveal-scale { opacity: 0; transform: scale(0.82) translateY(20px); transition: opacity 0.9s cubic-bezier(0.34, 1.3, 0.64, 1), transform 0.9s cubic-bezier(0.34, 1.3, 0.64, 1); }
+.reveal-scale.in { opacity: 1; transform: scale(1) translateY(0); }
+.timer-box.reveal { transform: translateY(50px) rotateX(40deg); transform-origin: top center; transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.timer-box.reveal.in { transform: translateY(0) rotateX(0deg); }
+.cal-card.reveal { transform: perspective(800px) rotateX(8deg) translateY(40px); transition: opacity 1.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.cal-card.reveal.in { transform: perspective(800px) rotateX(0deg) translateY(0); }
+.venue-card.reveal { transform: translateX(-30px) translateY(30px); transition: opacity 1.1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.venue-card.reveal.in { transform: translateX(0) translateY(0); }
+.video-card.reveal { transform: translateY(70px) scale(0.94); transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.video-card.reveal.in { transform: translateY(0) scale(1); }
+.contacts-card.reveal { transform: translateY(50px) scale(0.95); transition: opacity 1s cubic-bezier(0.34, 1.3, 0.64, 1), transform 1s cubic-bezier(0.34, 1.3, 0.64, 1); }
+.contacts-card.reveal.in { transform: translateY(0) scale(1); }
+.section-divider { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 20px 40px; opacity: 0; transform: scaleX(0.3); transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); transform-origin: center; }
+.section-divider.in { opacity: 1; transform: scaleX(1); }
+.hero-img-wrap.reveal { transform: translateY(50px) scale(0.93); transition: opacity 1.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.5s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.hero-img-wrap.reveal.in { transform: translateY(0) scale(1); }
+.hadis-box.reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.hadis-box.reveal.in { opacity: 1; transform: translateY(0); }
 
-/* scroll progress bar */
 #scrollBar {
   position: fixed;
   top: 0; left: 0;
-  height: 2px;
+  height: 3px;
   width: 0%;
   background: linear-gradient(to right, var(--green-light), var(--gold), var(--rose));
   z-index: 1500;
-  transition: width 0.1s linear;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 8px rgba(201,169,110,0.5);
 }
-
-/* section transition line */
-.section-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 0 20px 40px;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-.section-divider.in { opacity: 1; }
-.div-line {
-  flex: 1;
-  max-width: 80px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,169,110,0.5));
-}
+.div-line { flex: 1; max-width: 80px; height: 1px; background: linear-gradient(to right, transparent, rgba(201,169,110,0.5)); }
 .div-line.r { background: linear-gradient(to left, transparent, rgba(201,169,110,0.5)); }
 .div-gem { font-size: 0.7rem; color: var(--gold); }
 
-/* mobile tweaks */
 @media (max-width: 400px) {
   .flowers { width: 40px; }
   .flowers.left { left: -12px; }
@@ -784,407 +752,119 @@ body {
 </style>
 </head>
 <body>
-
 <div id="scrollBar"></div>
 <canvas id="petalsCanvas"></canvas>
 
-<!-- ══ SPLASH ══ -->
 <div id="splash">
-  <video id="splashVideo" muted playsinline preload="auto">
-    <source src="video1.mp4" type="video/mp4">
-  </video>
+  <video id="splashVideo" muted playsinline preload="auto"><source src="video1.mp4" type="video/mp4"></video>
   <div class="splash-overlay"></div>
   <div class="video-progress" id="videoProgress"></div>
-
   <div class="splash-content">
     <div class="splash-salom">Assalomu alaykum!</div>
     <div class="splash-sub">Hurmatli Mehmonimiz</div>
     <div class="splash-divider">✦</div>
-
     <button class="btn-open" id="openBtn">TAKLIFNOMA</button>
   </div>
 </div>
 
-<!-- ══ TRANSITION ══ -->
 <div id="transitionScreen">
   <img class="trans-img" src="https://i.postimg.cc/rFQtdrJ0/video-end-DNj-Ru6x-E.jpg" alt="">
   <div class="trans-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 </div>
 
-<!-- ══ MAIN CONTENT ══ -->
 <div id="mainContent">
-
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-bg"></div>
     <div class="hero-stars" id="heroStars"></div>
-
-    <div class="hero-img-wrap reveal">
-      <div class="hero-badge">NIKOH TO'YI TAKLIFNOMASI</div>
-      <img class="hero-img"
-           src="https://i.postimg.cc/632DZnRF/kitob.webp"
-           alt="kitob">
-    </div>
-
-    <div class="hero-text reveal" style="transition-delay:0.15s">
-      <div class="hero-small">Sizni farzandlarimiz</div>
-      <div class="hero-names">
-        Abdullaziz
-        <span class="va">va</span>
-        Begoyim
-      </div>
-      <div class="hero-invite">nikoh to'ylari munosabati bilan lutfan taklif etamiz</div>
-      <div class="hero-ayat reveal" style="transition-delay:0.3s">
-        <div class="ayat-bismillah">۞</div>
-        <div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div>
-        <div class="ayat-source">Rum surasi · 21-oyat</div>
-      </div>
-    </div>
+    <div class="hero-img-wrap reveal"><div class="hero-badge">NIKOH TO'YI TAKLIFNOMASI</div><img class="hero-img" src="https://i.postimg.cc/632DZnRF/kitob.webp" alt="kitob"></div>
+    <div class="hero-text reveal" style="transition-delay:0.15s"><div class="hero-small">Sizni farzandlarimiz</div><div class="hero-names">Abdullaziz<span class="va">va</span>Begoyim</div><div class="hero-invite">nikoh to'ylari munosabati bilan lutfan taklif etamiz</div><div class="hero-ayat reveal" style="transition-delay:0.3s"><div class="ayat-bismillah">۞</div><div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div><div class="ayat-source">Rum surasi · 21-oyat</div></div></div>
   </div>
 
-  <!-- CALENDAR -->
   <div class="section-divider reveal"><div class="div-line"></div><div class="div-gem">✦</div><div class="div-line r"></div></div>
-  <div class="section">
-    <div class="container">
-      <div class="cal-wrap">
-        <div class="flowers left"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div>
-        <div class="flowers right"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div>
-        <div class="cal-card reveal">
-          <div class="sec-label">To'y sanasi</div>
-          <div class="sec-h2">16 Iyun, 2026</div>
-          <div class="sec-sub">Chorshanba · Soat 18:00</div>
+  <div class="section"><div class="container"><div class="cal-wrap"><div class="flowers left"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div><div class="flowers right"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div><div class="cal-card reveal"><div class="sec-label">To'y sanasi</div><div class="sec-h2">16 Iyun, 2026</div><div class="sec-sub">Chorshanba · Soat 18:00</div><div class="cal-grid"><div class="cal-hd">Du</div><div class="cal-hd">Se</div><div class="cal-hd">Ch</div><div class="cal-hd">Pa</div><div class="cal-hd">Ju</div><div class="cal-hd">Sh</div><div class="cal-hd">Ya</div><div class="cal-d past">1</div><div class="cal-d past">2</div><div class="cal-d past">3</div><div class="cal-d past">4</div><div class="cal-d past">5</div><div class="cal-d past">6</div><div class="cal-d past">7</div><div class="cal-d past">8</div><div class="cal-d past">9</div><div class="cal-d past">10</div><div class="cal-d past">11</div><div class="cal-d past">12</div><div class="cal-d past">13</div><div class="cal-d past">14</div><div class="cal-d past">15</div><div class="cal-d special">16</div><div class="cal-d">17</div><div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div><div class="cal-d">21</div><div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div><div class="cal-d">25</div><div class="cal-d">26</div><div class="cal-d">27</div><div class="cal-d">28</div><div class="cal-d">29</div><div class="cal-d">30</div></div></div></div></div></div>
 
-          <div class="cal-grid">
-            <div class="cal-hd">Du</div><div class="cal-hd">Se</div><div class="cal-hd">Ch</div>
-            <div class="cal-hd">Pa</div><div class="cal-hd">Ju</div><div class="cal-hd">Sh</div><div class="cal-hd">Ya</div>
-            <div class="cal-d past">1</div><div class="cal-d past">2</div><div class="cal-d past">3</div>
-            <div class="cal-d past">4</div><div class="cal-d past">5</div><div class="cal-d past">6</div><div class="cal-d past">7</div>
-            <div class="cal-d past">8</div><div class="cal-d past">9</div><div class="cal-d past">10</div>
-            <div class="cal-d past">11</div><div class="cal-d past">12</div><div class="cal-d past">13</div><div class="cal-d past">14</div>
-            <div class="cal-d past">15</div><div class="cal-d special">16</div><div class="cal-d">17</div>
-            <div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div><div class="cal-d">21</div>
-            <div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div>
-            <div class="cal-d">25</div><div class="cal-d">26</div><div class="cal-d">27</div><div class="cal-d">28</div>
-            <div class="cal-d">29</div><div class="cal-d">30</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="timer-section"><div class="timer-bg"><canvas id="timerStarCanvas"></canvas><div class="timer-mosque">🕌</div><div class="timer-label-top">To'yga qolgan vaqt</div><div class="timer-grid"><div class="timer-box reveal"><span class="timer-num" id="days">--</span><span class="timer-unit">Kun</span></div><div class="timer-box reveal" style="transition-delay:0.1s"><span class="timer-num" id="hours">--</span><span class="timer-unit">Soat</span></div><div class="timer-box reveal" style="transition-delay:0.2s"><span class="timer-num" id="minutes">--</span><span class="timer-unit">Daqiqa</span></div><div class="timer-box reveal" style="transition-delay:0.3s"><span class="timer-num" id="seconds">--</span><span class="timer-unit">Soniya</span></div></div><div class="hadis-box reveal" style="transition-delay:0.4s"><div class="hadis-q">"</div><div class="hadis-text">Nikoh mening sunnatimdir. Kim mening sunnatimga amal qilsa, u mendan.</div><div class="hadis-src">Hadisi sharif</div></div></div></div>
 
-  <!-- TIMER -->
-  <div class="timer-section">
-    <div class="timer-bg">
-      <canvas id="timerStarCanvas"></canvas>
-      <div class="timer-mosque">🕌</div>
-      <div class="timer-label-top">To'yga qolgan vaqt</div>
-      <div class="timer-grid">
-        <div class="timer-box reveal">
-          <span class="timer-num" id="days">--</span>
-          <span class="timer-unit">Kun</span>
-        </div>
-        <div class="timer-box reveal" style="transition-delay:0.1s">
-          <span class="timer-num" id="hours">--</span>
-          <span class="timer-unit">Soat</span>
-        </div>
-        <div class="timer-box reveal" style="transition-delay:0.2s">
-          <span class="timer-num" id="minutes">--</span>
-          <span class="timer-unit">Daqiqa</span>
-        </div>
-        <div class="timer-box reveal" style="transition-delay:0.3s">
-          <span class="timer-num" id="seconds">--</span>
-          <span class="timer-unit">Soniya</span>
-        </div>
-      </div>
-      <div class="hadis-box reveal" style="transition-delay:0.4s">
-        <div class="hadis-q">"</div>
-        <div class="hadis-text">Nikoh mening sunnatimdir. Kim mening sunnatimga amal qilsa, u mendan.</div>
-        <div class="hadis-src">Hadisi sharif</div>
-      </div>
-    </div>
-  </div>
+  <div class="video-section"><div class="video-card reveal"><canvas id="starCanvas2"></canvas><video id="video2" autoplay loop muted playsinline disablePictureInPicture><source src="video2.mp4" type="video/mp4"></video><div class="video-caption">✨ &nbsp; To'y lavhalari &nbsp; ✨</div></div></div>
 
-  <!-- VIDEO 2 -->
-  <div class="video-section">
-    <div class="video-card reveal">
-      <canvas id="starCanvas2"></canvas>
-      <video id="video2" autoplay loop muted playsinline disablePictureInPicture>
-        <source src="video2.mp4" type="video/mp4">
-      </video>
-      <div class="video-caption">✨ &nbsp; To'y lavhalari &nbsp; ✨</div>
-    </div>
-  </div>
+  <div class="section"><div class="container"><div class="venue-card reveal"><img class="venue-img" src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg" alt="Grant Elite"><div class="venue-body"><div class="sec-label">To'y o'tkaziladigan joy</div><div class="venue-name">Grant Elite</div><div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div><div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div><div class="map-btns"><a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a><a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a><a href="navkar.html" class="map-btn navkar">✨ Navkar ✨</a></div></div></div></div></div>
 
-  <!-- VENUE -->
-  <div class="section">
-    <div class="container">
-      <div class="venue-card reveal">
-        <img class="venue-img"
-             src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg"
-             alt="Grant Elite">
-        <div class="venue-body">
-          <div class="sec-label">To'y o'tkaziladigan joy</div>
-          <div class="venue-name">Grant Elite</div>
-          <div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div>
-          <div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div>
-          <div class="map-btns">
-            <a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a>
-            <a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTACTS -->
-  <div class="section">
-    <div class="container">
-      <div class="contacts-card reveal">
-        <span class="hat-emoji">🎩</span>
-        <div class="contacts-title">Bog'lanish</div>
-        <div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div>
-        <div class="contact-item">
-          <span class="contact-label">📱 Telegram</span>
-          <span class="contact-val">@Abdullaziz</span>
-        </div>
-        <div class="contact-item">
-          <span class="contact-label">📞 Telefon</span>
-          <span class="contact-val">+998 94 123 14 03</span>
-        </div>
-        <div class="contact-item">
-          <span class="contact-label">📷 Instagram</span>
-          <span class="contact-val">@Abdullaziz_to'y</span>
-        </div>
-        <div class="family-tag">Sadikovlar oilasi</div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /mainContent -->
-
-<!-- MUSIC -->
-<div class="music-btn" id="musicBtn">
-  <span class="music-icon">♪</span>
-  <div class="music-bars">
-    <div class="bar"></div><div class="bar"></div>
-    <div class="bar"></div><div class="bar"></div>
-  </div>
+  <div class="section"><div class="container"><div class="contacts-card reveal"><span class="hat-emoji">🎩</span><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@Abdullaziz</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998 94 123 14 03</span></div><div class="contact-item"><span class="contact-label">📷 Instagram</span><span class="contact-val">@Abdullaziz_to'y</span></div><div class="family-tag">Sadikovlar oilasi</div></div></div></div>
 </div>
-<!-- Musiqa fayli: music.mp3 ni shu papkaga qo'ying -->
-<audio id="bgAudio" loop preload="auto" style="display:none">
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+
+<div class="music-btn" id="musicBtn"><span class="music-icon">♪</span><div class="music-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+<audio id="bgAudio" loop preload="auto" style="display:none"><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-/* ═══ AUDIO ═══ */
-var _audio = document.getElementById('bgAudio');
-var _musicOn = false;
-var _musicBtn = document.getElementById('musicBtn');
-_audio.volume = 0.5;
-
-function startMusic() {
-  _audio.currentTime = 0;
-  _audio.play().then(function() {
-    _musicOn = true;
-    _musicBtn.classList.add('playing');
-  }).catch(function() {});
-}
-
-function stopMusic() {
-  _audio.pause();
-  _musicOn = false;
-  _musicBtn.classList.remove('playing');
-}
-
-_musicBtn.addEventListener('click', function(e) {
-  e.stopPropagation();
-  if (_musicOn) stopMusic(); else startMusic();
-});
-
 (function(){
-const pc = document.getElementById('petalsCanvas');
-const pctx = pc.getContext('2d');
-let pW, pH, petals = [];
-const pColors = ['#ffc2d0','#ffd6e0','#c8e6c4','#e8d5a3','#f5c8b8'];
-class Petal {
-  reset(){
-    this.x = Math.random()*pW;
-    this.y = -20;
-    this.sz = 3+Math.random()*7;
-    this.vy = 0.25+Math.random()*0.75;
-    this.vx = (Math.random()-.5)*0.4;
-    this.rot = Math.random()*Math.PI*2;
-    this.rv = (Math.random()-.5)*0.012;
-    this.a = 0.35+Math.random()*0.45;
-    this.c = pColors[Math.floor(Math.random()*pColors.length)];
+  const audio = document.getElementById('bgAudio');
+  const musicBtn = document.getElementById('musicBtn');
+  let isMusicPlaying = false;
+  audio.volume = 0.45;
+
+  function startMusic() {
+    audio.play().then(() => { isMusicPlaying = true; musicBtn.classList.add('playing'); }).catch(e => console.warn(e));
   }
-  constructor(){ this.reset(); this.y = Math.random()*pH; }
-  update(){
-    this.x+=this.vx; this.y+=this.vy; this.rot+=this.rv;
-    if(this.y>pH+20) this.reset();
-    if(this.x<-20) this.x=pW+20;
-    if(this.x>pW+20) this.x=-20;
-  }
-  draw(){
-    pctx.save();
-    pctx.translate(this.x,this.y);
-    pctx.rotate(this.rot);
-    pctx.globalAlpha=this.a;
-    pctx.beginPath();
-    pctx.ellipse(0,0,this.sz*.5,this.sz*.3,0,0,Math.PI*2);
-    pctx.fillStyle=this.c;
-    pctx.fill();
-    pctx.restore();
-  }
-}
-function initPetals(){
-  pW=pc.width=window.innerWidth;
-  pH=pc.height=window.innerHeight;
-  petals=[];
-  for(let i=0;i<50;i++) petals.push(new Petal());
-}
-function animPetals(){
-  pctx.clearRect(0,0,pW,pH);
-  petals.forEach(p=>{p.update();p.draw();});
-  requestAnimationFrame(animPetals);
-}
-initPetals(); animPetals();
-window.addEventListener('resize',initPetals);
+  function pauseMusic() { audio.pause(); isMusicPlaying = false; musicBtn.classList.remove('playing'); }
+  musicBtn.addEventListener('click', (e) => { e.stopPropagation(); isMusicPlaying ? pauseMusic() : startMusic(); });
 
-/* ─────────── HERO STARS ─────────── */
-const heroStarsEl = document.getElementById('heroStars');
-for(let i=0;i<22;i++){
-  const s = document.createElement('div');
-  s.className = 'star';
-  const sz = 1+Math.random()*3;
-  s.style.cssText = `
-    width:${sz}px; height:${sz}px;
-    left:${Math.random()*100}%;
-    top:${Math.random()*100}%;
-    --dur:${2+Math.random()*3}s;
-    animation-delay:${Math.random()*3}s;
-  `;
-  heroStarsEl.appendChild(s);
-}
+  const openBtn = document.getElementById('openBtn');
+  const splash = document.getElementById('splash');
+  const splashVideo = document.getElementById('splashVideo');
+  const progressBar = document.getElementById('videoProgress');
+  const transScreen = document.getElementById('transitionScreen');
+  const mainContent = document.getElementById('mainContent');
 
-/* ─────────── STARS CANVAS helper ─────────── */
-function initStarCanvas(canvas, count){
-  const ctx = canvas.getContext('2d');
-  const stars = [];
-  function resize(){
-    const r = canvas.parentElement.getBoundingClientRect();
-    canvas.width = r.width; canvas.height = r.height;
-    canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px';
-    stars.length=0;
-    for(let i=0;i<count;i++) stars.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      r:0.8+Math.random()*2,
-      a:0.3+Math.random()*0.7,
-      sp:0.5+Math.random()*1.2,
-      ph:Math.random()*Math.PI*2
-    });
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    const t=Date.now()/1000;
-    for(const s of stars){
-      const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5);
-      ctx.beginPath();
-      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`;
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-  setTimeout(()=>{resize();draw();},100);
-  window.addEventListener('resize',resize);
-}
-initStarCanvas(document.getElementById('timerStarCanvas'),120);
-initStarCanvas(document.getElementById('starCanvas2'),150);
-
-/* ─────────── TIMER ─────────── */
-function tick(){
-  const target=new Date(2026,5,16,18,0,0);
-  let diff=target-new Date();
-  if(diff<0) diff=0;
-  document.getElementById('days').textContent=Math.floor(diff/864e5);
-  document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5);
-  document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4);
-  document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3);
-}
-tick(); setInterval(tick,1000);
-
-/* ─────────── SCROLL PROGRESS BAR ─────────── */
-const scrollBar = document.getElementById('scrollBar');
-if(scrollBar){
-  window.addEventListener('scroll', () => {
-    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    scrollBar.style.width = (pct * 100) + '%';
-  }, { passive: true });
-}
-
-/* ─────────── ENHANCED SCROLL REVEAL ─────────── */
-const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const siblings = Array.from(e.target.parentElement.children).filter(c => c.classList.contains('reveal') || c.classList.contains('timer-box'));
-      const idx = siblings.indexOf(e.target);
-      const delay = idx > 0 ? idx * 90 : 0;
-      setTimeout(() => e.target.classList.add('in'), delay);
-      obs.unobserve(e.target);
-    }
-  });
-},{threshold: 0.08, rootMargin: '0px 0px -20px 0px'});
-allReveal.forEach(el => obs.observe(el));
-
-/* ─────────── SPLASH → TRANSITION → MAIN ─────────── */
-const splash = document.getElementById('splash');
-const splashVideo = document.getElementById('splashVideo');
-const progressBar = document.getElementById('videoProgress');
-const transScreen = document.getElementById('transitionScreen');
-const mainContent = document.getElementById('mainContent');
-const openBtn = document.getElementById('openBtn');
-
-openBtn.addEventListener('click',()=>{
-  // Запускаем музыку сразу при нажатии
-  startMusic();
-
-  splashVideo.style.transition='opacity 1s ease';
-  splashVideo.play().then(()=>{ splashVideo.style.opacity='1'; }).catch(()=>{});
-
-  function updateProg(){
-    if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%';
-    if(!splashVideo.ended) requestAnimationFrame(updateProg);
-  }
-  updateProg();
-
-  openBtn.style.transition='opacity 0.4s ease, transform 0.4s ease';
-  openBtn.style.opacity='0'; openBtn.style.transform='scale(0.9)';
-  setTimeout(()=>openBtn.style.display='none', 400);
-
-  splashVideo.onended = () => {
-    splash.style.transition='opacity 0.6s ease';
-    splash.style.opacity='0';
-    setTimeout(()=>{
-      splash.classList.add('hide');
-      transScreen.classList.add('show');
+  openBtn.addEventListener('click', () => {
+    startMusic();
+    splashVideo.style.transition='opacity 1.2s cubic-bezier(0.16,1,0.3,1)';
+    splashVideo.play().then(()=>{ splashVideo.style.opacity='1'; }).catch(()=>{});
+    function updateProg(){ if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%'; if(!splashVideo.ended) requestAnimationFrame(updateProg); }
+    updateProg();
+    openBtn.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+    openBtn.style.opacity='0'; openBtn.style.transform='scale(0.85) translateY(10px)';
+    setTimeout(()=>openBtn.style.display='none', 500);
+    splashVideo.onended = () => {
+      splash.style.transition='opacity 0.8s cubic-bezier(0.16,1,0.3,1)';
+      splash.style.opacity='0';
       setTimeout(()=>{
-        transScreen.classList.add('hide');
-        mainContent.classList.add('visible');
-        window.scrollTo(0,0);
+        splash.classList.add('hide');
+        transScreen.classList.add('show');
         setTimeout(()=>{
-          allReveal.forEach(el=>{
-            const r=el.getBoundingClientRect();
-            if(r.top < window.innerHeight) el.classList.add('in');
-          });
-        },200);
-      },2000);
-    },600);
-  };
-});
+          transScreen.classList.add('hide');
+          mainContent.classList.add('visible');
+          window.scrollTo(0,0);
+          setTimeout(()=>{
+            const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
+            const getDelay = (el) => {
+              const delays = {'timer-box':130,'contact-item':80,'cal-d':20};
+              for(let [cls,d] of Object.entries(delays)) if(el.classList.contains(cls)) { const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*d; }
+              const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right'));
+              let idx=sibs.indexOf(el); return idx>0?idx*100:0;
+            };
+            allReveal.forEach(el=>{ if(el.getBoundingClientRect().top<window.innerHeight+100) setTimeout(()=>el.classList.add('in'), getDelay(el)); });
+          },150);
+        }, 2200);
+      }, 800);
+    };
+  });
 
+  // petals
+  const pc = document.getElementById('petalsCanvas'); const pctx = pc.getContext('2d'); let pW, pH, petals = []; const pColors = ['#ffc2d0','#ffd6e0','#c8e6c4','#e8d5a3','#f5c8b8'];
+  class Petal { reset(){ this.x=Math.random()*pW; this.y=-20; this.sz=3+Math.random()*7; this.vy=0.25+Math.random()*0.75; this.vx=(Math.random()-.5)*0.4; this.rot=Math.random()*Math.PI*2; this.rv=(Math.random()-.5)*0.012; this.a=0.35+Math.random()*0.45; this.c=pColors[Math.floor(Math.random()*pColors.length)]; } constructor(){ this.reset(); this.y=Math.random()*pH; } update(){ this.x+=this.vx; this.y+=this.vy; this.rot+=this.rv; if(this.y>pH+20) this.reset(); if(this.x<-20) this.x=pW+20; if(this.x>pW+20) this.x=-20; } draw(){ pctx.save(); pctx.translate(this.x,this.y); pctx.rotate(this.rot); pctx.globalAlpha=this.a; pctx.beginPath(); pctx.ellipse(0,0,this.sz*.5,this.sz*.3,0,0,Math.PI*2); pctx.fillStyle=this.c; pctx.fill(); pctx.restore(); } }
+  function initPetals(){ pW=pc.width=window.innerWidth; pH=pc.height=window.innerHeight; petals=[]; for(let i=0;i<50;i++) petals.push(new Petal()); } function animPetals(){ pctx.clearRect(0,0,pW,pH); petals.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animPetals); } initPetals(); animPetals(); window.addEventListener('resize',initPetals);
+
+  const heroStarsEl = document.getElementById('heroStars'); for(let i=0;i<22;i++){ const s=document.createElement('div'); s.className='star'; let sz=1+Math.random()*3; s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`; heroStarsEl.appendChild(s); }
+  function initStarCanvas(canvasId,count){ const canvas=document.getElementById(canvasId); if(!canvas) return; const ctx=canvas.getContext('2d'); let stars=[]; function resize(){ const r=canvas.parentElement.getBoundingClientRect(); canvas.width=r.width; canvas.height=r.height; canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px'; stars=[]; for(let i=0;i<count;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:0.8+Math.random()*2,a:0.3+Math.random()*0.7,sp:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}); } function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); const t=Date.now()/1000; for(const s of stars){ const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`; ctx.fill(); } requestAnimationFrame(draw); } setTimeout(()=>{resize();draw();},100); window.addEventListener('resize',resize); }
+  initStarCanvas('timerStarCanvas',120); initStarCanvas('starCanvas2',150);
+  function tick(){ const target=new Date(2026,5,16,18,0,0); let diff=target-new Date(); if(diff<0) diff=0; document.getElementById('days').textContent=Math.floor(diff/864e5); document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5); document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4); document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3); } tick(); setInterval(tick,1000);
+  const scrollBar=document.getElementById('scrollBar'); if(scrollBar){ window.addEventListener('scroll',()=>{ const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight); scrollBar.style.width=(pct*100)+'%'; },{passive:true}); }
+  const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
+  const getStaggerDelay = (el) => { const d={'timer-box':130,'contact-item':80,'cal-d':20}; for(let [cls,delay] of Object.entries(d)) if(el.classList.contains(cls)){ const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*delay; } const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')); let idx=sibs.indexOf(el); return idx>0?idx*100:0; };
+  const observer=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ const delay=getStaggerDelay(e.target); setTimeout(()=>{ e.target.classList.add('in'); },delay); observer.unobserve(e.target); } }); },{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
+  allReveal.forEach(el=>observer.observe(el));
+  const heroImgWrap = document.querySelector('.hero-img-wrap');
+  window.addEventListener('scroll', () => { const scrolled = window.scrollY; if(scrolled<window.innerHeight && heroImgWrap) heroImgWrap.style.transform = `translateY(${scrolled*0.18}px)`; }, {passive:true});
 })();
 </script>
 </body>
