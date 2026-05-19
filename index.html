@@ -1,817 +1,1133 @@
-Вот обновлённый HTML-документ с изменённым заголовком и новым шрифтом, как вы просили.
-```html
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>A and X | To'y taklifnomasi</title>
-    <!-- Основной шрифт для заголовков и акцентов: Shelley Volante / AnastasiaScript - элегантный курсив -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Подключаем Anastasia Script (Google Fonts аналог с похожим изящным курсивом) и дополнительно Great Vibes для сохранения стиля -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Allura&family=Alex+Brush&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Abdullaziz & Begoyim | To'y taklifnomasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Cinzel:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
-        body {
-            background: #b8d4e2;
-            /* Используем Jost только для вспомогательного текста, основной акцент на AnastasiaScript/Allura */
-            font-family: 'Jost', sans-serif;
-            font-weight: 300;
-            letter-spacing: 0.02em;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+:root {
+  --cream: #faf5ee;
+  --gold: #c9a96e;
+  --gold-light: #e8d5a3;
+  --green-dark: #2d5a3d;
+  --green-med: #3d7a52;
+  --green-light: #6aaa80;
+  --rose: #c9748a;
+  --rose-light: #f0c4d0;
+  --text: #2a1f14;
+  --text-light: #6b5a4a;
+}
 
-        /* Главный декоративный шрифт для имён, инициалов, надписей "A and X", заголовков */
-        .cursive-font, .initials-large, .invite-card .section-title, .welcome-text p:first-child, .arabic-prayer, .star-decoration {
-            font-family: 'Allura', 'Alex Brush', 'Great Vibes', 'Parisienne', cursive;
-            font-weight: 400;
-        }
-        
-        /* Более приземлённый, но тоже элегантный */
-        .invitation-text p, .timer-label, .location-btn, .rsvp-action, .open-btn, .close-invitation, .map-btn {
-            font-family: 'Jost', sans-serif;
-        }
+body {
+  background: var(--cream);
+  font-family: 'Jost', sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
 
-        .app {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+/* ── SPLASH SCREEN ── */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: #0a0d0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        .sky-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: linear-gradient(145deg, #b0d4e8 0%, #c8e2f0 100%);
-            pointer-events: none;
-        }
+#splashVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+#splashVideo.playing { opacity: 1; }
 
-        .moon-glow {
-            position: fixed;
-            top: 8%;
-            right: 10%;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(255,255,255,0.5), transparent 70%);
-            border-radius: 50%;
-            filter: blur(8px);
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: 1;
-        }
+.splash-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.55) 100%);
+}
 
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-        .particles::before {
-            content: "";
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px);
-            background-size: 80px 80px;
-            opacity: 0.25;
-            animation: floatParticles 20s linear infinite;
-            pointer-events: none;
-        }
-        @keyframes floatParticles {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-80px); }
-        }
+.splash-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  animation: splashFadeIn 1.4s ease forwards;
+}
+@keyframes splashFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-        .cloud-layer {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            will-change: transform;
-            opacity: 0.9 !important;
-            animation: floatRight 40s infinite linear;
-        }
-        .cloud-layer.cloud-slow { animation-duration: 55s; }
-        .cloud-layer.cloud-medium { animation-duration: 45s; }
-        .cloud-layer.cloud-fast { animation-duration: 32s; }
-        @keyframes floatRight {
-            0% { transform: translateX(-5%) translateY(0%); }
-            100% { transform: translateX(10%) translateY(2%); }
-        }
-        .cloud-1 { width: 750px; height: 450px; top: -15%; left: -25%; }
-        .cloud-2 { width: 850px; height: 500px; bottom: -15%; right: -28%; }
-        .cloud-3 { width: 600px; height: 360px; top: 5%; right: -10%; }
-        .cloud-4 { width: 700px; height: 420px; bottom: 5%; left: -30%; }
-        .cloud-5 { width: 550px; height: 330px; top: 35%; left: -5%; }
-        .cloud-6 { width: 650px; height: 390px; top: -5%; right: 5%; }
-        .cloud-7 { width: 580px; height: 350px; bottom: 20%; right: -15%; }
-        .cloud-8 { width: 520px; height: 310px; top: 25%; left: -18%; }
-        .cloud-9 { width: 500px; height: 300px; bottom: 30%; left: 10%; }
-        .cloud-10 { width: 680px; height: 410px; top: 55%; right: -5%; }
-        .cloud-11 { width: 480px; height: 290px; top: -2%; left: 20%; }
-        .cloud-12 { width: 720px; height: 430px; bottom: 40%; left: -22%; }
-        .cloud-13 { width: 540px; height: 320px; top: 70%; left: 25%; }
-        .cloud-14 { width: 600px; height: 360px; bottom: -5%; left: 15%; }
-        .cloud-15 { width: 530px; height: 320px; top: 12%; left: 45%; }
-        .cloud-layer svg { width: 100%; height: 100%; }
-        .cloud-layer svg path { fill: #ffffff !important; opacity: 0.95 !important; }
+.splash-salom {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.2rem;
+  color: #f5e8c8;
+  text-shadow: 0 2px 20px rgba(201,169,110,0.6);
+  line-height: 1.1;
+}
+.splash-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.45em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+}
 
-        .white-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 70%); pointer-events: none; }
-        
-        .opening-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 45% 35%, #fff8f0 0%, #ffe8dc 100%);
-            z-index: 150;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            visibility: visible;
-            overflow: hidden;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-        .opening-overlay.hide { opacity: 0; visibility: hidden; }
-        
-        .hero-photo {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1.2rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border: 3px solid rgba(255,255,255,0.8);
-            opacity: 0;
-            transform: scale(0.9);
-            animation: fadeInScale 0.8s ease forwards;
-        }
-        @keyframes fadeInScale {
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .names-container {
-            text-align: center;
-            z-index: 160;
-            margin-bottom: 1.2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease 0.1s forwards;
-        }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .initials-large {
-            font-family: 'Allura', 'Alex Brush', 'Great Vibes', cursive;
-            font-size: 4.2rem;
-            font-weight: 400;
-            color: #4a2c26;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.05);
-            letter-spacing: 0.02em;
-            line-height: 1.2;
-        }
-        .date-small {
-            font-size: 0.75rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #9b7666;
-            margin-top: 0.5rem;
-            font-family: 'Jost', sans-serif;
-        }
-        
-        .open-btn {
-            background: rgba(255,252,248,0.94);
-            backdrop-filter: blur(12px);
-            border: 0.8px solid rgba(200,165,135,0.5);
-            padding: 0.9rem 2.5rem;
-            border-radius: 60px;
-            font-family: 'Jost', sans-serif;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: #7a5546;
-            cursor: pointer;
-            z-index: 160;
-            transition: all 0.3s ease;
-            margin-top: 0.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease 0.2s forwards;
-        }
-        .open-btn:active {
-            transform: scale(0.96);
-            background: rgba(255,252,248,0.8);
-        }
-        
-        .anim-cloud {
-            position: absolute;
-            background: radial-gradient(ellipse at 35% 40%, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 100%);
-            border-radius: 55% 45% 65% 35% / 40% 60% 40% 60%;
-            filter: blur(3px);
-            opacity: 0;
-            transform: scale(0.65);
-            will-change: transform, opacity;
-            pointer-events: none;
-            transition: all 2s cubic-bezier(0.33, 1, 0.68, 1);
-        }
-        .anim-cloud-1 { width: 580px; height: 350px; top: -5%; left: -35%; }
-        .anim-cloud-2 { width: 680px; height: 410px; bottom: -5%; right: -40%; }
-        .anim-cloud-3 { width: 500px; height: 300px; top: 22%; left: 35%; }
-        .anim-cloud-4 { width: 600px; height: 360px; top: 48%; left: -30%; }
-        .anim-cloud-5 { width: 470px; height: 280px; top: -8%; right: -5%; }
-        .anim-cloud-6 { width: 550px; height: 330px; bottom: 15%; left: -3%; }
-        .anim-cloud-7 { width: 500px; height: 300px; top: 8%; right: 8%; }
-        .anim-cloud-8 { width: 580px; height: 350px; bottom: 35%; right: -8%; }
-        .anim-cloud-9 { width: 480px; height: 290px; top: 58%; left: 18%; }
-        .anim-cloud-10 { width: 620px; height: 370px; top: 28%; right: -28%; }
-        .anim-cloud-11 { width: 490px; height: 295px; bottom: -2%; left: 25%; }
-        .anim-cloud-12 { width: 530px; height: 320px; top: 75%; right: 12%; }
-        
-        .full-invitation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, rgba(255,250,245,0.88) 0%, rgba(254,242,230,0.9) 100%);
-            z-index: 200;
-            overflow-y: auto;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s;
-            padding: 1.8rem 1.2rem;
-            -webkit-overflow-scrolling: touch;
-        }
-        .full-invitation.open { opacity: 1; visibility: visible; }
-        .invitation-inner {
-            max-width: 450px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
-            padding-bottom: 30px;
-        }
-        .full-invitation.open .invitation-inner { opacity: 1; transform: translateY(0); }
-        
-        .close-invitation {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255,252,248,0.96);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            cursor: pointer;
-            z-index: 210;
-            border: 0.5px solid rgba(200,165,135,0.4);
-            color: #8b6b58;
-        }
-        .close-invitation:active { transform: scale(0.95); }
-        
-        .star-decoration {
-            text-align: center;
-            font-size: 1.2rem;
-            letter-spacing: 0.2rem;
-            color: #b88a72;
-            opacity: 0.7;
-            margin: 10px 0;
-            font-family: 'Allura', cursive;
-        }
-        
-        .invite-card {
-            background: rgba(255,252,248,0.88);
-            backdrop-filter: blur(12px);
-            border-radius: 40px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 0.5px solid rgba(200,165,135,0.25);
-            position: relative;
-            transition: transform 0.15s ease;
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: all 0.6s ease;
-        }
-        .invite-card.show {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .invite-card:active { transform: scale(0.99); }
-        
-        .flower-left, .flower-right {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-        .flower-left { top: -5px; left: -5px; background: radial-gradient(circle, rgba(255,200,180,0.4) 0%, transparent 70%); border-radius: 50%; }
-        .flower-right { bottom: -5px; right: -5px; background: radial-gradient(circle, rgba(200,180,220,0.3) 0%, transparent 70%); border-radius: 50%; }
-        
-        .section-title {
-            font-family: 'Allura', 'Alex Brush', 'Great Vibes', cursive;
-            font-size: 1.9rem;
-            font-weight: 500;
-            text-align: center;
-            color: #674438;
-            margin-bottom: 1rem;
-            letter-spacing: 0.02em;
-        }
-        
-        .invitation-text {
-            text-align: center;
-            font-size: 0.9rem;
-            line-height: 1.8;
-            color: #5a3e36;
-            font-family: 'Jost', sans-serif;
-        }
-        .invitation-text p {
-            margin-bottom: 0;
-            white-space: pre-line;
-        }
-        
-        .welcome-text {
-            text-align: center;
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #5a3e36;
-            font-family: 'Jost', sans-serif;
-        }
-        .welcome-text p:first-child {
-            font-family: 'Allura', 'Alex Brush', cursive;
-            font-size: 1.7rem;
-            color: #7e5543;
-            margin-bottom: 0.2rem;
-        }
-        .welcome-text p {
-            margin-bottom: 0.8rem;
-        }
-        
-        .arabic-prayer {
-            font-size: 1.3rem;
-            font-family: 'Allura', 'Great Vibes', cursive;
-            text-align: center;
-            color: #8b5a48;
-            margin-top: 0.5rem;
-            letter-spacing: 0.03em;
-            line-height: 1.5;
-        }
-        
-        .timer-grid {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 1.2rem 0;
-            flex-wrap: wrap;
-        }
-        .timer-cell {
-            text-align: center;
-            background: rgba(255,252,248,0.7);
-            padding: 0.5rem 0.7rem;
-            border-radius: 28px;
-            min-width: 65px;
-        }
-        .timer-number { font-size: 1.6rem; font-weight: 500; color: #4f2d27; font-family: 'Jost', monospace; }
-        .timer-label { font-size: 0.55rem; letter-spacing: 0.1em; color: #a17363; }
-        
-        .venue-photo {
-            width: 100%;
-            border-radius: 32px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            background: #e8ddd2;
-        }
-        .venue-photo img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            aspect-ratio: 16 / 9;
-        }
-        .location-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: rgba(200,165,135,0.2);
-            border: 1px solid rgba(160,120,100,0.4);
-            padding: 0.8rem 1.2rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #7a5546;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-            margin-top: 0.5rem;
-        }
-        .location-btn:active { transform: scale(0.97); background: rgba(200,165,135,0.35); }
-        
-        .rsvp-action {
-            background: rgba(250,240,230,0.92);
-            backdrop-filter: blur(10px);
-            border: 0.8px solid rgba(190,150,130,0.5);
-            padding: 0.9rem 1.5rem;
-            border-radius: 50px;
-            font-family: 'Jost', sans-serif;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #6b443a;
-            width: 100%;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .rsvp-action:active { transform: scale(0.98); }
-        
-        .music-controller {
-            position: fixed;
-            bottom: 20px;
-            right: 15px;
-            z-index: 250;
-            background: rgba(255,252,248,0.94);
-            backdrop-filter: blur(12px);
-            border-radius: 50px;
-            padding: 8px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 0.5px solid rgba(210,175,150,0.5);
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        .music-controller.active { opacity: 1; transform: scale(1); pointer-events: auto; }
-        .music-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #b27760; display: flex; align-items: center; justify-content: center; }
-        .youtube-player { position: fixed; bottom: -100px; left: -100px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-        
-        .map-choice-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        .map-choice-card {
-            background: rgba(255,252,248,0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 40px;
-            padding: 1.8rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.2);
-            border: 1px solid rgba(200,165,135,0.3);
-            min-width: 280px;
-            transform: scale(0.95);
-            transition: transform 0.2s ease;
-        }
-        .map-choice-card h3 {
-            font-family: 'Jost', sans-serif;
-            font-size: 1.2rem;
-            color: #674438;
-            margin-bottom: 1.2rem;
-            font-weight: 500;
-        }
-        .map-btn {
-            display: block;
-            width: 100%;
-            padding: 0.8rem 1rem;
-            margin: 0.6rem 0;
-            border: none;
-            border-radius: 60px;
-            font-family: 'Jost', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .map-btn:active { transform: scale(0.97); }
-        .google-btn { background: rgba(66,133,244,0.12); color: #1a73e8; border: 1px solid rgba(66,133,244,0.3); }
-        .yandex-btn { background: rgba(255,50,50,0.08); color: #cc0000; border: 1px solid rgba(255,50,50,0.2); }
-        .cancel-map-btn { background: none; color: #a77a66; font-size: 0.75rem; margin-top: 0.3rem; }
-        
-        @media (max-width: 500px) {
-            .timer-cell { min-width: 60px; }
-            .timer-number { font-size: 1.4rem; }
-            .invite-card { padding: 1.2rem; }
-            .initials-large { font-size: 3.5rem; }
-            .hero-photo { width: 130px; height: 130px; }
-            .open-btn { padding: 0.7rem 2rem; font-size: 0.75rem; }
-            .invitation-text { font-size: 0.8rem; }
-            .section-title { font-size: 1.7rem; }
-        }
-        @media (max-width: 768px) {
-            .cloud-1, .cloud-2, .cloud-3, .cloud-4, .cloud-5, .cloud-6, .cloud-7, .cloud-8, .cloud-9, .cloud-10,
-            .cloud-11, .cloud-12, .cloud-13, .cloud-14, .cloud-15 { transform: scale(0.65); }
-        }
-    </style>
+.splash-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  opacity: 0.7;
+}
+.splash-divider::before, .splash-divider::after {
+  content: '';
+  width: 40px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold));
+}
+.splash-divider::after { background: linear-gradient(to left, transparent, var(--gold)); }
+
+/* кнопка ОТКРЫТЬ */
+.btn-open {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.btn-circle {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--green-dark);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 0 rgba(45,90,61,0.5);
+  animation: pulseBtn 2s infinite;
+  transition: transform 0.2s;
+}
+.btn-open:active .btn-circle { transform: scale(0.92); }
+@keyframes pulseBtn {
+  0% { box-shadow: 0 0 0 0 rgba(45,90,61,0.6); }
+  70% { box-shadow: 0 0 0 20px rgba(45,90,61,0); }
+  100% { box-shadow: 0 0 0 0 rgba(45,90,61,0); }
+}
+.btn-circle svg { width: 26px; height: 26px; fill: white; margin-left: 4px; }
+.btn-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+}
+
+/* progress bar while video plays */
+.video-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--green-light), var(--gold));
+  width: 0%;
+  transition: width 0.3s linear;
+  z-index: 20;
+}
+
+/* ── TRANSITION SCREEN ── */
+#transitionScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1900;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#transitionScreen.show { opacity: 1; visibility: visible; }
+#transitionScreen.hide { opacity: 0; visibility: hidden; }
+
+.trans-img {
+  width: min(85vw, 360px);
+  border-radius: 32px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+  transform: scale(0.88);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.7s ease;
+}
+#transitionScreen.show .trans-img {
+  transform: scale(1);
+  opacity: 1;
+}
+.trans-ornament {
+  font-size: 1.4rem;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.6s ease 0.4s;
+}
+#transitionScreen.show .trans-ornament { opacity: 1; }
+
+/* ── ПЕТАЛКИ ── */
+#petalsCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── MAIN CONTENT ── */
+#mainContent {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+#mainContent.visible { opacity: 1; }
+
+/* ── HERO SECTION ── */
+.hero {
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px 80px;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(106,170,128,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba(201,116,138,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.07) 0%, transparent 60%);
+}
+.hero-stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: twinkle var(--dur, 3s) infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: 0.1; transform: scale(0.8); }
+  to { opacity: 0.7; transform: scale(1.2); }
+}
+
+.hero-img-wrap {
+  position: relative;
+  width: min(88vw, 360px);
+  margin-bottom: 32px;
+}
+.hero-img {
+  width: 100%;
+  border-radius: 48px 48px 80px 80px;
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.15),
+    0 0 0 1px rgba(201,169,110,0.2),
+    inset 0 0 40px rgba(255,255,255,0.4);
+  display: block;
+  transform: translateY(0);
+  animation: heroFloat 4s ease-in-out infinite;
+}
+@keyframes heroFloat {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
+  color: white;
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.4em;
+  padding: 6px 20px;
+  border-radius: 40px;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(45,90,61,0.35);
+}
+
+.hero-text { text-align: center; }
+.hero-small {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.5em;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hero-names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.4rem;
+  color: var(--green-dark);
+  line-height: 1.15;
+  text-shadow: 0 2px 12px rgba(45,90,61,0.15);
+}
+.hero-names .va {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+  margin: -4px 0;
+}
+.hero-invite {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-light);
+  margin: 14px 0 20px;
+}
+.hero-ayat {
+  max-width: 340px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(201,169,110,0.4);
+  border-bottom: 1px solid rgba(201,169,110,0.4);
+  text-align: center;
+}
+.ayat-bismillah {
+  font-size: 1.4rem;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+}
+.ayat-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+.ayat-source {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+/* ── SECTION BASE ── */
+.section {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+.container { max-width: 480px; width: 100%; }
+
+/* ── CALENDAR SECTION ── */
+.cal-wrap {
+  position: relative;
+}
+.cal-card {
+  background: white;
+  border-radius: 40px;
+  padding: 32px 24px 28px;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(201,169,110,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.cal-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(to right, var(--rose-light), var(--gold), var(--green-light));
+}
+.flowers {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 55px;
+  pointer-events: none;
+}
+.flowers.left { left: -18px; }
+.flowers.right { right: -18px; transform: translateY(-50%) scaleX(-1); }
+.flowers img { width: 100%; display: block; }
+
+.sec-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.5em;
+  color: var(--rose);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.sec-h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  color: var(--green-dark);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.sec-sub {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  gap: 4px;
+}
+.cal-hd {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--rose);
+  text-align: center;
+  padding-bottom: 6px;
+  font-weight: 500;
+}
+.cal-d {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  color: var(--text-light);
+}
+.cal-d.past { color: #d4b8b8; background: #fdf0f3; }
+.cal-d.special {
+  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(45,90,61,0.4);
+  position: relative;
+}
+.cal-d.special::after {
+  content: '📍';
+  position: absolute;
+  font-size: 10px;
+  top: -10px; right: -6px;
+}
+
+/* ── TIMER ── */
+.timer-section {
+  padding: 10px 20px 60px;
+  display: flex; justify-content: center;
+}
+.timer-bg {
+  background: linear-gradient(145deg, #0e1a12, #1a2f1e);
+  border-radius: 40px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+}
+.timer-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(106,170,128,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(201,169,110,0.1) 0%, transparent 50%);
+}
+#timerStarCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.timer-mosque {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  text-align: center;
+  font-size: 2.5rem;
+  opacity: 0.08;
+  pointer-events: none;
+  line-height: 1;
+}
+.timer-label-top {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.55em;
+  color: rgba(201,169,110,0.7);
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative; z-index: 2;
+}
+.timer-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+  position: relative; z-index: 2;
+}
+.timer-box {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 20px;
+  padding: 14px 8px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+.timer-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  color: #f0e6c8;
+  line-height: 1;
+  display: block;
+}
+.timer-unit {
+  font-size: 0.48rem;
+  letter-spacing: 0.3em;
+  color: rgba(201,169,110,0.7);
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+.hadis-box {
+  position: relative; z-index: 2;
+  margin-top: 24px;
+  border: 1px solid rgba(201,169,110,0.15);
+  border-radius: 20px;
+  padding: 16px 20px;
+  text-align: center;
+  background: rgba(255,255,255,0.03);
+}
+.hadis-q {
+  font-size: 1rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.hadis-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(245,232,200,0.8);
+  line-height: 1.6;
+}
+.hadis-src {
+  font-family: 'Cinzel', serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.35em;
+  color: rgba(201,169,110,0.6);
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+/* ── VIDEO SECTION ── */
+.video-section {
+  padding: 0 20px 60px;
+  display: flex; justify-content: center;
+}
+.video-card {
+  background: linear-gradient(145deg, #0a0d10, #111a12);
+  border-radius: 40px;
+  padding: 20px;
+  width: 100%; max-width: 480px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+#starCanvas2 {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+#video2 {
+  width: 100%;
+  border-radius: 24px;
+  display: block;
+  position: relative; z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.video-caption {
+  text-align: center;
+  color: rgba(240,230,200,0.7);
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  margin-top: 14px;
+  position: relative; z-index: 2;
+  text-transform: uppercase;
+}
+
+/* ── VENUE ── */
+.venue-card {
+  background: white;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.07), 0 0 0 1px rgba(201,169,110,0.15);
+}
+.venue-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.venue-body {
+  padding: 28px 24px;
+}
+.venue-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: var(--green-dark);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.venue-sub {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.venue-addr {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--rose);
+  margin-bottom: 20px;
+}
+.map-btns {
+  display: flex; gap: 12px; justify-content: center;
+}
+.map-btn {
+  background: var(--green-dark);
+  color: white;
+  padding: 9px 22px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.map-btn:active { transform: scale(0.96); }
+.map-btn.alt { background: white; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+
+/* ── CONTACTS ── */
+.contacts-card {
+  background: white;
+  border-radius: 40px;
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(201,169,110,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.contacts-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(to right, var(--green-light), var(--gold), var(--rose-light));
+}
+.hat-emoji {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: 16px;
+  animation: floatHat 2.5s ease-in-out infinite;
+}
+@keyframes floatHat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.contacts-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+}
+.contacts-desc {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(201,169,110,0.12);
+  font-size: 0.85rem;
+}
+.contact-item:last-of-type { border-bottom: none; }
+.contact-label {
+  font-weight: 500;
+  color: var(--green-dark);
+  min-width: 90px;
+  text-align: right;
+}
+.contact-val { color: var(--text-light); }
+.family-tag {
+  margin-top: 24px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.45em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* ── MUSIC BTN ── */
+.music-btn {
+  position: fixed;
+  bottom: 22px; right: 18px;
+  width: 46px; height: 46px;
+  background: rgba(250,245,238,0.92);
+  backdrop-filter: blur(16px);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid rgba(201,169,110,0.4);
+  z-index: 980;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.music-btn:active { transform: scale(0.92); }
+.music-icon { font-size: 1.1rem; color: var(--green-dark); }
+.music-bars { display: none; gap: 2px; align-items: flex-end; height: 16px; }
+.music-btn.playing .music-icon { display: none; }
+.music-btn.playing .music-bars { display: flex; }
+.bar {
+  width: 3px; background: var(--green-dark);
+  border-radius: 2px;
+  animation: barAnim 0.6s infinite alternate;
+}
+.bar:nth-child(1) { height: 5px; }
+.bar:nth-child(2) { height: 11px; animation-delay: 0.1s; }
+.bar:nth-child(3) { height: 7px; animation-delay: 0.2s; }
+.bar:nth-child(4) { height: 13px; animation-delay: 0.05s; }
+@keyframes barAnim {
+  from { transform: scaleY(0.3); opacity: 0.5; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* mobile tweaks */
+@media (max-width: 400px) {
+  .flowers { width: 40px; }
+  .flowers.left { left: -12px; }
+  .flowers.right { right: -12px; }
+  .splash-salom { font-size: 2.6rem; }
+}
+</style>
 </head>
 <body>
-<div class="app">
-    <div class="sky-bg"></div>
-    <div class="white-glow"></div>
-    
-    <div class="moon-glow"></div>
-    <div class="particles"></div>
-    
-    <!-- 15 animated clouds -->
-    <div class="cloud-layer cloud-1 cloud-slow"><svg viewBox="0 0 750 450"><path d="M140,220 Q95,150 170,125 Q215,68 305,92 Q380,50 480,90 Q565,55 625,125 Q695,110 715,190 Q760,235 690,295 Q745,365 665,400 Q580,445 475,410 Q395,455 305,418 Q225,455 160,408 Q95,430 55,365 Q15,325 45,265 Q18,215 140,220Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-2 cloud-fast"><svg viewBox="0 0 850 500"><path d="M185,285 Q125,195 225,168 Q275,98 385,125 Q475,72 590,115 Q685,75 755,150 Q845,130 865,225 Q930,275 855,345 Q920,425 825,465 Q730,520 610,480 Q520,535 420,495 Q325,540 240,488 Q160,525 110,445 Q55,405 90,330 Q50,265 185,285Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-3 cloud-medium"><svg viewBox="0 0 600 360"><path d="M115,185 Q75,125 155,105 Q195,55 285,78 Q355,42 435,82 Q505,55 545,115 Q610,100 625,170 Q665,210 615,260 Q650,320 595,350 Q535,390 465,368 Q395,405 330,378 Q265,405 215,365 Q160,385 125,330 Q88,305 110,248 Q80,210 115,185Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-4 cloud-slow"><svg viewBox="0 0 700 420"><path d="M160,245 Q110,170 200,145 Q245,82 345,108 Q425,62 525,105 Q605,72 660,140 Q740,122 758,208 Q810,255 745,320 Q800,395 720,435 Q635,485 525,450 Q445,495 350,458 Q270,495 200,448 Q135,475 92,405 Q48,365 78,295 Q45,240 160,245Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-5 cloud-fast"><svg viewBox="0 0 550 330"><path d="M98,172 Q68,118 145,100 Q185,58 268,82 Q332,48 405,85 Q470,58 505,118 Q558,102 570,162 Q605,198 565,242 Q598,298 550,325 Q498,358 432,338 Q368,365 310,338 Q252,358 212,322 Q172,340 148,292 Q118,268 138,218 Q112,188 98,172Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-6 cloud-medium"><svg viewBox="0 0 650 390"><path d="M125,205 Q82,145 165,122 Q208,72 295,95 Q365,58 445,92 Q515,62 560,125 Q630,108 645,180 Q690,222 638,272 Q678,330 622,360 Q562,400 495,375 Q425,412 360,382 Q295,410 242,372 Q188,392 148,340 Q112,318 135,262 Q108,228 125,205Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-7 cloud-slow"><svg viewBox="0 0 580 350"><path d="M108,195 Q72,132 150,112 Q192,65 278,88 Q348,52 422,85 Q488,58 528,115 Q592,100 608,165 Q648,205 598,252 Q632,312 578,342 Q518,378 452,355 Q385,388 325,358 Q265,382 222,345 Q175,365 138,312 Q102,290 125,235 Q98,205 108,195Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-8 cloud-fast"><svg viewBox="0 0 520 310"><path d="M98,178 Q65,120 142,102 Q182,60 262,84 Q325,50 395,86 Q455,58 492,112 Q548,98 560,155 Q598,192 555,238 Q588,290 540,318 Q488,348 428,328 Q368,355 312,328 Q258,348 218,312 Q178,330 152,282 Q122,260 142,212 Q118,185 98,178Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-9 cloud-medium"><svg viewBox="0 0 500 300"><path d="M92,165 Q62,110 135,92 Q172,55 248,76 Q312,45 382,80 Q442,55 478,108 Q530,95 542,150 Q575,185 535,225 Q565,278 520,302 Q472,332 418,315 Q362,338 312,315 Q262,332 225,300 Q188,318 162,272 Q135,250 155,205 Q132,182 92,165Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-10 cloud-slow"><svg viewBox="0 0 680 410"><path d="M135,225 Q90,155 175,132 Q220,75 315,100 Q390,60 478,98 Q555,68 608,132 Q685,115 702,198 Q755,245 690,310 Q750,385 670,420 Q585,470 478,438 Q398,480 310,445 Q235,480 170,438 Q108,460 70,395 Q30,358 58,290 Q28,240 135,225Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-11 cloud-fast"><svg viewBox="0 0 480 290"><path d="M85,148 Q58,98 128,82 Q165,48 235,70 Q295,42 362,78 Q418,55 448,105 Q498,92 508,145 Q538,178 498,218 Q525,268 482,292 Q438,322 382,305 Q328,325 278,305 Q228,322 192,290 Q158,308 135,262 Q112,242 130,198 Q108,175 85,148Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-12 cloud-medium"><svg viewBox="0 0 720 430"><path d="M170,255 Q118,180 210,155 Q255,95 360,120 Q448,78 555,118 Q645,82 708,155 Q798,138 818,230 Q878,280 805,352 Q872,435 785,475 Q690,530 575,495 Q490,545 390,505 Q305,550 225,498 Q148,530 105,455 Q55,415 88,340 Q50,285 170,255Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-13 cloud-slow"><svg viewBox="0 0 540 320"><path d="M105,185 Q72,128 150,110 Q192,68 275,92 Q340,58 412,94 Q475,68 512,122 Q568,108 580,168 Q615,205 572,248 Q602,305 558,332 Q508,365 452,345 Q395,370 340,345 Q285,365 248,330 Q212,348 188,300 Q158,278 178,230 Q155,205 105,185Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-14 cloud-fast"><svg viewBox="0 0 600 360"><path d="M120,198 Q82,140 162,120 Q202,76 288,98 Q355,62 428,96 Q495,68 535,122 Q598,108 612,172 Q652,210 608,258 Q640,312 592,342 Q538,378 478,358 Q418,388 360,358 Q305,378 268,342 Q230,360 200,312 Q172,290 192,242 Q168,218 120,198Z" fill="#ffffff" opacity="0.95"/></svg></div>
-    <div class="cloud-layer cloud-15 cloud-medium"><svg viewBox="0 0 530 320"><path d="M95,168 Q65,112 135,95 Q172,58 248,80 Q312,50 382,84 Q442,60 475,112 Q528,100 540,155 Q572,190 535,232 Q562,282 520,308 Q472,338 418,320 Q362,342 312,320 Q262,338 225,306 Q188,322 162,278 Q135,256 155,212 Q132,190 95,168Z" fill="#ffffff" opacity="0.95"/></svg></div>
 
-    <div class="opening-overlay" id="openingOverlay">
-        <div class="anim-cloud anim-cloud-1"></div><div class="anim-cloud anim-cloud-2"></div><div class="anim-cloud anim-cloud-3"></div>
-        <div class="anim-cloud anim-cloud-4"></div><div class="anim-cloud anim-cloud-5"></div><div class="anim-cloud anim-cloud-6"></div>
-        <div class="anim-cloud anim-cloud-7"></div><div class="anim-cloud anim-cloud-8"></div><div class="anim-cloud anim-cloud-9"></div>
-        <div class="anim-cloud anim-cloud-10"></div><div class="anim-cloud anim-cloud-11"></div><div class="anim-cloud anim-cloud-12"></div>
-        
-        <img class="hero-photo" id="heroPhoto" src="https://i.ibb.co/R4DJNyzb/480537000-1160797116050019-3162382381485042262-n.jpg" alt="A and X" onerror="this.style.display='none'">
-        
-        <div class="names-container">
-            <div class="initials-large">A and X</div>
-            <div class="date-small">16 May 2026</div>
-        </div>
-        <button class="open-btn" id="openBtn">Taklifnoma ochish ✧</button>
-    </div>
+<canvas id="petalsCanvas"></canvas>
 
-    <div class="full-invitation" id="fullInvitation">
-        <div class="invitation-inner">
-            <div class="invite-card">
-                <div class="flower-left"></div><div class="flower-right"></div>
-                <div class="star-decoration">❦</div>
-                <div style="font-size:2.5rem; text-align:center; font-family:'Allura', 'Great Vibes', cursive;">A and X</div>
-                <div style="margin-top:0.6rem; text-align:center; font-size:1rem;">16 May 2026</div>
-                <div style="margin-top:0.2rem; text-align:center; font-size:0.8rem; color:#a77a66;">Amru Mar'uf · Toshkent</div>
-            </div>
-            
-            <div class="invite-card">
-                <div class="flower-left"></div><div class="flower-right"></div>
-                <div class="star-decoration">✧</div>
-                <div class="invitation-text">
-                    <p>
-ASSALOMU ALAYKUM
+<!-- ══ SPLASH ══ -->
+<div id="splash">
+  <video id="splashVideo" muted playsinline preload="auto">
+    <source src="video1.mp4" type="video/mp4">
+  </video>
+  <div class="splash-overlay"></div>
+  <div class="video-progress" id="videoProgress"></div>
 
-Xurmatli Qadirdonlar !
-Sizni aziz farzandlarimizning
-nikox to'ylari munosabati bilan
-2026 yil 16 may kuni soat 10:00da
-yoziladigan "Amru Mar'uf"
-dasturxonimizaga taklif etamiz
+  <div class="splash-content">
+    <div class="splash-salom">Assalomu alaykum!</div>
+    <div class="splash-sub">Hurmatli Mehmonimiz</div>
+    <div class="splash-divider">✦</div>
 
-Xurmat va extirom ila :
-Abdulqodir Mirzarasulovlar oilasi
-
-Manzil: Shayxontoxur tumani
-"Xuvaydo" restorani
-                    </p>
-                </div>
-                <div class="star-decoration">✧</div>
-            </div>
-            
-            <div class="invite-card">
-                <div class="flower-left"></div><div class="flower-right"></div>
-                <div class="section-title">To'yga qadar</div>
-                
-                <div id="timerGrid" class="timer-grid">
-                    <div class="timer-cell"><div class="timer-number" id="daysCount">00</div><div class="timer-label">DNEY</div></div>
-                    <div class="timer-cell"><div class="timer-number" id="hoursCount">00</div><div class="timer-label">SOAT</div></div>
-                    <div class="timer-cell"><div class="timer-number" id="minutesCount">00</div><div class="timer-label">DAQIQA</div></div>
-                    <div class="timer-cell"><div class="timer-number" id="secondsCount">00</div><div class="timer-label">SONIYA</div></div>
-                </div>
-                
-                <div id="weddingDayMessage" style="display: none; text-align: center;">
-                    <div class="welcome-text">
-                        <p>Bugun! 🌸</p>
-                        <p>16 May 2026 — eng baxtli kun</p>
-                        <p>Sizni soat 10:00 da kutamiz ✨</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="invite-card">
-                <div class="flower-left"></div><div class="flower-right"></div>
-                <div class="section-title">Amru Mar'uf</div>
-                <div class="venue-photo">
-                    <img src="https://i.ibb.co/R4DJNyzb/480537000-1160797116050019-3162382381485042262-n.jpg" alt="Xuvaydo restorani" loading="lazy" style="width:100%; height:auto; border-radius:28px;" onerror="this.src='https://placehold.co/600x400/f0e6dc/a77a66?text=Xuvaydo+Restorani'">
-                </div>
-                <button class="location-btn" id="locationBtn">📍 Xaritada ochish →</button>
-                <div style="margin-top:0.8rem; font-size:0.7rem; text-align:center; color:#a77a66;">Shayxontoxur tumani, "Xuvaydo" restorani</div>
-            </div>
-            
-            <div class="invite-card">
-                <div class="flower-left"></div><div class="flower-right"></div>
-                <div class="welcome-text">
-                    <p>Aziz mehmonlar!</p>
-                    <p>Sizning kelib ishtirok etishingiz<br>
-                    biz uchun faqat taklif emas — qalb quvonchidir.</p>
-                    <p>Biz sizni 10:00 da intizorlik bilan kutamiz 🤍</p>
-                </div>
-            </div>
-            
-            <div class="invite-card">
-                <div class="flower-left"></div><div class="flower-right"></div>
-                <div class="star-decoration">✨ 🕌 ✨</div>
-                <div class="arabic-prayer">
-                    Allohumma barik lahuma<br>
-                    wa barik alayhima<br>
-                    wa jma’ baynahuma fi khayr
-                </div>
-                <div class="star-decoration">✨ 🕌 ✨</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="youtube-player"><iframe id="youtubeAudio" width="1" height="1" src="" allow="autoplay; encrypted-media" style="border:0"></iframe></div>
-    <div class="music-controller" id="musicController"><button class="music-btn" id="musicToggleBtn">🔇</button></div>
+    <button class="btn-open" id="openBtn">
+      <div class="btn-circle">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <span class="btn-label">Ochish</span>
+    </button>
+  </div>
 </div>
 
+<!-- ══ TRANSITION ══ -->
+<div id="transitionScreen">
+  <img class="trans-img" src="https://i.postimg.cc/rFQtdrJ0/video-end-DNj-Ru6x-E.jpg" alt="">
+  <div class="trans-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div id="mainContent">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-stars" id="heroStars"></div>
+
+    <div class="hero-img-wrap reveal">
+      <div class="hero-badge">NIKOH TO'YI TAKLIFNOMASI</div>
+      <img class="hero-img"
+           src="https://i.postimg.cc/632DZnRF/kitob.webp"
+           alt="kitob">
+    </div>
+
+    <div class="hero-text reveal" style="transition-delay:0.15s">
+      <div class="hero-small">Sizni farzandlarimiz</div>
+      <div class="hero-names">
+        Abdullaziz
+        <span class="va">va</span>
+        Begoyim
+      </div>
+      <div class="hero-invite">nikoh to'ylari munosabati bilan lutfan taklif etamiz</div>
+      <div class="hero-ayat reveal" style="transition-delay:0.3s">
+        <div class="ayat-bismillah">۞</div>
+        <div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div>
+        <div class="ayat-source">Rum surasi · 21-oyat</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="section">
+    <div class="container">
+      <div class="cal-wrap">
+        <div class="flowers left"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div>
+        <div class="flowers right"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div>
+        <div class="cal-card reveal">
+          <div class="sec-label">To'y sanasi</div>
+          <div class="sec-h2">16 Iyun, 2026</div>
+          <div class="sec-sub">Chorshanba · Soat 18:00</div>
+
+          <div class="cal-grid">
+            <div class="cal-hd">Du</div><div class="cal-hd">Se</div><div class="cal-hd">Ch</div>
+            <div class="cal-hd">Pa</div><div class="cal-hd">Ju</div><div class="cal-hd">Sh</div><div class="cal-hd">Ya</div>
+            <div class="cal-d past">1</div><div class="cal-d past">2</div><div class="cal-d past">3</div>
+            <div class="cal-d past">4</div><div class="cal-d past">5</div><div class="cal-d past">6</div><div class="cal-d past">7</div>
+            <div class="cal-d past">8</div><div class="cal-d past">9</div><div class="cal-d past">10</div>
+            <div class="cal-d past">11</div><div class="cal-d past">12</div><div class="cal-d past">13</div><div class="cal-d past">14</div>
+            <div class="cal-d past">15</div><div class="cal-d special">16</div><div class="cal-d">17</div>
+            <div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div><div class="cal-d">21</div>
+            <div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div>
+            <div class="cal-d">25</div><div class="cal-d">26</div><div class="cal-d">27</div><div class="cal-d">28</div>
+            <div class="cal-d">29</div><div class="cal-d">30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMER -->
+  <div class="timer-section">
+    <div class="timer-bg">
+      <canvas id="timerStarCanvas"></canvas>
+      <div class="timer-mosque">🕌</div>
+      <div class="timer-label-top">To'yga qolgan vaqt</div>
+      <div class="timer-grid">
+        <div class="timer-box reveal">
+          <span class="timer-num" id="days">--</span>
+          <span class="timer-unit">Kun</span>
+        </div>
+        <div class="timer-box reveal" style="transition-delay:0.1s">
+          <span class="timer-num" id="hours">--</span>
+          <span class="timer-unit">Soat</span>
+        </div>
+        <div class="timer-box reveal" style="transition-delay:0.2s">
+          <span class="timer-num" id="minutes">--</span>
+          <span class="timer-unit">Daqiqa</span>
+        </div>
+        <div class="timer-box reveal" style="transition-delay:0.3s">
+          <span class="timer-num" id="seconds">--</span>
+          <span class="timer-unit">Soniya</span>
+        </div>
+      </div>
+      <div class="hadis-box reveal" style="transition-delay:0.4s">
+        <div class="hadis-q">"</div>
+        <div class="hadis-text">Nikoh mening sunnatimdir. Kim mening sunnatimga amal qilsa, u mendan.</div>
+        <div class="hadis-src">Hadisi sharif</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO 2 -->
+  <div class="video-section">
+    <div class="video-card reveal">
+      <canvas id="starCanvas2"></canvas>
+      <video id="video2" autoplay loop muted playsinline disablePictureInPicture>
+        <source src="video2.mp4" type="video/mp4">
+      </video>
+      <div class="video-caption">✨ &nbsp; To'y lavhalari &nbsp; ✨</div>
+    </div>
+  </div>
+
+  <!-- VENUE -->
+  <div class="section">
+    <div class="container">
+      <div class="venue-card reveal">
+        <img class="venue-img"
+             src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg"
+             alt="Grant Elite">
+        <div class="venue-body">
+          <div class="sec-label">To'y o'tkaziladigan joy</div>
+          <div class="venue-name">Grant Elite</div>
+          <div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div>
+          <div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div>
+          <div class="map-btns">
+            <a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a>
+            <a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="section">
+    <div class="container">
+      <div class="contacts-card reveal">
+        <span class="hat-emoji">🎩</span>
+        <div class="contacts-title">Bog'lanish</div>
+        <div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div>
+        <div class="contact-item">
+          <span class="contact-label">📱 Telegram</span>
+          <span class="contact-val">@Abdullaziz</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">📞 Telefon</span>
+          <span class="contact-val">+998 94 123 14 03</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">📷 Instagram</span>
+          <span class="contact-val">@Abdullaziz_to'y</span>
+        </div>
+        <div class="family-tag">Sadikovlar oilasi</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /mainContent -->
+
+<!-- MUSIC -->
+<div class="music-btn" id="musicBtn">
+  <span class="music-icon">♪</span>
+  <div class="music-bars">
+    <div class="bar"></div><div class="bar"></div>
+    <div class="bar"></div><div class="bar"></div>
+  </div>
+</div>
+<audio id="bgAudio" loop preload="auto">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-    const heroPhoto = document.getElementById('heroPhoto');
-    if (heroPhoto) heroPhoto.src = "https://i.ibb.co/R4DJNyzb/480537000-1160797116050019-3162382381485042262-n.jpg";
-    
-    const targetDate = new Date(2026, 4, 16, 10, 0, 0).getTime();
-    
-    function updateTimer() {
-        const now = Date.now();
-        const diff = targetDate - now;
-        if (diff <= 0) { 
-            document.getElementById('timerGrid').style.display = 'none';
-            document.getElementById('weddingDayMessage').style.display = 'block';
-            return; 
-        }
-        document.getElementById('timerGrid').style.display = 'flex';
-        document.getElementById('weddingDayMessage').style.display = 'none';
-        const days = Math.floor(diff / (1000*60*60*24));
-        const hours = Math.floor((diff % 86400000) / 3600000);
-        const minutes = Math.floor((diff % 3600000) / 60000);
-        const seconds = Math.floor((diff % 60000) / 1000);
-        document.getElementById('daysCount').innerHTML = days < 10 ? '0'+days : days;
-        document.getElementById('hoursCount').innerHTML = hours < 10 ? '0'+hours : hours;
-        document.getElementById('minutesCount').innerHTML = minutes < 10 ? '0'+minutes : minutes;
-        document.getElementById('secondsCount').innerHTML = seconds < 10 ? '0'+seconds : seconds;
-    }
-    updateTimer();
-    setInterval(updateTimer, 1000);
-    
-    const cards = document.querySelectorAll('.invite-card');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-    }, { threshold: 0.2 });
-    cards.forEach(c => observer.observe(c));
-    
-    const YOUTUBE_VIDEO_ID = "KHNwW7p-csg";
-    const START_TIME = 212;
-    const youtubeIframe = document.getElementById('youtubeAudio');
-    const musicToggleBtn = document.getElementById('musicToggleBtn');
-    let musicStarted = false, isMuted = false;
-    
-    function getMusicUrl(mute = false) {
-        let muteParam = mute ? "&mute=1" : "&mute=0";
-        return `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&start=${START_TIME}${muteParam}&loop=1&playlist=${YOUTUBE_VIDEO_ID}&controls=0&showinfo=0&disablekb=1&modestbranding=1&rel=0`;
-    }
-    
-    function startMusic() { 
-        if (musicStarted) return; 
-        musicStarted = true; 
-        youtubeIframe.src = getMusicUrl(false);
-        musicToggleBtn.innerHTML = '🔊'; 
-        isMuted = false; 
-    }
-    
-    function toggleMute() { 
-        if (!musicStarted) { startMusic(); return; } 
-        if (isMuted) { 
-            youtubeIframe.src = getMusicUrl(false);
-            musicToggleBtn.innerHTML = '🔊'; 
-            isMuted = false; 
-        } else { 
-            youtubeIframe.src = getMusicUrl(true);
-            musicToggleBtn.innerHTML = '🔇'; 
-            isMuted = true; 
-        } 
-    }
-    
-    const googleMapsUrl = "https://maps.app.goo.gl/9udVitwn1xCrwqiJ6";
-    const yandexMapsUrl = "https://yandex.uz/maps/-/CPSGI42P";
-    
-    function showMapChoice() {
-        const overlay = document.createElement('div');
-        overlay.className = 'map-choice-overlay';
-        overlay.innerHTML = `
-            <div class="map-choice-card">
-                <h3>🗺️ Qaysi xarita?</h3>
-                <button class="map-btn google-btn" id="chooseGoogle">📍 Google Карты</button>
-                <button class="map-btn yandex-btn" id="chooseYandex">🗺️ Яндекс Карты</button>
-                <button class="map-btn cancel-map-btn" id="cancelMap">Bekor qilish</button>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-        setTimeout(() => { overlay.style.opacity = '1'; }, 10);
-        document.getElementById('chooseGoogle').onclick = () => { window.open(googleMapsUrl, '_blank'); closeOverlay(); };
-        document.getElementById('chooseYandex').onclick = () => { window.open(yandexMapsUrl, '_blank'); closeOverlay(); };
-        document.getElementById('cancelMap').onclick = () => closeOverlay();
-        function closeOverlay() { overlay.style.opacity = '0'; setTimeout(() => overlay.remove(), 300); }
-    }
-    
-    const openingOverlay = document.getElementById('openingOverlay');
-    const fullInvitation = document.getElementById('fullInvitation');
-    const closeInvBtn = document.getElementById('closeInvitationBtn');
-    const musicController = document.getElementById('musicController');
-    const openBtn = document.getElementById('openBtn');
-    
-    setTimeout(() => { musicController.classList.add('active'); }, 1500);
-    
-    let isOpening = false;
-    openBtn.addEventListener('click', function(e) {
-        if (isOpening) return;
-        isOpening = true;
-        startMusic();
-        const animClouds = document.querySelectorAll('.anim-cloud');
-        const directions = [
-            'translateX(-620px) translateY(-280px) scale(2.8)', 'translateX(680px) translateY(300px) scale(2.9)', 'translateX(500px) translateY(-350px) scale(2.7)',
-            'translateX(-580px) translateY(420px) scale(2.8)', 'translateX(420px) translateY(-220px) scale(2.6)', 'translateX(-480px) translateY(-180px) scale(2.7)',
-            'translateX(580px) translateY(260px) scale(2.8)', 'translateX(-620px) translateY(340px) scale(2.7)', 'translateX(360px) translateY(-450px) scale(2.6)',
-            'translateX(640px) translateY(-240px) scale(2.7)', 'translateX(-420px) translateY(480px) scale(2.7)', 'translateX(340px) translateY(420px) scale(2.6)'
-        ];
-        animClouds.forEach((cloud, idx) => { 
-            setTimeout(() => { 
-                cloud.style.transition = 'all 2s cubic-bezier(0.33, 1, 0.68, 1)'; 
-                cloud.style.opacity = '1'; 
-                cloud.style.transform = directions[idx]; 
-                setTimeout(() => { cloud.style.opacity = '0'; }, 1800); 
-            }, idx * 30); 
-        });
-        setTimeout(() => {
-            openingOverlay.classList.add('hide');
-            fullInvitation.classList.add('open');
-        }, 2000);
+(function(){
+
+/* ─────────── PETALS ─────────── */
+const pc = document.getElementById('petalsCanvas');
+const pctx = pc.getContext('2d');
+let pW, pH, petals = [];
+const pColors = ['#ffc2d0','#ffd6e0','#c8e6c4','#e8d5a3','#f5c8b8'];
+class Petal {
+  reset(){
+    this.x = Math.random()*pW;
+    this.y = -20;
+    this.sz = 3+Math.random()*7;
+    this.vy = 0.25+Math.random()*0.75;
+    this.vx = (Math.random()-.5)*0.4;
+    this.rot = Math.random()*Math.PI*2;
+    this.rv = (Math.random()-.5)*0.012;
+    this.a = 0.35+Math.random()*0.45;
+    this.c = pColors[Math.floor(Math.random()*pColors.length)];
+  }
+  constructor(){ this.reset(); this.y = Math.random()*pH; }
+  update(){
+    this.x+=this.vx; this.y+=this.vy; this.rot+=this.rv;
+    if(this.y>pH+20) this.reset();
+    if(this.x<-20) this.x=pW+20;
+    if(this.x>pW+20) this.x=-20;
+  }
+  draw(){
+    pctx.save();
+    pctx.translate(this.x,this.y);
+    pctx.rotate(this.rot);
+    pctx.globalAlpha=this.a;
+    pctx.beginPath();
+    pctx.ellipse(0,0,this.sz*.5,this.sz*.3,0,0,Math.PI*2);
+    pctx.fillStyle=this.c;
+    pctx.fill();
+    pctx.restore();
+  }
+}
+function initPetals(){
+  pW=pc.width=window.innerWidth;
+  pH=pc.height=window.innerHeight;
+  petals=[];
+  for(let i=0;i<50;i++) petals.push(new Petal());
+}
+function animPetals(){
+  pctx.clearRect(0,0,pW,pH);
+  petals.forEach(p=>{p.update();p.draw();});
+  requestAnimationFrame(animPetals);
+}
+initPetals(); animPetals();
+window.addEventListener('resize',initPetals);
+
+/* ─────────── HERO STARS ─────────── */
+const heroStarsEl = document.getElementById('heroStars');
+for(let i=0;i<22;i++){
+  const s = document.createElement('div');
+  s.className = 'star';
+  const sz = 1+Math.random()*3;
+  s.style.cssText = `
+    width:${sz}px; height:${sz}px;
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    --dur:${2+Math.random()*3}s;
+    animation-delay:${Math.random()*3}s;
+  `;
+  heroStarsEl.appendChild(s);
+}
+
+/* ─────────── STARS CANVAS helper ─────────── */
+function initStarCanvas(canvas, count){
+  const ctx = canvas.getContext('2d');
+  const stars = [];
+  function resize(){
+    const r = canvas.parentElement.getBoundingClientRect();
+    canvas.width = r.width; canvas.height = r.height;
+    canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px';
+    stars.length=0;
+    for(let i=0;i<count;i++) stars.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:0.8+Math.random()*2,
+      a:0.3+Math.random()*0.7,
+      sp:0.5+Math.random()*1.2,
+      ph:Math.random()*Math.PI*2
     });
-    
-    closeInvBtn.addEventListener('click', () => fullInvitation.classList.remove('open'));
-    musicToggleBtn.addEventListener('click', toggleMute);
-    document.getElementById('locationBtn')?.addEventListener('click', () => showMapChoice());
-    document.getElementById('rsvpConfirmBtn').addEventListener('click', () => { 
-        const toast = document.createElement('div'); 
-        toast.innerText = '✨ Rahmat, javobingiz qabul qilindi! ✨'; 
-        toast.style.cssText = 'position:fixed; bottom:90px; left:20px; right:20px; background:rgba(255,245,235,0.96); backdrop-filter:blur(16px); border-radius:50px; padding:0.8rem; text-align:center; font-size:0.8rem; color:#5d3e36; z-index:300; opacity:0; transition:opacity 0.2s;'; 
-        document.body.appendChild(toast); 
-        setTimeout(() => toast.style.opacity = '1', 10); 
-        setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2500); 
-    });
-    
-    const inviteScroll = document.getElementById('fullInvitation');
-    inviteScroll.addEventListener('scroll', () => { 
-        const y = inviteScroll.scrollTop; 
-        document.querySelectorAll('.cloud-layer').forEach((cloud, i) => { 
-            const speed = 0.003 + (i * 0.0002); 
-            cloud.style.transform = `translateY(${y * speed}px)`; 
-        }); 
-    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const t=Date.now()/1000;
+    for(const s of stars){
+      const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5);
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  setTimeout(()=>{resize();draw();},100);
+  window.addEventListener('resize',resize);
+}
+initStarCanvas(document.getElementById('timerStarCanvas'),120);
+initStarCanvas(document.getElementById('starCanvas2'),150);
+
+/* ─────────── TIMER ─────────── */
+function tick(){
+  const target=new Date(2026,5,16,18,0,0);
+  let diff=target-new Date();
+  if(diff<0) diff=0;
+  document.getElementById('days').textContent=Math.floor(diff/864e5);
+  document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5);
+  document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4);
+  document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3);
+}
+tick(); setInterval(tick,1000);
+
+/* ─────────── SCROLL REVEAL ─────────── */
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
+},{threshold:0.12});
+revealEls.forEach(el=>obs.observe(el));
+
+/* ─────────── MUSIC ─────────── */
+const audio = document.getElementById('bgAudio');
+const musicBtn = document.getElementById('musicBtn');
+let playing = false;
+audio.volume = 0.3;
+function tryPlay(){ audio.play().then(()=>{ playing=true; musicBtn.classList.add('playing'); }).catch(()=>{}); }
+musicBtn.addEventListener('click',e=>{
+  e.stopPropagation();
+  if(playing){ audio.pause(); playing=false; musicBtn.classList.remove('playing'); }
+  else tryPlay();
+});
+
+/* ─────────── SPLASH → TRANSITION → MAIN ─────────── */
+const splash = document.getElementById('splash');
+const splashVideo = document.getElementById('splashVideo');
+const progressBar = document.getElementById('videoProgress');
+const transScreen = document.getElementById('transitionScreen');
+const mainContent = document.getElementById('mainContent');
+const openBtn = document.getElementById('openBtn');
+
+openBtn.addEventListener('click',()=>{
+  // показать видео фон
+  splashVideo.style.opacity='0';
+  splashVideo.style.transition='opacity 1s ease';
+  splashVideo.play().then(()=>{
+    splashVideo.style.opacity='1';
+  }).catch(()=>{});
+
+  // прогресс бар
+  function updateProg(){
+    if(splashVideo.duration){
+      progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%';
+    }
+    if(!splashVideo.ended) requestAnimationFrame(updateProg);
+  }
+  updateProg();
+
+  // убрать кнопку с анимацией
+  openBtn.style.transition='opacity 0.4s ease, transform 0.4s ease';
+  openBtn.style.opacity='0'; openBtn.style.transform='scale(0.8)';
+  setTimeout(()=>openBtn.style.display='none',400);
+
+  // когда видео кончится
+  splashVideo.onended=()=>{
+    // fade splash → transition
+    splash.style.transition='opacity 0.6s ease';
+    splash.style.opacity='0';
+    setTimeout(()=>{
+      splash.classList.add('hide');
+      transScreen.classList.add('show');
+      // после показа картинки → главный контент
+      setTimeout(()=>{
+        transScreen.classList.add('hide');
+        mainContent.classList.add('visible');
+        tryPlay();
+        window.scrollTo(0,0);
+        // активировать reveal для первых элементов
+        setTimeout(()=>{
+          revealEls.forEach(el=>{
+            const r=el.getBoundingClientRect();
+            if(r.top<window.innerHeight) el.classList.add('in');
+          });
+        },200);
+      },2000);
+    },600);
+  };
+});
+
+})();
 </script>
 </body>
 </html>
-```
