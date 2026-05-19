@@ -105,41 +105,34 @@ body {
 }
 .splash-divider::after { background: linear-gradient(to left, transparent, var(--gold)); }
 
-/* кнопка ОТКРЫТЬ */
+/* КНОПКА TAKLIFNOMA */
 .btn-open {
   position: relative;
-  background: transparent;
+  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
   border: none;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-.btn-circle {
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  background: var(--green-dark);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 0 0 rgba(45,90,61,0.5);
-  animation: pulseBtn 2s infinite;
-  transition: transform 0.2s;
-}
-.btn-open:active .btn-circle { transform: scale(0.92); }
-@keyframes pulseBtn {
-  0% { box-shadow: 0 0 0 0 rgba(45,90,61,0.6); }
-  70% { box-shadow: 0 0 0 20px rgba(45,90,61,0); }
-  100% { box-shadow: 0 0 0 0 rgba(45,90,61,0); }
-}
-.btn-circle svg { width: 26px; height: 26px; fill: white; margin-left: 4px; }
-.btn-label {
+  padding: 16px 40px;
+  border-radius: 12px;
   font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.4em;
-  color: var(--gold-light);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: white;
   text-transform: uppercase;
+  box-shadow: 0 8px 28px rgba(45,90,61,0.45), 0 2px 0 rgba(255,255,255,0.12) inset;
+  transition: all 0.25s ease;
+  margin-top: 10px;
+  overflow: hidden;
 }
+.btn-open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  border-radius: 12px;
+}
+.btn-open:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(45,90,61,0.5); }
+.btn-open:active { transform: scale(0.97) translateY(0); }
 
 /* progress bar while video plays */
 .video-progress {
@@ -727,10 +720,59 @@ body {
 /* ── SCROLL REVEAL ── */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
 }
-.reveal.in { opacity: 1; transform: none; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-left.in { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-right.in { opacity: 1; transform: translateX(0); }
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.9s cubic-bezier(0.34,1.56,0.64,1), transform 0.9s cubic-bezier(0.34,1.56,0.64,1);
+}
+.reveal-scale.in { opacity: 1; transform: scale(1); }
+
+/* scroll progress bar */
+#scrollBar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(to right, var(--green-light), var(--gold), var(--rose));
+  z-index: 1500;
+  transition: width 0.1s linear;
+}
+
+/* section transition line */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 20px 40px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.section-divider.in { opacity: 1; }
+.div-line {
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,169,110,0.5));
+}
+.div-line.r { background: linear-gradient(to left, transparent, rgba(201,169,110,0.5)); }
+.div-gem { font-size: 0.7rem; color: var(--gold); }
 
 /* mobile tweaks */
 @media (max-width: 400px) {
@@ -743,6 +785,7 @@ body {
 </head>
 <body>
 
+<div id="scrollBar"></div>
 <canvas id="petalsCanvas"></canvas>
 
 <!-- ══ SPLASH ══ -->
@@ -758,12 +801,7 @@ body {
     <div class="splash-sub">Hurmatli Mehmonimiz</div>
     <div class="splash-divider">✦</div>
 
-    <button class="btn-open" id="openBtn">
-      <div class="btn-circle">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </div>
-      <span class="btn-label">Ochish</span>
-    </button>
+    <button class="btn-open" id="openBtn">TAKLIFNOMA</button>
   </div>
 </div>
 
@@ -805,6 +843,7 @@ body {
   </div>
 
   <!-- CALENDAR -->
+  <div class="section-divider reveal"><div class="div-line"></div><div class="div-gem">✦</div><div class="div-line r"></div></div>
   <div class="section">
     <div class="container">
       <div class="cal-wrap">
@@ -872,6 +911,7 @@ body {
       <video id="video2" autoplay loop muted playsinline disablePictureInPicture>
         <source src="video2.mp4" type="video/mp4">
       </video>
+      <div class="video-caption">✨ &nbsp; To'y lavhalari &nbsp; ✨</div>
     </div>
   </div>
 
@@ -930,14 +970,38 @@ body {
     <div class="bar"></div><div class="bar"></div>
   </div>
 </div>
-<audio id="bgAudio" loop preload="auto">
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+<!-- Musiqa fayli: music.mp3 ni shu papkaga qo'ying -->
+<audio id="bgAudio" loop preload="auto" style="display:none">
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-(function(){
+/* ═══ AUDIO ═══ */
+var _audio = document.getElementById('bgAudio');
+var _musicOn = false;
+var _musicBtn = document.getElementById('musicBtn');
+_audio.volume = 0.5;
 
-/* ─────────── PETALS ─────────── */
+function startMusic() {
+  _audio.currentTime = 0;
+  _audio.play().then(function() {
+    _musicOn = true;
+    _musicBtn.classList.add('playing');
+  }).catch(function() {});
+}
+
+function stopMusic() {
+  _audio.pause();
+  _musicOn = false;
+  _musicBtn.classList.remove('playing');
+}
+
+_musicBtn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (_musicOn) stopMusic(); else startMusic();
+});
+
+(function(){
 const pc = document.getElementById('petalsCanvas');
 const pctx = pc.getContext('2d');
 let pW, pH, petals = [];
@@ -1051,24 +1115,29 @@ function tick(){
 }
 tick(); setInterval(tick,1000);
 
-/* ─────────── SCROLL REVEAL ─────────── */
-const revealEls = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
-},{threshold:0.12});
-revealEls.forEach(el=>obs.observe(el));
+/* ─────────── SCROLL PROGRESS BAR ─────────── */
+const scrollBar = document.getElementById('scrollBar');
+if(scrollBar){
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    scrollBar.style.width = (pct * 100) + '%';
+  }, { passive: true });
+}
 
-/* ─────────── MUSIC ─────────── */
-const audio = document.getElementById('bgAudio');
-const musicBtn = document.getElementById('musicBtn');
-let playing = false;
-audio.volume = 0.3;
-function tryPlay(){ audio.play().then(()=>{ playing=true; musicBtn.classList.add('playing'); }).catch(()=>{}); }
-musicBtn.addEventListener('click',e=>{
-  e.stopPropagation();
-  if(playing){ audio.pause(); playing=false; musicBtn.classList.remove('playing'); }
-  else tryPlay();
-});
+/* ─────────── ENHANCED SCROLL REVEAL ─────────── */
+const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const siblings = Array.from(e.target.parentElement.children).filter(c => c.classList.contains('reveal') || c.classList.contains('timer-box'));
+      const idx = siblings.indexOf(e.target);
+      const delay = idx > 0 ? idx * 90 : 0;
+      setTimeout(() => e.target.classList.add('in'), delay);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold: 0.08, rootMargin: '0px 0px -20px 0px'});
+allReveal.forEach(el => obs.observe(el));
 
 /* ─────────── SPLASH → TRANSITION → MAIN ─────────── */
 const splash = document.getElementById('splash');
@@ -1079,46 +1148,36 @@ const mainContent = document.getElementById('mainContent');
 const openBtn = document.getElementById('openBtn');
 
 openBtn.addEventListener('click',()=>{
-  // показать видео фон
-  splashVideo.style.opacity='0';
-  splashVideo.style.transition='opacity 1s ease';
-  splashVideo.play().then(()=>{
-    splashVideo.style.opacity='1';
-  }).catch(()=>{});
+  // Запускаем музыку сразу при нажатии
+  startMusic();
 
-  // прогресс бар
+  splashVideo.style.transition='opacity 1s ease';
+  splashVideo.play().then(()=>{ splashVideo.style.opacity='1'; }).catch(()=>{});
+
   function updateProg(){
-    if(splashVideo.duration){
-      progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%';
-    }
+    if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%';
     if(!splashVideo.ended) requestAnimationFrame(updateProg);
   }
   updateProg();
 
-  // убрать кнопку с анимацией
   openBtn.style.transition='opacity 0.4s ease, transform 0.4s ease';
-  openBtn.style.opacity='0'; openBtn.style.transform='scale(0.8)';
-  setTimeout(()=>openBtn.style.display='none',400);
+  openBtn.style.opacity='0'; openBtn.style.transform='scale(0.9)';
+  setTimeout(()=>openBtn.style.display='none', 400);
 
-  // когда видео кончится
-  splashVideo.onended=()=>{
-    // fade splash → transition
+  splashVideo.onended = () => {
     splash.style.transition='opacity 0.6s ease';
     splash.style.opacity='0';
     setTimeout(()=>{
       splash.classList.add('hide');
       transScreen.classList.add('show');
-      // после показа картинки → главный контент
       setTimeout(()=>{
         transScreen.classList.add('hide');
         mainContent.classList.add('visible');
-        tryPlay();
         window.scrollTo(0,0);
-        // активировать reveal для первых элементов
         setTimeout(()=>{
-          revealEls.forEach(el=>{
+          allReveal.forEach(el=>{
             const r=el.getBoundingClientRect();
-            if(r.top<window.innerHeight) el.classList.add('in');
+            if(r.top < window.innerHeight) el.classList.add('in');
           });
         },200);
       },2000);
