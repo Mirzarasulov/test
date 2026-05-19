@@ -179,8 +179,25 @@ body {
   transition: opacity 0.6s ease 0.4s;
 }
 #transitionScreen.show .trans-ornament { opacity: 1; }
+.trans-gold-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.6rem;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(201,169,110,0.5);
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+  text-align: center;
+  margin-top: -8px;
+}
+#transitionScreen.show .trans-gold-text {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-#petalsCanvas {
+/* ── ЗВЁЗДНЫЙ ДОЖДЬ (вместо лепестков) ── */
+#starsCanvas {
   position: fixed;
   inset: 0;
   width: 100%; height: 100%;
@@ -620,10 +637,11 @@ body {
   bottom: 0; left: 0; right: 0; height: 4px;
   background: linear-gradient(to right, var(--green-light), var(--gold), var(--rose-light));
 }
-.hat-emoji {
-  font-size: 2.8rem;
+.hat-img {
+  width: 70px;
+  height: auto;
   display: block;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
   animation: floatHat 2.5s ease-in-out infinite;
 }
 @keyframes floatHat {
@@ -753,7 +771,7 @@ body {
 </head>
 <body>
 <div id="scrollBar"></div>
-<canvas id="petalsCanvas"></canvas>
+<canvas id="starsCanvas"></canvas>
 
 <div id="splash">
   <video id="splashVideo" muted playsinline preload="auto"><source src="video1.mp4" type="video/mp4"></video>
@@ -769,6 +787,7 @@ body {
 
 <div id="transitionScreen">
   <img class="trans-img" src="https://i.postimg.cc/rFQtdrJ0/video-end-DNj-Ru6x-E.jpg" alt="">
+  <div class="trans-gold-text">Yangi hayot sari ilk qadam</div>
   <div class="trans-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 </div>
 
@@ -789,7 +808,7 @@ body {
 
   <div class="section"><div class="container"><div class="venue-card reveal"><img class="venue-img" src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg" alt="Grant Elite"><div class="venue-body"><div class="sec-label">To'y o'tkaziladigan joy</div><div class="venue-name">Grant Elite</div><div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div><div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div><div class="map-btns"><a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a><a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a><a href="navkar.html" class="map-btn navkar">✨ Navkar ✨</a></div></div></div></div></div>
 
-  <div class="section"><div class="container"><div class="contacts-card reveal"><span class="hat-emoji">🎩</span><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@Abdullaziz</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998 94 123 14 03</span></div><div class="contact-item"><span class="contact-label">📷 Instagram</span><span class="contact-val">@Abdullaziz_to'y</span></div><div class="family-tag">Sadikovlar oilasi</div></div></div></div>
+  <div class="section"><div class="container"><div class="contacts-card reveal"><img src="https://i.postimg.cc/cLTyGsds/hat.webp" alt="hat" class="hat-img"><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@Abdullaziz</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998 94 123 14 03</span></div><div class="contact-item"><span class="contact-label">📷 Instagram</span><span class="contact-val">@Abdullaziz_to'y</span></div><div class="family-tag">Sadikovlar oilasi</div></div></div></div>
 </div>
 
 <div class="music-btn" id="musicBtn"><span class="music-icon">♪</span><div class="music-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
@@ -807,6 +826,69 @@ body {
   }
   function pauseMusic() { audio.pause(); isMusicPlaying = false; musicBtn.classList.remove('playing'); }
   musicBtn.addEventListener('click', (e) => { e.stopPropagation(); isMusicPlaying ? pauseMusic() : startMusic(); });
+
+  // звездный дождь (медленно падающие звёзды)
+  const sc = document.getElementById('starsCanvas');
+  const ctx = sc.getContext('2d');
+  let sw, sh, stars = [];
+  const starColors = ['#fff8e7', '#ffefc0', '#ffe8a3', '#f5e0a0', '#e8d5a3'];
+  class FallingStar {
+    reset(){
+      this.x = Math.random() * sw;
+      this.y = -10;
+      this.size = 1.5 + Math.random() * 3;
+      this.speedY = 0.2 + Math.random() * 0.6;
+      this.speedX = (Math.random() - 0.5) * 0.2;
+      this.opacity = 0.3 + Math.random() * 0.5;
+      this.color = starColors[Math.floor(Math.random() * starColors.length)];
+      this.rotation = Math.random() * Math.PI * 2;
+      this.rotSpeed = (Math.random() - 0.5) * 0.01;
+    }
+    constructor(){ this.reset(); this.y = Math.random() * sw; }
+    update(){
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.rotation += this.rotSpeed;
+      if(this.y > sh + 20) this.reset();
+      if(this.x < -20) this.x = sw + 20;
+      if(this.x > sw + 20) this.x = -20;
+    }
+    draw(){
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rotation);
+      ctx.globalAlpha = this.opacity;
+      ctx.beginPath();
+      // звездочка 4-конечная
+      for(let i=0; i<4; i++){
+        let angle = i * Math.PI/2;
+        let x1 = Math.cos(angle) * this.size;
+        let y1 = Math.sin(angle) * this.size;
+        let x2 = Math.cos(angle + Math.PI/4) * this.size * 0.5;
+        let y2 = Math.sin(angle + Math.PI/4) * this.size * 0.5;
+        if(i===0) ctx.moveTo(x1, y1);
+        else ctx.lineTo(x1, y1);
+        ctx.lineTo(x2, y2);
+      }
+      ctx.closePath();
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+  function initStarsCanvas(){
+    sw = sc.width = window.innerWidth;
+    sh = sc.height = window.innerHeight;
+    stars = [];
+    for(let i=0;i<80;i++) stars.push(new FallingStar());
+  }
+  function animateStars(){
+    ctx.clearRect(0,0,sw,sh);
+    stars.forEach(s=>{ s.update(); s.draw(); });
+    requestAnimationFrame(animateStars);
+  }
+  initStarsCanvas(); animateStars();
+  window.addEventListener('resize', initStarsCanvas);
 
   const openBtn = document.getElementById('openBtn');
   const splash = document.getElementById('splash');
@@ -848,11 +930,6 @@ body {
       }, 800);
     };
   });
-
-  // petals
-  const pc = document.getElementById('petalsCanvas'); const pctx = pc.getContext('2d'); let pW, pH, petals = []; const pColors = ['#ffc2d0','#ffd6e0','#c8e6c4','#e8d5a3','#f5c8b8'];
-  class Petal { reset(){ this.x=Math.random()*pW; this.y=-20; this.sz=3+Math.random()*7; this.vy=0.25+Math.random()*0.75; this.vx=(Math.random()-.5)*0.4; this.rot=Math.random()*Math.PI*2; this.rv=(Math.random()-.5)*0.012; this.a=0.35+Math.random()*0.45; this.c=pColors[Math.floor(Math.random()*pColors.length)]; } constructor(){ this.reset(); this.y=Math.random()*pH; } update(){ this.x+=this.vx; this.y+=this.vy; this.rot+=this.rv; if(this.y>pH+20) this.reset(); if(this.x<-20) this.x=pW+20; if(this.x>pW+20) this.x=-20; } draw(){ pctx.save(); pctx.translate(this.x,this.y); pctx.rotate(this.rot); pctx.globalAlpha=this.a; pctx.beginPath(); pctx.ellipse(0,0,this.sz*.5,this.sz*.3,0,0,Math.PI*2); pctx.fillStyle=this.c; pctx.fill(); pctx.restore(); } }
-  function initPetals(){ pW=pc.width=window.innerWidth; pH=pc.height=window.innerHeight; petals=[]; for(let i=0;i<50;i++) petals.push(new Petal()); } function animPetals(){ pctx.clearRect(0,0,pW,pH); petals.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animPetals); } initPetals(); animPetals(); window.addEventListener('resize',initPetals);
 
   const heroStarsEl = document.getElementById('heroStars'); for(let i=0;i<22;i++){ const s=document.createElement('div'); s.className='star'; let sz=1+Math.random()*3; s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`; heroStarsEl.appendChild(s); }
   function initStarCanvas(canvasId,count){ const canvas=document.getElementById(canvasId); if(!canvas) return; const ctx=canvas.getContext('2d'); let stars=[]; function resize(){ const r=canvas.parentElement.getBoundingClientRect(); canvas.width=r.width; canvas.height=r.height; canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px'; stars=[]; for(let i=0;i<count;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:0.8+Math.random()*2,a:0.3+Math.random()*0.7,sp:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}); } function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); const t=Date.now()/1000; for(const s of stars){ const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`; ctx.fill(); } requestAnimationFrame(draw); } setTimeout(()=>{resize();draw();},100); window.addEventListener('resize',resize); }
