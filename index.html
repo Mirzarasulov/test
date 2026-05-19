@@ -29,7 +29,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── SPLASH SCREEN ── */
 #splash {
   position: fixed;
   inset: 0;
@@ -130,7 +129,6 @@ body {
   background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
   border-radius: 12px;
 }
-.btn-open:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(45,90,61,0.5); }
 .btn-open:active { transform: scale(0.97) translateY(0); }
 
 .video-progress {
@@ -196,7 +194,6 @@ body {
   transform: translateY(0);
 }
 
-/* ── ЗВЁЗДНЫЙ ДОЖДЬ (вместо лепестков) ── */
 #starsCanvas {
   position: fixed;
   inset: 0;
@@ -620,7 +617,6 @@ body {
   color: white;
   box-shadow: 0 4px 12px rgba(185, 130, 50, 0.3);
 }
-.map-btn.navkar:active { transform: scale(0.96); }
 
 .contacts-card {
   background: white;
@@ -718,7 +714,6 @@ body {
   to { transform: scaleY(1); opacity: 1; }
 }
 
-/* === ПЛАВНЫЕ АНИМАЦИИ === */
 .reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider {
   transition-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
@@ -812,22 +807,135 @@ body {
 </div>
 
 <div class="music-btn" id="musicBtn"><span class="music-icon">♪</span><div class="music-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
-<audio id="bgAudio" loop preload="auto" style="display:none"><source src="music.mp3" type="audio/mpeg"></audio>
 
 <script>
-(function(){
-  const audio = document.getElementById('bgAudio');
-  const musicBtn = document.getElementById('musicBtn');
+(async function(){
+  // Музыка через YouTube без IFrame API - используем скрытый iframe с прямым аудио
   let isMusicPlaying = false;
-  audio.volume = 0.45;
-
-  function startMusic() {
-    audio.play().then(() => { isMusicPlaying = true; musicBtn.classList.add('playing'); }).catch(e => console.warn(e));
+  const musicBtn = document.getElementById('musicBtn');
+  let currentAudio = null;
+  
+  // Функция для создания аудио из YouTube (конвертируем в прямой поток)
+  function playYouTubeAudio(videoId) {
+    // Используем yewtu.be или invidious (работает без блокировок)
+    const audioUrl = `https://yt2.vercel.app/api/mp3/${videoId}`;
+    
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    
+    const audio = new Audio();
+    audio.crossOrigin = "anonymous";
+    audio.loop = true;
+    audio.volume = 0.45;
+    
+    // Пробуем через альтернативный сервис
+    audio.src = `https://pipedproxy.kavin.rocks/stream/${videoId}`;
+    
+    audio.addEventListener('canplaythrough', () => {
+      audio.play().catch(e => {
+        console.log('YouTube stream error, trying fallback');
+        // Фолбэк: локальный файл или другой сервис
+        audio.src = 'music.mp3';
+        audio.play().catch(console.warn);
+      });
+    });
+    
+    audio.addEventListener('error', () => {
+      console.log('YouTube failed, using local music.mp3');
+      audio.src = 'music.mp3';
+      audio.play().catch(console.warn);
+    });
+    
+    audio.play().catch(e => {
+      console.log('Auto-play blocked, waiting for user gesture');
+      // Сохраняем для повторной попытки
+      currentAudio = audio;
+    });
+    
+    currentAudio = audio;
+    return audio;
   }
-  function pauseMusic() { audio.pause(); isMusicPlaying = false; musicBtn.classList.remove('playing'); }
-  musicBtn.addEventListener('click', (e) => { e.stopPropagation(); isMusicPlaying ? pauseMusic() : startMusic(); });
-
-  // звездный дождь (медленно падающие звёзды)
+  
+  // Простая функция для YouTube (прямой mp4 аудио поток)
+  function initYouTubeAudio() {
+    // Используем iframe с youtube-nocookie.com (скрытый)
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = 'https://www.youtube-nocookie.com/embed/oWwCYgEICpA?autoplay=0&enablejsapi=1&loop=1&playlist=oWwCYgEICpA';
+    document.body.appendChild(iframe);
+    
+    // Пытаемся получить доступ к API через postMessage (сложно)
+    // Поэтому используем простой Audio элемент с прямым download link
+  }
+  
+  function startMusic() {
+    if (currentAudio && !currentAudio.paused) return;
+    
+    // ID видео YouTube (Uzbek wedding song - можете заменить)
+    // Можно заменить на любой ID видео
+    const videoId = 'oWwCYgEICpA';
+    
+    const audio = new Audio();
+    audio.loop = true;
+    audio.volume = 0.45;
+    
+    // Пробуем несколько источников
+    const sources = [
+      `https://corsproxy.io/?url=https://pipedproxy.kavin.rocks/stream/${videoId}`,
+      `https://api.coolproxy.workers.dev/?url=https://pipedproxy.kavin.rocks/stream/${videoId}`,
+      'music.mp3' // локальный фолбэк
+    ];
+    
+    let sourceIndex = 0;
+    
+    function tryNextSource() {
+      if (sourceIndex >= sources.length) {
+        console.log('All sources failed');
+        return;
+      }
+      audio.src = sources[sourceIndex];
+      sourceIndex++;
+      audio.load();
+    }
+    
+    audio.addEventListener('canplay', () => {
+      audio.play().then(() => {
+        isMusicPlaying = true;
+        musicBtn.classList.add('playing');
+        if (currentAudio && currentAudio !== audio) currentAudio.pause();
+        currentAudio = audio;
+      }).catch(() => {
+        tryNextSource();
+      });
+    });
+    
+    audio.addEventListener('error', () => {
+      tryNextSource();
+    });
+    
+    tryNextSource();
+  }
+  
+  function pauseMusic() {
+    if (currentAudio) {
+      currentAudio.pause();
+      isMusicPlaying = false;
+      musicBtn.classList.remove('playing');
+    }
+  }
+  
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isMusicPlaying) {
+      pauseMusic();
+    } else {
+      startMusic();
+    }
+  });
+  
+  // звёздный дождь
   const sc = document.getElementById('starsCanvas');
   const ctx = sc.getContext('2d');
   let sw, sh, stars = [];
@@ -859,7 +967,6 @@ body {
       ctx.rotate(this.rotation);
       ctx.globalAlpha = this.opacity;
       ctx.beginPath();
-      // звездочка 4-конечная
       for(let i=0; i<4; i++){
         let angle = i * Math.PI/2;
         let x1 = Math.cos(angle) * this.size;
@@ -899,6 +1006,7 @@ body {
 
   openBtn.addEventListener('click', () => {
     startMusic();
+    
     splashVideo.style.transition='opacity 1.2s cubic-bezier(0.16,1,0.3,1)';
     splashVideo.play().then(()=>{ splashVideo.style.opacity='1'; }).catch(()=>{});
     function updateProg(){ if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%'; if(!splashVideo.ended) requestAnimationFrame(updateProg); }
