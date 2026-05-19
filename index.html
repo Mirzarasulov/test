@@ -276,39 +276,63 @@ body {
 }
 
 .hero-text { text-align: center; }
-.hero-small {
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.5em;
-  color: var(--text-light);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
+
+/* ========== НОВЫЙ ИЗЯЩНЫЙ ШРИФТ ДЛЯ ИМЁН ========== */
 .hero-names {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3.4rem;
+  text-align: center;
+  margin: 20px 0 25px;
+}
+
+.name-line {
+  font-family: 'Great Vibes', 'Segoe UI', 'Apple Chancery', cursive;
+  font-size: 4rem;
+  font-weight: normal;
   color: var(--green-dark);
-  line-height: 1.15;
-  text-shadow: 0 2px 12px rgba(45,90,61,0.15);
+  text-shadow: 0 2px 12px rgba(45,90,61,0.1);
+  line-height: 1.2;
+  letter-spacing: 1px;
 }
-.hero-names .va {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-style: italic;
+
+.amp-line {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  font-weight: normal;
   color: var(--gold);
-  display: block;
-  margin: -4px 0;
+  margin: 5px 0;
+  line-height: 1;
 }
-.hero-invite {
+
+/* Стиль для текста приглашения */
+.hero-invite-new {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+  font-weight: 500;
   font-size: 1rem;
   color: var(--text-light);
-  margin: 14px 0 20px;
+  text-align: center;
+  line-height: 1.7;
+  margin-top: 20px;
+  letter-spacing: 0.5px;
 }
+
+.hero-invite-new div {
+  margin: 3px 0;
+}
+
+.hero-invite-new div:first-child {
+  font-weight: 600;
+  color: var(--green-dark);
+  letter-spacing: 1px;
+}
+
+.hero-invite-new div:nth-child(2) {
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 12px;
+}
+
 .hero-ayat {
   max-width: 340px;
-  margin: 0 auto;
+  margin: 30px auto 0;
   padding: 16px 20px;
   border-top: 1px solid rgba(201,169,110,0.4);
   border-bottom: 1px solid rgba(201,169,110,0.4);
@@ -681,6 +705,210 @@ body {
   text-transform: uppercase;
 }
 
+/* ========== КАРТА ========== */
+.card-section {
+  padding: 20px 20px 60px;
+  display: flex;
+  justify-content: center;
+}
+.card-wrapper {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.card-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text-light);
+  margin-bottom: 24px;
+  line-height: 1.6;
+  padding: 0 8px;
+}
+
+.bank-card {
+  background: linear-gradient(135deg, #1a2a1a, #0d1f0d);
+  border-radius: 28px;
+  padding: 28px 24px 24px;
+  box-shadow: 0 25px 40px rgba(0,0,0,0.25), 0 0 0 1px rgba(201,169,110,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.bank-card:active {
+  transform: scale(0.98);
+}
+.bank-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(201,169,110,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bank-card::after {
+  content: '✦';
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 1.2rem;
+  color: rgba(201,169,110,0.3);
+  font-family: serif;
+  pointer-events: none;
+}
+
+.card-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  pointer-events: none;
+}
+.chip-icon {
+  width: 42px;
+  height: 32px;
+  background: linear-gradient(135deg, #e8c97a, #c9a96e);
+  border-radius: 8px;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 1px 3px rgba(0,0,0,0.2);
+}
+.chip-icon::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  width: 26px;
+  height: 20px;
+  background: repeating-linear-gradient(45deg, #b8860b, #b8860b 3px, #daa520 3px, #daa520 6px);
+  border-radius: 4px;
+}
+.card-type {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: rgba(201,169,110,0.7);
+  text-transform: uppercase;
+}
+
+.card-number {
+  font-family: 'Courier New', 'SF Mono', monospace;
+  font-size: clamp(18px, 5.5vw, 26px);
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #f0e6c8;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  margin: 20px 0 16px;
+  word-break: break-word;
+  background: rgba(255,255,255,0.05);
+  padding: 12px 8px;
+  border-radius: 16px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 16px;
+  pointer-events: none;
+}
+.card-holder {
+  text-align: left;
+}
+.card-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: rgba(201,169,110,0.6);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.card-name {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #f0e6c8;
+}
+.card-valid {
+  text-align: right;
+}
+.card-valid .card-label {
+  margin-bottom: 4px;
+}
+.card-date {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f0e6c8;
+}
+
+.copy-btn-card {
+  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 60px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Jost', sans-serif;
+  margin-top: 22px;
+  box-shadow: 0 4px 12px rgba(45,90,61,0.2);
+}
+.copy-btn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(45,90,61,0.3);
+}
+.copy-btn-card:active {
+  transform: translateY(1px);
+}
+
+.card-note-bottom {
+  margin-top: 20px;
+  font-size: 0.7rem;
+  color: var(--text-light);
+  opacity: 0.7;
+  font-family: 'Jost', sans-serif;
+}
+
+.toast-card {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: var(--green-dark);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 60px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 1100;
+  white-space: nowrap;
+  font-family: 'Jost', sans-serif;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.toast-card.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
 .music-btn {
   position: fixed;
   bottom: 22px; right: 18px;
@@ -714,33 +942,13 @@ body {
   to { transform: scaleY(1); opacity: 1; }
 }
 
-.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider {
+.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider, .bank-card {
   transition-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 .reveal { opacity: 0; transform: translateY(60px) scale(0.97); transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); will-change: transform, opacity; }
 .reveal.in { opacity: 1; transform: translateY(0) scale(1); }
-.reveal-left { opacity: 0; transform: translateX(-50px) rotate(-2deg); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.reveal-left.in { opacity: 1; transform: translateX(0) rotate(0deg); }
-.reveal-right { opacity: 0; transform: translateX(50px) rotate(2deg); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.reveal-right.in { opacity: 1; transform: translateX(0) rotate(0deg); }
-.reveal-scale { opacity: 0; transform: scale(0.82) translateY(20px); transition: opacity 0.9s cubic-bezier(0.34, 1.3, 0.64, 1), transform 0.9s cubic-bezier(0.34, 1.3, 0.64, 1); }
-.reveal-scale.in { opacity: 1; transform: scale(1) translateY(0); }
-.timer-box.reveal { transform: translateY(50px) rotateX(40deg); transform-origin: top center; transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.timer-box.reveal.in { transform: translateY(0) rotateX(0deg); }
-.cal-card.reveal { transform: perspective(800px) rotateX(8deg) translateY(40px); transition: opacity 1.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.cal-card.reveal.in { transform: perspective(800px) rotateX(0deg) translateY(0); }
-.venue-card.reveal { transform: translateX(-30px) translateY(30px); transition: opacity 1.1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.venue-card.reveal.in { transform: translateX(0) translateY(0); }
-.video-card.reveal { transform: translateY(70px) scale(0.94); transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.video-card.reveal.in { transform: translateY(0) scale(1); }
-.contacts-card.reveal { transform: translateY(50px) scale(0.95); transition: opacity 1s cubic-bezier(0.34, 1.3, 0.64, 1), transform 1s cubic-bezier(0.34, 1.3, 0.64, 1); }
-.contacts-card.reveal.in { transform: translateY(0) scale(1); }
-.section-divider { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 20px 40px; opacity: 0; transform: scaleX(0.3); transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); transform-origin: center; }
-.section-divider.in { opacity: 1; transform: scaleX(1); }
-.hero-img-wrap.reveal { transform: translateY(50px) scale(0.93); transition: opacity 1.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.5s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.hero-img-wrap.reveal.in { transform: translateY(0) scale(1); }
-.hadis-box.reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.hadis-box.reveal.in { opacity: 1; transform: translateY(0); }
+.bank-card.reveal { transform: translateY(40px) rotateX(5deg); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+.bank-card.reveal.in { transform: translateY(0) rotateX(0deg); }
 
 #scrollBar {
   position: fixed;
@@ -761,6 +969,11 @@ body {
   .flowers.left { left: -12px; }
   .flowers.right { right: -12px; }
   .splash-salom { font-size: 2.6rem; }
+  .bank-card { padding: 20px 18px; }
+  .card-number { letter-spacing: 1.5px; font-size: 16px; }
+  .name-line { font-size: 2.8rem; }
+  .amp-line { font-size: 2rem; }
+  .hero-invite-new { font-size: 0.85rem; }
 }
 </style>
 </head>
@@ -774,7 +987,7 @@ body {
   <div class="video-progress" id="videoProgress"></div>
   <div class="splash-content">
     <div class="splash-salom">Assalomu alaykum!</div>
-    <div class="splash-sub">Hurmatli Mehmonimiz</div>
+    <div class="splash-sub">Hurmatli aziz mehmonimiz!</div>
     <div class="splash-divider">✦</div>
     <button class="btn-open" id="openBtn">TAKLIFNOMA</button>
   </div>
@@ -791,7 +1004,32 @@ body {
     <div class="hero-bg"></div>
     <div class="hero-stars" id="heroStars"></div>
     <div class="hero-img-wrap reveal"><div class="hero-badge">NIKOH TO'YI TAKLIFNOMASI</div><img class="hero-img" src="https://i.postimg.cc/632DZnRF/kitob.webp" alt="kitob"></div>
-    <div class="hero-text reveal" style="transition-delay:0.15s"><div class="hero-small">Sizni farzandlarimiz</div><div class="hero-names">Abdullaziz<span class="va">va</span>Begoyim</div><div class="hero-invite">nikoh to'ylari munosabati bilan lutfan taklif etamiz</div><div class="hero-ayat reveal" style="transition-delay:0.3s"><div class="ayat-bismillah">۞</div><div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div><div class="ayat-source">Rum surasi · 21-oyat</div></div></div>
+    
+    <div class="hero-text reveal" style="transition-delay:0.15s">
+      
+      <!-- ИМЕНА - изящный курсивный шрифт -->
+      <div class="hero-names">
+        <div class="name-line">Abdullaziz</div>
+        <div class="amp-line">&</div>
+        <div class="name-line">Begoyim</div>
+      </div>
+      
+      <!-- ТЕКСТ ПРИГЛАШЕНИЯ -->
+      <div class="hero-invite-new">
+        <div>ASSALOMU ALAYKUM</div>
+        <div>HURMATLI AZIZ MEHMONIMIZ!</div>
+        <div>SIZNI HAYOTIMIZNING ENG GO'ZAL</div>
+        <div>VA BAXTLI ONLARIDA BIZ BILAN</div>
+        <div>BO'LISHINGIZ ISTAGIDA NIKOH</div>
+        <div>SHODIYONAMIZGA TAKLIF ETAMIZ.</div>
+      </div>
+      
+      <div class="hero-ayat reveal" style="transition-delay:0.3s">
+        <div class="ayat-bismillah">۞</div>
+        <div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div>
+        <div class="ayat-source">Rum surasi · 21-oyat</div>
+      </div>
+    </div>
   </div>
 
   <div class="section-divider reveal"><div class="div-line"></div><div class="div-gem">✦</div><div class="div-line r"></div></div>
@@ -799,59 +1037,69 @@ body {
 
   <div class="timer-section"><div class="timer-bg"><canvas id="timerStarCanvas"></canvas><div class="timer-mosque">🕌</div><div class="timer-label-top">To'yga qolgan vaqt</div><div class="timer-grid"><div class="timer-box reveal"><span class="timer-num" id="days">--</span><span class="timer-unit">Kun</span></div><div class="timer-box reveal" style="transition-delay:0.1s"><span class="timer-num" id="hours">--</span><span class="timer-unit">Soat</span></div><div class="timer-box reveal" style="transition-delay:0.2s"><span class="timer-num" id="minutes">--</span><span class="timer-unit">Daqiqa</span></div><div class="timer-box reveal" style="transition-delay:0.3s"><span class="timer-num" id="seconds">--</span><span class="timer-unit">Soniya</span></div></div><div class="hadis-box reveal" style="transition-delay:0.4s"><div class="hadis-q">"</div><div class="hadis-text">Nikoh mening sunnatimdir. Kim mening sunnatimga amal qilsa, u mendan.</div><div class="hadis-src">Hadisi sharif</div></div></div></div>
 
-  <div class="video-section"><div class="video-card reveal"><canvas id="starCanvas2"></canvas><video id="video2" autoplay loop muted playsinline disablePictureInPicture><source src="video2.mp4" type="video/mp4"></video><div class="video-caption">✨ &nbsp; &nbsp; ✨</div></div></div>
+  <div class="video-section"><div class="video-card reveal"><canvas id="starCanvas2"></canvas><video id="video2" autoplay loop muted playsinline disablePictureInPicture><source src="video2.mp4" type="video/mp4"></video><div class="video-caption">✨ &nbsp; To'y lavhalari &nbsp; ✨</div></div></div>
 
   <div class="section"><div class="container"><div class="venue-card reveal"><img class="venue-img" src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg" alt="Grant Elite"><div class="venue-body"><div class="sec-label">To'y o'tkaziladigan joy</div><div class="venue-name">Grant Elite</div><div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div><div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div><div class="map-btns"><a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a><a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a><a href="navkar.html" class="map-btn navkar">✨ Navkar ✨</a></div></div></div></div></div>
 
-  <div class="section"><div class="container"><div class="contacts-card reveal"><img src="https://i.postimg.cc/cLTyGsds/hat.webp" alt="hat" class="hat-img"><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@Abdullaziz</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998 94 123 14 03</span></div><div class="contact-item"><span class="contact-label">📷 Instagram</span><span class="contact-val">@Abdullaziz_to'y</span></div><div class="family-tag">Sadikovlar oilasi</div></div></div></div>
+  <!-- БЛОК С КАРТОЙ -->
+  <div class="card-section">
+    <div class="card-wrapper">
+      <div class="card-text reveal">Sizning tashrifingiz va duolaringiz biz uchun eng katta baxtdir.</div>
+      
+      <div class="bank-card reveal" id="copyCardOnClick">
+        <div class="card-chip">
+          <div class="chip-icon"></div>
+          <span class="card-type">HUMO</span>
+        </div>
+        <div class="card-number" id="cardNumberDisplay">8600 1234 5678 9012</div>
+        <div class="card-details">
+          <div class="card-holder">
+            <div class="card-label">Karta egasi</div>
+            <div class="card-name">Abdullaziz Sadikov</div>
+          </div>
+          <div class="card-valid">
+          </div>
+        </div>
+      </div>
+      
+      <button class="copy-btn-card" id="copyMainBtn">💳 Karta raqamini nusxalash</button>
+      
+      <div class="card-text" style="font-size:0.85rem; margin-top:20px;">Qo'shimcha ehtirom bildirmoqchi bo'lgan mehmonlar uchun karta raqami qoldirilgan.</div>
+      <div class="card-note-bottom">✨ Hurmat va ehtirom bilan, Sadikovlar oilasi ✨</div>
+    </div>
+  </div>
+
+  <div class="section"><div class="container"><div class="contacts-card reveal"><img src="https://i.postimg.cc/cLTyGsds/hat.webp" alt="hat" class="hat-img"><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@sadikovdesigner</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998 97 747 01 57</span></div><div class="contact-item"><span class="contact-label"></span></span></div><div class="family-tag">Sadikovlar oilasi</div></div></div></div>
 </div>
 
 <div class="music-btn" id="musicBtn"><span class="music-icon">♪</span><div class="music-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+<div id="toastCardMsg" class="toast-card">✅ Karta raqami nusxalandi!</div>
 
 <script>
 (async function(){
-  // ========== ЛОКАЛЬНАЯ МУЗЫКА С CATBOX ==========
   const MUSIC_URL = 'https://files.catbox.moe/ijpp50.mp3';
-  
   let isMusicPlaying = false;
   const musicBtn = document.getElementById('musicBtn');
   let currentAudio = null;
   
-  // Функция запуска музыки с Catbox
   function startMusic() {
-    if (currentAudio && !currentAudio.paused) {
-      return; // уже играет
-    }
-    
-    // Создаём новый аудио элемент
+    if (currentAudio && !currentAudio.paused) return;
     const audio = new Audio();
     audio.loop = true;
     audio.volume = 0.45;
     audio.src = MUSIC_URL;
-    
-    // Обработчик успешного воспроизведения
     audio.addEventListener('canplay', () => {
-      audio.play()
-        .then(() => {
-          isMusicPlaying = true;
-          musicBtn.classList.add('playing');
-          if (currentAudio && currentAudio !== audio) {
-            currentAudio.pause();
-          }
-          currentAudio = audio;
-        })
-        .catch((err) => {
-          console.log('Ошибка воспроизведения:', err);
-        });
+      audio.play().then(() => {
+        isMusicPlaying = true;
+        musicBtn.classList.add('playing');
+        if (currentAudio && currentAudio !== audio) currentAudio.pause();
+        currentAudio = audio;
+      }).catch(console.log);
     });
-    
-    audio.addEventListener('error', (e) => {
-      console.log('Ошибка загрузки аудио с Catbox:', e);
-      // Пробуем альтернативную ссылку (запасной вариант)
+    audio.addEventListener('error', () => {
       audio.src = MUSIC_URL + '?t=' + Date.now();
       audio.load();
     });
-    
     audio.load();
   }
   
@@ -863,19 +1111,40 @@ body {
     }
   }
   
-  // Кнопка управления музыкой
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    if (isMusicPlaying) {
-      pauseMusic();
-    } else {
-      startMusic();
-    }
+    if (isMusicPlaying) pauseMusic();
+    else startMusic();
   });
   
-  // ========== ОСТАЛЬНАЯ ЛОГИКА ИНТЕРФЕЙСА ==========
+  const REAL_CARD = "8600 1234 5678 9012";
+  const CLEAN_CARD = REAL_CARD.replace(/\s/g, '');
   
-  // Звёздный дождь
+  const displaySpan = document.getElementById('cardNumberDisplay');
+  const copyBtn = document.getElementById('copyMainBtn');
+  const cardElement = document.getElementById('copyCardOnClick');
+  const toast = document.getElementById('toastCardMsg');
+  
+  displaySpan.textContent = REAL_CARD;
+  
+  function showCopyToast() {
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  }
+  
+  function copyCardNumber() {
+    navigator.clipboard.writeText(CLEAN_CARD).then(() => {
+      showCopyToast();
+      if(cardElement) {
+        cardElement.style.transform = 'scale(0.98)';
+        setTimeout(() => { if(cardElement) cardElement.style.transform = ''; }, 150);
+      }
+    }).catch(() => alert("Nusxalash amalga oshmadi: " + CLEAN_CARD));
+  }
+  
+  if(cardElement) cardElement.addEventListener('click', copyCardNumber);
+  if(copyBtn) copyBtn.addEventListener('click', copyCardNumber);
+  
   const sc = document.getElementById('starsCanvas');
   const ctx = sc.getContext('2d');
   let sw, sh, stars = [];
@@ -949,23 +1218,14 @@ body {
   const mainContent = document.getElementById('mainContent');
 
   openBtn.addEventListener('click', () => {
-    // Запускаем музыку при нажатии на кнопку!
     startMusic();
-    
     splashVideo.style.transition='opacity 1.2s cubic-bezier(0.16,1,0.3,1)';
     splashVideo.play().then(()=>{ splashVideo.style.opacity='1'; }).catch(()=>{});
-    
-    function updateProg(){ 
-      if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%'; 
-      if(!splashVideo.ended) requestAnimationFrame(updateProg); 
-    }
+    function updateProg(){ if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%'; if(!splashVideo.ended) requestAnimationFrame(updateProg); }
     updateProg();
-    
     openBtn.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
-    openBtn.style.opacity='0'; 
-    openBtn.style.transform='scale(0.85) translateY(10px)';
+    openBtn.style.opacity='0'; openBtn.style.transform='scale(0.85) translateY(10px)';
     setTimeout(()=>openBtn.style.display='none', 500);
-    
     splashVideo.onended = () => {
       splash.style.transition='opacity 0.8s cubic-bezier(0.16,1,0.3,1)';
       splash.style.opacity='0';
@@ -977,21 +1237,14 @@ body {
           mainContent.classList.add('visible');
           window.scrollTo(0,0);
           setTimeout(()=>{
-            const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
+            const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider, .bank-card');
             const getDelay = (el) => {
               const delays = {'timer-box':130,'contact-item':80,'cal-d':20};
-              for(let [cls,d] of Object.entries(delays)) if(el.classList.contains(cls)) { 
-                const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); 
-                return sibs.indexOf(el)*d; 
-              }
-              const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right'));
-              let idx=sibs.indexOf(el); 
-              return idx>0?idx*100:0;
+              for(let [cls,d] of Object.entries(delays)) if(el.classList.contains(cls)) { const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*d; }
+              const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')||c.classList.contains('bank-card'));
+              let idx=sibs.indexOf(el); return idx>0?idx*100:0;
             };
-            allReveal.forEach(el=>{ 
-              if(el.getBoundingClientRect().top<window.innerHeight+100) 
-                setTimeout(()=>el.classList.add('in'), getDelay(el)); 
-            });
+            allReveal.forEach(el=>{ if(el.getBoundingClientRect().top<window.innerHeight+100) setTimeout(()=>el.classList.add('in'), getDelay(el)); });
           },150);
         }, 2200);
       }, 800);
@@ -999,99 +1252,22 @@ body {
   });
 
   const heroStarsEl = document.getElementById('heroStars'); 
-  for(let i=0;i<22;i++){ 
-    const s=document.createElement('div'); 
-    s.className='star'; 
-    let sz=1+Math.random()*3; 
-    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`; 
-    heroStarsEl.appendChild(s); 
-  }
+  for(let i=0;i<22;i++){ const s=document.createElement('div'); s.className='star'; let sz=1+Math.random()*3; s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`; heroStarsEl.appendChild(s); }
   
-  function initStarCanvas(canvasId,count){ 
-    const canvas=document.getElementById(canvasId); 
-    if(!canvas) return; 
-    const ctx=canvas.getContext('2d'); 
-    let stars=[]; 
-    function resize(){ 
-      const r=canvas.parentElement.getBoundingClientRect(); 
-      canvas.width=r.width; 
-      canvas.height=r.height; 
-      canvas.style.width=r.width+'px'; 
-      canvas.style.height=r.height+'px'; 
-      stars=[]; 
-      for(let i=0;i<count;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:0.8+Math.random()*2,a:0.3+Math.random()*0.7,sp:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}); 
-    } 
-    function draw(){ 
-      ctx.clearRect(0,0,canvas.width,canvas.height); 
-      const t=Date.now()/1000; 
-      for(const s of stars){ 
-        const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5); 
-        ctx.beginPath(); 
-        ctx.arc(s.x,s.y,s.r,0,Math.PI*2); 
-        ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`; 
-        ctx.fill(); 
-      } 
-      requestAnimationFrame(draw); 
-    } 
-    setTimeout(()=>{resize();draw();},100); 
-    window.addEventListener('resize',resize); 
-  }
+  function initStarCanvas(canvasId,count){ const canvas=document.getElementById(canvasId); if(!canvas) return; const ctx=canvas.getContext('2d'); let stars=[]; function resize(){ const r=canvas.parentElement.getBoundingClientRect(); canvas.width=r.width; canvas.height=r.height; canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px'; stars=[]; for(let i=0;i<count;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:0.8+Math.random()*2,a:0.3+Math.random()*0.7,sp:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}); } function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); const t=Date.now()/1000; for(const s of stars){ const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`; ctx.fill(); } requestAnimationFrame(draw); } setTimeout(()=>{resize();draw();},100); window.addEventListener('resize',resize); }
+  initStarCanvas('timerStarCanvas',120); initStarCanvas('starCanvas2',150);
   
-  initStarCanvas('timerStarCanvas',120); 
-  initStarCanvas('starCanvas2',150);
+  function tick(){ const target=new Date(2026,5,16,18,0,0); let diff=target-new Date(); if(diff<0) diff=0; document.getElementById('days').textContent=Math.floor(diff/864e5); document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5); document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4); document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3); } tick(); setInterval(tick,1000);
   
-  function tick(){ 
-    const target=new Date(2026,5,16,18,0,0); 
-    let diff=target-new Date(); 
-    if(diff<0) diff=0; 
-    document.getElementById('days').textContent=Math.floor(diff/864e5); 
-    document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5); 
-    document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4); 
-    document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3); 
-  } 
-  tick(); 
-  setInterval(tick,1000);
+  const scrollBar=document.getElementById('scrollBar'); if(scrollBar){ window.addEventListener('scroll',()=>{ const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight); scrollBar.style.width=(pct*100)+'%'; },{passive:true}); }
   
-  const scrollBar=document.getElementById('scrollBar'); 
-  if(scrollBar){ 
-    window.addEventListener('scroll',()=>{ 
-      const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight); 
-      scrollBar.style.width=(pct*100)+'%'; 
-    },{passive:true}); 
-  }
-  
-  const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
-  const getStaggerDelay = (el) => { 
-    const d={'timer-box':130,'contact-item':80,'cal-d':20}; 
-    for(let [cls,delay] of Object.entries(d)) if(el.classList.contains(cls)){ 
-      const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); 
-      return sibs.indexOf(el)*delay; 
-    } 
-    const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')); 
-    let idx=sibs.indexOf(el); 
-    return idx>0?idx*100:0; 
-  };
-  
-  const observer=new IntersectionObserver(entries=>{ 
-    entries.forEach(e=>{ 
-      if(e.isIntersecting){ 
-        const delay=getStaggerDelay(e.target); 
-        setTimeout(()=>{ 
-          e.target.classList.add('in'); 
-        },delay); 
-        observer.unobserve(e.target); 
-      } 
-    }); 
-  },{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
-  
+  const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider, .bank-card');
+  const getStaggerDelay = (el) => { const d={'timer-box':130,'contact-item':80,'cal-d':20}; for(let [cls,delay] of Object.entries(d)) if(el.classList.contains(cls)){ const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*delay; } const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')||c.classList.contains('bank-card')); let idx=sibs.indexOf(el); return idx>0?idx*100:0; };
+  const observer=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ const delay=getStaggerDelay(e.target); setTimeout(()=>{ e.target.classList.add('in'); },delay); observer.unobserve(e.target); } }); },{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
   allReveal.forEach(el=>observer.observe(el));
   
   const heroImgWrap = document.querySelector('.hero-img-wrap');
-  window.addEventListener('scroll', () => { 
-    const scrolled = window.scrollY; 
-    if(scrolled<window.innerHeight && heroImgWrap) 
-      heroImgWrap.style.transform = `translateY(${scrolled*0.18}px)`; 
-  }, {passive:true});
+  window.addEventListener('scroll', () => { const scrolled = window.scrollY; if(scrolled<window.innerHeight && heroImgWrap) heroImgWrap.style.transform = `translateY(${scrolled*0.18}px)`; }, {passive:true});
 })();
 </script>
 </body>
