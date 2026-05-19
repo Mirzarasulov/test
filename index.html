@@ -810,112 +810,49 @@ body {
 
 <script>
 (async function(){
-  // Музыка через YouTube без IFrame API - используем скрытый iframe с прямым аудио
+  // ========== ЛОКАЛЬНАЯ МУЗЫКА С CATBOX ==========
+  const MUSIC_URL = 'https://files.catbox.moe/ijpp50.mp3';
+  
   let isMusicPlaying = false;
   const musicBtn = document.getElementById('musicBtn');
   let currentAudio = null;
   
-  // Функция для создания аудио из YouTube (конвертируем в прямой поток)
-  function playYouTubeAudio(videoId) {
-    // Используем yewtu.be или invidious (работает без блокировок)
-    const audioUrl = `https://yt2.vercel.app/api/mp3/${videoId}`;
-    
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio = null;
-    }
-    
-    const audio = new Audio();
-    audio.crossOrigin = "anonymous";
-    audio.loop = true;
-    audio.volume = 0.45;
-    
-    // Пробуем через альтернативный сервис
-    audio.src = `https://pipedproxy.kavin.rocks/stream/${videoId}`;
-    
-    audio.addEventListener('canplaythrough', () => {
-      audio.play().catch(e => {
-        console.log('YouTube stream error, trying fallback');
-        // Фолбэк: локальный файл или другой сервис
-        audio.src = 'music.mp3';
-        audio.play().catch(console.warn);
-      });
-    });
-    
-    audio.addEventListener('error', () => {
-      console.log('YouTube failed, using local music.mp3');
-      audio.src = 'music.mp3';
-      audio.play().catch(console.warn);
-    });
-    
-    audio.play().catch(e => {
-      console.log('Auto-play blocked, waiting for user gesture');
-      // Сохраняем для повторной попытки
-      currentAudio = audio;
-    });
-    
-    currentAudio = audio;
-    return audio;
-  }
-  
-  // Простая функция для YouTube (прямой mp4 аудио поток)
-  function initYouTubeAudio() {
-    // Используем iframe с youtube-nocookie.com (скрытый)
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = 'https://www.youtube-nocookie.com/embed/oWwCYgEICpA?autoplay=0&enablejsapi=1&loop=1&playlist=oWwCYgEICpA';
-    document.body.appendChild(iframe);
-    
-    // Пытаемся получить доступ к API через postMessage (сложно)
-    // Поэтому используем простой Audio элемент с прямым download link
-  }
-  
+  // Функция запуска музыки с Catbox
   function startMusic() {
-    if (currentAudio && !currentAudio.paused) return;
+    if (currentAudio && !currentAudio.paused) {
+      return; // уже играет
+    }
     
-    // ID видео YouTube (Uzbek wedding song - можете заменить)
-    // Можно заменить на любой ID видео
-    const videoId = 'oWwCYgEICpA';
-    
+    // Создаём новый аудио элемент
     const audio = new Audio();
     audio.loop = true;
     audio.volume = 0.45;
+    audio.src = MUSIC_URL;
     
-    // Пробуем несколько источников
-    const sources = [
-      `https://corsproxy.io/?url=https://pipedproxy.kavin.rocks/stream/${videoId}`,
-      `https://api.coolproxy.workers.dev/?url=https://pipedproxy.kavin.rocks/stream/${videoId}`,
-      'music.mp3' // локальный фолбэк
-    ];
-    
-    let sourceIndex = 0;
-    
-    function tryNextSource() {
-      if (sourceIndex >= sources.length) {
-        console.log('All sources failed');
-        return;
-      }
-      audio.src = sources[sourceIndex];
-      sourceIndex++;
-      audio.load();
-    }
-    
+    // Обработчик успешного воспроизведения
     audio.addEventListener('canplay', () => {
-      audio.play().then(() => {
-        isMusicPlaying = true;
-        musicBtn.classList.add('playing');
-        if (currentAudio && currentAudio !== audio) currentAudio.pause();
-        currentAudio = audio;
-      }).catch(() => {
-        tryNextSource();
-      });
+      audio.play()
+        .then(() => {
+          isMusicPlaying = true;
+          musicBtn.classList.add('playing');
+          if (currentAudio && currentAudio !== audio) {
+            currentAudio.pause();
+          }
+          currentAudio = audio;
+        })
+        .catch((err) => {
+          console.log('Ошибка воспроизведения:', err);
+        });
     });
     
-    audio.addEventListener('error', () => {
-      tryNextSource();
+    audio.addEventListener('error', (e) => {
+      console.log('Ошибка загрузки аудио с Catbox:', e);
+      // Пробуем альтернативную ссылку (запасной вариант)
+      audio.src = MUSIC_URL + '?t=' + Date.now();
+      audio.load();
     });
     
-    tryNextSource();
+    audio.load();
   }
   
   function pauseMusic() {
@@ -926,6 +863,7 @@ body {
     }
   }
   
+  // Кнопка управления музыкой
   musicBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (isMusicPlaying) {
@@ -935,11 +873,14 @@ body {
     }
   });
   
-  // звёздный дождь
+  // ========== ОСТАЛЬНАЯ ЛОГИКА ИНТЕРФЕЙСА ==========
+  
+  // Звёздный дождь
   const sc = document.getElementById('starsCanvas');
   const ctx = sc.getContext('2d');
   let sw, sh, stars = [];
   const starColors = ['#fff8e7', '#ffefc0', '#ffe8a3', '#f5e0a0', '#e8d5a3'];
+  
   class FallingStar {
     reset(){
       this.x = Math.random() * sw;
@@ -983,17 +924,20 @@ body {
       ctx.restore();
     }
   }
+  
   function initStarsCanvas(){
     sw = sc.width = window.innerWidth;
     sh = sc.height = window.innerHeight;
     stars = [];
     for(let i=0;i<80;i++) stars.push(new FallingStar());
   }
+  
   function animateStars(){
     ctx.clearRect(0,0,sw,sh);
     stars.forEach(s=>{ s.update(); s.draw(); });
     requestAnimationFrame(animateStars);
   }
+  
   initStarsCanvas(); animateStars();
   window.addEventListener('resize', initStarsCanvas);
 
@@ -1005,15 +949,23 @@ body {
   const mainContent = document.getElementById('mainContent');
 
   openBtn.addEventListener('click', () => {
+    // Запускаем музыку при нажатии на кнопку!
     startMusic();
     
     splashVideo.style.transition='opacity 1.2s cubic-bezier(0.16,1,0.3,1)';
     splashVideo.play().then(()=>{ splashVideo.style.opacity='1'; }).catch(()=>{});
-    function updateProg(){ if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%'; if(!splashVideo.ended) requestAnimationFrame(updateProg); }
+    
+    function updateProg(){ 
+      if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%'; 
+      if(!splashVideo.ended) requestAnimationFrame(updateProg); 
+    }
     updateProg();
+    
     openBtn.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
-    openBtn.style.opacity='0'; openBtn.style.transform='scale(0.85) translateY(10px)';
+    openBtn.style.opacity='0'; 
+    openBtn.style.transform='scale(0.85) translateY(10px)';
     setTimeout(()=>openBtn.style.display='none', 500);
+    
     splashVideo.onended = () => {
       splash.style.transition='opacity 0.8s cubic-bezier(0.16,1,0.3,1)';
       splash.style.opacity='0';
@@ -1028,28 +980,118 @@ body {
             const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
             const getDelay = (el) => {
               const delays = {'timer-box':130,'contact-item':80,'cal-d':20};
-              for(let [cls,d] of Object.entries(delays)) if(el.classList.contains(cls)) { const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*d; }
+              for(let [cls,d] of Object.entries(delays)) if(el.classList.contains(cls)) { 
+                const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); 
+                return sibs.indexOf(el)*d; 
+              }
               const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right'));
-              let idx=sibs.indexOf(el); return idx>0?idx*100:0;
+              let idx=sibs.indexOf(el); 
+              return idx>0?idx*100:0;
             };
-            allReveal.forEach(el=>{ if(el.getBoundingClientRect().top<window.innerHeight+100) setTimeout(()=>el.classList.add('in'), getDelay(el)); });
+            allReveal.forEach(el=>{ 
+              if(el.getBoundingClientRect().top<window.innerHeight+100) 
+                setTimeout(()=>el.classList.add('in'), getDelay(el)); 
+            });
           },150);
         }, 2200);
       }, 800);
     };
   });
 
-  const heroStarsEl = document.getElementById('heroStars'); for(let i=0;i<22;i++){ const s=document.createElement('div'); s.className='star'; let sz=1+Math.random()*3; s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`; heroStarsEl.appendChild(s); }
-  function initStarCanvas(canvasId,count){ const canvas=document.getElementById(canvasId); if(!canvas) return; const ctx=canvas.getContext('2d'); let stars=[]; function resize(){ const r=canvas.parentElement.getBoundingClientRect(); canvas.width=r.width; canvas.height=r.height; canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px'; stars=[]; for(let i=0;i<count;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:0.8+Math.random()*2,a:0.3+Math.random()*0.7,sp:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}); } function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); const t=Date.now()/1000; for(const s of stars){ const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`; ctx.fill(); } requestAnimationFrame(draw); } setTimeout(()=>{resize();draw();},100); window.addEventListener('resize',resize); }
-  initStarCanvas('timerStarCanvas',120); initStarCanvas('starCanvas2',150);
-  function tick(){ const target=new Date(2026,5,16,18,0,0); let diff=target-new Date(); if(diff<0) diff=0; document.getElementById('days').textContent=Math.floor(diff/864e5); document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5); document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4); document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3); } tick(); setInterval(tick,1000);
-  const scrollBar=document.getElementById('scrollBar'); if(scrollBar){ window.addEventListener('scroll',()=>{ const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight); scrollBar.style.width=(pct*100)+'%'; },{passive:true}); }
+  const heroStarsEl = document.getElementById('heroStars'); 
+  for(let i=0;i<22;i++){ 
+    const s=document.createElement('div'); 
+    s.className='star'; 
+    let sz=1+Math.random()*3; 
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`; 
+    heroStarsEl.appendChild(s); 
+  }
+  
+  function initStarCanvas(canvasId,count){ 
+    const canvas=document.getElementById(canvasId); 
+    if(!canvas) return; 
+    const ctx=canvas.getContext('2d'); 
+    let stars=[]; 
+    function resize(){ 
+      const r=canvas.parentElement.getBoundingClientRect(); 
+      canvas.width=r.width; 
+      canvas.height=r.height; 
+      canvas.style.width=r.width+'px'; 
+      canvas.style.height=r.height+'px'; 
+      stars=[]; 
+      for(let i=0;i<count;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:0.8+Math.random()*2,a:0.3+Math.random()*0.7,sp:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}); 
+    } 
+    function draw(){ 
+      ctx.clearRect(0,0,canvas.width,canvas.height); 
+      const t=Date.now()/1000; 
+      for(const s of stars){ 
+        const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5); 
+        ctx.beginPath(); 
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2); 
+        ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`; 
+        ctx.fill(); 
+      } 
+      requestAnimationFrame(draw); 
+    } 
+    setTimeout(()=>{resize();draw();},100); 
+    window.addEventListener('resize',resize); 
+  }
+  
+  initStarCanvas('timerStarCanvas',120); 
+  initStarCanvas('starCanvas2',150);
+  
+  function tick(){ 
+    const target=new Date(2026,5,16,18,0,0); 
+    let diff=target-new Date(); 
+    if(diff<0) diff=0; 
+    document.getElementById('days').textContent=Math.floor(diff/864e5); 
+    document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5); 
+    document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4); 
+    document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3); 
+  } 
+  tick(); 
+  setInterval(tick,1000);
+  
+  const scrollBar=document.getElementById('scrollBar'); 
+  if(scrollBar){ 
+    window.addEventListener('scroll',()=>{ 
+      const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight); 
+      scrollBar.style.width=(pct*100)+'%'; 
+    },{passive:true}); 
+  }
+  
   const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider');
-  const getStaggerDelay = (el) => { const d={'timer-box':130,'contact-item':80,'cal-d':20}; for(let [cls,delay] of Object.entries(d)) if(el.classList.contains(cls)){ const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*delay; } const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')); let idx=sibs.indexOf(el); return idx>0?idx*100:0; };
-  const observer=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ const delay=getStaggerDelay(e.target); setTimeout(()=>{ e.target.classList.add('in'); },delay); observer.unobserve(e.target); } }); },{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
+  const getStaggerDelay = (el) => { 
+    const d={'timer-box':130,'contact-item':80,'cal-d':20}; 
+    for(let [cls,delay] of Object.entries(d)) if(el.classList.contains(cls)){ 
+      const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); 
+      return sibs.indexOf(el)*delay; 
+    } 
+    const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')); 
+    let idx=sibs.indexOf(el); 
+    return idx>0?idx*100:0; 
+  };
+  
+  const observer=new IntersectionObserver(entries=>{ 
+    entries.forEach(e=>{ 
+      if(e.isIntersecting){ 
+        const delay=getStaggerDelay(e.target); 
+        setTimeout(()=>{ 
+          e.target.classList.add('in'); 
+        },delay); 
+        observer.unobserve(e.target); 
+      } 
+    }); 
+  },{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
+  
   allReveal.forEach(el=>observer.observe(el));
+  
   const heroImgWrap = document.querySelector('.hero-img-wrap');
-  window.addEventListener('scroll', () => { const scrolled = window.scrollY; if(scrolled<window.innerHeight && heroImgWrap) heroImgWrap.style.transform = `translateY(${scrolled*0.18}px)`; }, {passive:true});
+  window.addEventListener('scroll', () => { 
+    const scrolled = window.scrollY; 
+    if(scrolled<window.innerHeight && heroImgWrap) 
+      heroImgWrap.style.transform = `translateY(${scrolled*0.18}px)`; 
+  }, {passive:true});
 })();
 </script>
 </body>
