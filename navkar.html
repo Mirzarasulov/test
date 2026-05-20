@@ -105,7 +105,7 @@
 <body>
 <div class="main-container">
     <div class="top-nav">
-        <a href="index.html" class="back-button">Назад на главную</a>Ф
+        <a href="index.html" class="back-button">Назад на главную</a>
     </div>
 
     <div class="wedding-locations">
@@ -118,30 +118,29 @@
                 </div>
             </div>
             <div class="buttons-row">
-                <!-- Яндекс ссылка (работает) -->
                 <button class="btn btn-yandex" data-yandex="https://yandex.uz/maps/-/CPs2uNL5" data-google="https://maps.app.goo.gl/uVdkpNobKSioyZUW9">Яндекс Карты</button>
-                <!-- Google ссылка (ИСПРАВЛЕНА на вашу новую) -->
                 <button class="btn btn-google" data-yandex="https://yandex.uz/maps/-/CPs2uNL5" data-google="https://maps.app.goo.gl/uVdkpNobKSioyZUW9">Google Maps</button>
             </div>
             <div class="hint-edit">
+                📍 Нажмите на адрес, чтобы изменить
             </div>
         </div>
 
-        <!-- БЛОК НЕВЕСТЫ: келини уйи -->
+        <!-- БЛОК НЕВЕСТЫ: келини уйи (с новыми ссылками) -->
         <div class="location-card">
             <div class="gold-title">🌸 Келини уйи</div>
             <div class="address-area">
                 <div class="editable-address" contenteditable="true" id="brideAddress">
-                    Якинда кошилади
+                    Toshkent, Olmazor tumani, 9-mavze
                 </div>
             </div>
             <div class="buttons-row">
-                <!-- Яндекс ссылка (пока пустая, ищет по адресу) -->
-                <button class="btn btn-yandex" data-yandex="" data-google="">Яндекс Карты</button>
-                <!-- Google ссылка (работает) -->
-                <button class="btn btn-google" data-yandex="" data-google="">Google Maps</button>
+                <!-- НОВЫЕ ССЫЛКИ ДЛЯ НЕВЕСТЫ -->
+                <button class="btn btn-yandex" data-yandex="https://yandex.uz/maps/-/CPsliU9Z" data-google="https://maps.app.goo.gl/jqEoeKZzirVzkP4G8">Яндекс Карты</button>
+                <button class="btn btn-google" data-yandex="https://yandex.uz/maps/-/CPsliU9Z" data-google="https://maps.app.goo.gl/jqEoeKZzirVzkP4G8">Google Maps</button>
             </div>
             <div class="hint-edit">
+                📍 Нажмите на адрес, чтобы изменить
             </div>
         </div>
     </div>
@@ -174,7 +173,7 @@
             
             let address = addressDiv.innerText.trim();
             
-            if (!address || address === 'Якин кунда адрес қўшилади') {
+            if (!address || address === 'Якин кунда адрес қўшилади' || address === '') {
                 alert('✍️ Пожалуйста, нажмите на поле адреса и введите реальный адрес!');
                 return;
             }
