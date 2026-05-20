@@ -277,7 +277,6 @@ body {
 
 .hero-text { text-align: center; }
 
-/* ========== НОВЫЙ ИЗЯЩНЫЙ ШРИФТ ДЛЯ ИМЁН ========== */
 .hero-names {
   text-align: center;
   margin: 20px 0 25px;
@@ -302,7 +301,6 @@ body {
   line-height: 1;
 }
 
-/* Стиль для текста приглашения */
 .hero-invite-new {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
@@ -696,13 +694,41 @@ body {
   text-align: right;
 }
 .contact-val { color: var(--text-light); }
+
+/* ===== ОБНОВЛЁННЫЙ СТИЛЬ ДЛЯ "SADIKOVLAR OILASI" — ИЗЯЩНЫЙ, ВИДНЫЙ, НО В НИЖНЕЙ ЧАСТИ ===== */
 .family-tag {
-  margin-top: 24px;
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(201,169,110,0.4);
+  text-align: center;
   font-family: 'Cinzel', serif;
-  font-size: 0.5rem;
-  letter-spacing: 0.45em;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
   color: var(--gold);
   text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.family-tag::before,
+.family-tag::after {
+  content: "✦";
+  font-size: 0.7rem;
+  color: var(--rose-light);
+  opacity: 0.8;
+}
+.family-tag span {
+  background: rgba(201,169,110,0.12);
+  padding: 6px 16px;
+  border-radius: 40px;
+  letter-spacing: 0.3em;
+  font-weight: 500;
+  font-size: 0.7rem;
+  display: inline-block;
+  box-shadow: inset 0 0 0 1px rgba(201,169,110,0.2), 0 2px 6px rgba(0,0,0,0.02);
 }
 
 /* ========== КАРТА ========== */
@@ -974,6 +1000,7 @@ body {
   .name-line { font-size: 2.8rem; }
   .amp-line { font-size: 2rem; }
   .hero-invite-new { font-size: 0.85rem; }
+  .family-tag span { letter-spacing: 0.2em; font-size: 0.6rem; }
 }
 </style>
 </head>
@@ -1006,15 +1033,12 @@ body {
     <div class="hero-img-wrap reveal"><div class="hero-badge">NIKOH TO'YI TAKLIFNOMASI</div><img class="hero-img" src="https://i.postimg.cc/632DZnRF/kitob.webp" alt="kitob"></div>
     
     <div class="hero-text reveal" style="transition-delay:0.15s">
-      
-      <!-- ИМЕНА - изящный курсивный шрифт -->
       <div class="hero-names">
         <div class="name-line">Abdullaziz</div>
         <div class="amp-line">&</div>
         <div class="name-line">Begoyim</div>
       </div>
       
-      <!-- ТЕКСТ ПРИГЛАШЕНИЯ -->
       <div class="hero-invite-new">
         <div>ASSALOMU ALAYKUM</div>
         <div>HURMATLI AZIZ MEHMONIMIZ!</div>
@@ -1037,7 +1061,7 @@ body {
 
   <div class="timer-section"><div class="timer-bg"><canvas id="timerStarCanvas"></canvas><div class="timer-mosque">🕌</div><div class="timer-label-top">To'yga qolgan vaqt</div><div class="timer-grid"><div class="timer-box reveal"><span class="timer-num" id="days">--</span><span class="timer-unit">Kun</span></div><div class="timer-box reveal" style="transition-delay:0.1s"><span class="timer-num" id="hours">--</span><span class="timer-unit">Soat</span></div><div class="timer-box reveal" style="transition-delay:0.2s"><span class="timer-num" id="minutes">--</span><span class="timer-unit">Daqiqa</span></div><div class="timer-box reveal" style="transition-delay:0.3s"><span class="timer-num" id="seconds">--</span><span class="timer-unit">Soniya</span></div></div><div class="hadis-box reveal" style="transition-delay:0.4s"><div class="hadis-q">"</div><div class="hadis-text">Nikoh mening sunnatimdir. Kim mening sunnatimga amal qilsa, u mendan.</div><div class="hadis-src">Hadisi sharif</div></div></div></div>
 
-  <div class="video-section"><div class="video-card reveal"><canvas id="starCanvas2"></canvas><video id="video2" autoplay loop muted playsinline disablePictureInPicture><source src="video2.mp4" type="video/mp4"></video><div class="video-caption"> &nbsp;✨  Duolar va muhabbat ila bezalgan oqshom  ✨ &nbsp;
+  <div class="video-section"><div class="video-card reveal"><canvas id="starCanvas2"></canvas><video id="video2" autoplay loop muted playsinline disablePictureInPicture><source src="video2.mp4" type="video/mp4"></video><div class="video-caption">✨ &nbsp; Duolar va muhabbat ila bezalgan oqshom &nbsp; ✨</div></div></div>
 
   <div class="section"><div class="container"><div class="venue-card reveal"><img class="venue-img" src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg" alt="Grant Elite"><div class="venue-body"><div class="sec-label">To'y o'tkaziladigan joy</div><div class="venue-name">Grant Elite</div><div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div><div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div><div class="map-btns"><a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a><a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a><a href="navkar.html" class="map-btn navkar">✨ Navkar ✨</a></div></div></div></div></div>
 
@@ -1051,7 +1075,7 @@ body {
           <div class="chip-icon"></div>
           <span class="card-type">UZCARD</span>
         </div>
-        <div class="card-number" id="cardNumberDisplay">8600492995822125</div>
+        <div class="card-number" id="cardNumberDisplay">8600 1234 5678 9012</div>
         <div class="card-details">
           <div class="card-holder">
             <div class="card-label">Karta egasi</div>
@@ -1065,11 +1089,14 @@ body {
       <button class="copy-btn-card" id="copyMainBtn">💳 Karta raqamini nusxalash</button>
       
       <div class="card-text" style="font-size:0.85rem; margin-top:20px;">Qo'shimcha ehtirom bildirmoqchi bo'lgan mehmonlar uchun karta raqami qoldirilgan.</div>
-      <div class="card-note-bottom">✨ Hurmat va ehtirom bilan, Sadikovlar oilasi ✨</div>
+      <div class="card-note-bottom">✨ Hurmat va ehtirom bilan ✨</div>
     </div>
   </div>
 
-  <div class="section"><div class="container"><div class="contacts-card reveal"><img src="https://i.postimg.cc/cLTyGsds/hat.webp" alt="hat" class="hat-img"><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@sadikovdesigner</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998998412114</span></div><div class="contact-item"><span class="contact-label"></span></span></div><div class="family-tag">Sadikovlar oilasi</div></div></div></div>
+  <div class="section"><div class="container"><div class="contacts-card reveal"><img src="https://i.postimg.cc/cLTyGsds/hat.webp" alt="hat" class="hat-img"><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@sadikovdesigner</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998998412114</span></div>
+        <!-- YANGI USLUBDAGI OILA NOMI SAQLANGAN PASTKI QISM -->
+        <div class="family-tag"><span>SADIKOVLAR OILASI</span></div>
+      </div></div></div>
 </div>
 
 <div class="music-btn" id="musicBtn"><span class="music-icon">♪</span><div class="music-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
