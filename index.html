@@ -512,6 +512,33 @@
         50% { transform: rotate(-45deg) translateY(6px); }
     }
 
+    /* ========== АВТОРСКИЙ БЛОК С TELEGRAM ========== */
+    .footer-author {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: 'Jost', monospace;
+        font-size: 0.65rem;
+        color: rgba(255,255,255,0.4);
+        z-index: 100;
+        pointer-events: none;
+    }
+    .footer-author a {
+        color: rgba(255,255,255,0.6);
+        text-decoration: none;
+        pointer-events: auto;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .footer-author a:hover {
+        color: #c9a96e;
+    }
+    .footer-author span {
+        color: rgba(255,255,255,0.3);
+    }
+
     @media (max-width: 550px) {
         .name-main { font-size: 70px; }
         .amp-main { font-size: 35px; }
@@ -522,6 +549,7 @@
         .marquee { font-size: 0.7rem; letter-spacing: 4px; }
         .hint-text { font-size: 0.6rem; letter-spacing: 2px; }
         .timer-date { font-size: 1.2rem; }
+        .footer-author { font-size: 0.5rem; bottom: 15px; }
     }
 </style>
 </head>
@@ -602,6 +630,11 @@
     <div class="scroll-hint" id="scrollHint">
         <div class="hint-text">листайте вниз</div>
         <div class="hint-arrow"></div>
+    </div>
+
+    <!-- АВТОРСКИЙ БЛОК С TELEGRAM (ПРИ НАЖАТИИ ОТКРЫВАЕТСЯ TG) -->
+    <div class="footer-author">
+        <span>⚡ created: </span><a href="https://t.me/Dma12r" target="_blank">@Dma12r</a>
     </div>
 
     <div class="modal" id="mapModal">
