@@ -1,1304 +1,718 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Abdullaziz & Begoyim | To'y taklifnomasi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
 
-<!-- Open Graph metateglar (Telegram, WhatsApp, Facebook uchun) -->
-<meta property="og:title" content="Abdullaziz & Begoyim | NIKOH TO'YI TAKLIFNOMASI">
-<meta property="og:description" content="Assalomu alaykum! Sizni Abdullaziz va Begoyimning nikoh to'yiga taklif etamiz. 16 Iyun 2026, Grant Elite to'yxonasi.">
-<meta property="og:image" content="https://i.postimg.cc/rFQtdrJ0/video-end-DNj-Ru6x-E.jpg">
+<!-- META ТЕГИ ДЛЯ TELEGRAM И WHATSAPP -->
+<meta property="og:title" content="Азимбек & Севинч | Свадебное приглашение">
+<meta property="og:description" content="С большой радостью приглашаем вас разделить с нами самый важный и счастливый день нашей жизни - день нашей свадьбы. 13 июня 2026, 19:00.">
+<meta property="og:image" content="https://i.postimg.cc/Z5160p4B/pngtree-elegant-wedding-rings-and-white-rose-bouquet-image-17319559.jpg">
 <meta property="og:image:width" content="800">
 <meta property="og:image:height" content="600">
-<meta property="og:url" content="https://your-domain.com/invitation.html">
 <meta property="og:type" content="website">
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Abdullaziz & Begoyim | Nikoh to'yi">
-<meta name="twitter:description" content="Sizni Abdullaziz va Begoyimning nikoh to'yiga taklif etamiz! 16 Iyun 2026">
-<meta name="twitter:image" content="https://i.postimg.cc/rFQtdrJ0/video-end-DNj-Ru6x-E.jpg">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Cinzel:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Азимбек & Севинч | Свадебное приглашение</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-:root {
-  --cream: #faf5ee;
-  --gold: #c9a96e;
-  --gold-light: #e8d5a3;
-  --green-dark: #2d5a3d;
-  --green-med: #3d7a52;
-  --green-light: #6aaa80;
-  --rose: #c9748a;
-  --rose-light: #f0c4d0;
-  --text: #2a1f14;
-  --text-light: #6b5a4a;
-}
+    body {
+        background: #000;
+        font-family: 'Jost', sans-serif;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        height: 100vh;
+    }
 
-body {
-  background: var(--cream);
-  font-family: 'Jost', sans-serif;
-  color: var(--text);
-  overflow-x: hidden;
-  min-height: 100vh;
-}
+    /* ========== ЗАСТАВКА (SPLASH) ========== */
+    .splash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://i.postimg.cc/R04YFXKw/1750784974384.jpg');
+        background-size: cover;
+        background-position: center;
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 1.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 1.8s ease;
+        opacity: 1;
+        visibility: visible;
+    }
+    .splash.hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+    .splash-content {
+        text-align: center;
+        background: rgba(0,0,0,0.3);
+        backdrop-filter: blur(5px);
+        padding: 2rem 1.5rem;
+        border-radius: 40px;
+        width: 85%;
+        max-width: 360px;
+    }
+    .splash-names {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 3rem;
+        font-weight: 600;
+        font-style: italic;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(8px);
+        animation: splashReveal 1.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+    }
+    .splash-amp {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #c9a96e;
+        margin: 0.5rem 0;
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(8px);
+        animation: splashReveal 1.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.3s forwards;
+    }
+    .splash-date {
+        font-family: 'Jost', sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+        font-weight: 300;
+        color: rgba(255,255,255,0.9);
+        margin: 1rem 0 2rem;
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(8px);
+        animation: splashReveal 1.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.6s forwards;
+    }
+    @keyframes splashReveal {
+        0% { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+        100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    .splash-btn {
+        background: linear-gradient(135deg, #c9a96e, #b8884a);
+        border: none;
+        padding: 16px 48px;
+        border-radius: 60px;
+        font-family: 'Jost', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 4px;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s;
+        width: 80%;
+        max-width: 260px;
+        opacity: 0;
+        transform: scale(0.9);
+        animation: btnReveal 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.9s forwards;
+    }
+    @keyframes btnReveal {
+        0% { opacity: 0; transform: scale(0.9); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    .splash-btn:active { transform: scale(0.96); }
 
-#splash {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: #0a0d0a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-#splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    /* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+    .main-content {
+        opacity: 0;
+        visibility: hidden;
+        overflow-y: auto;
+        height: 100vh;
+        scroll-behavior: smooth;
+        transition: opacity 1.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 1.8s ease;
+    }
+    .main-content.show {
+        opacity: 1;
+        visibility: visible;
+    }
 
-#splashVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-#splashVideo.playing { opacity: 1; }
+    /* ========== СТРАНИЦА 1 ========== */
+    .page-1 {
+        background-image: url('https://i.postimg.cc/XY04HPvb/photo.jpg');
+        background-size: cover;
+        background-position: center 30%;
+        position: relative;
+    }
+    .page-1 .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.65));
+        z-index: 1;
+    }
+    .page-1 .content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        width: 100%;
+        padding: 0 1.5rem;
+        opacity: 0;
+        transform: scale(0.98);
+        filter: blur(12px);
+        transition: opacity 2s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 2s cubic-bezier(0.2, 0.9, 0.4, 1.1), filter 2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .main-content.show .page-1 .content {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
 
-.splash-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.55) 100%);
-}
+    /* Анимация текста */
+    .premium-text {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(8px);
+        transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), filter 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .main-content.show .premium-text {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+    .main-content.show .premium-delay-1 { transition-delay: 0.2s; }
+    .main-content.show .premium-delay-2 { transition-delay: 0.45s; }
+    .main-content.show .premium-delay-3 { transition-delay: 0.7s; }
+    .main-content.show .premium-delay-4 { transition-delay: 0.95s; }
+    .main-content.show .premium-delay-5 { transition-delay: 1.2s; }
 
-.splash-content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  animation: splashFadeIn 1.4s ease forwards;
-}
-@keyframes splashFadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    .wedding-label {
+        font-family: 'Jost', sans-serif;
+        font-size: 13px;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+    .name-main {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 100px;
+        line-height: 0.85;
+        font-weight: 700;
+        font-style: italic;
+        letter-spacing: 2px;
+        text-shadow: 0 8px 35px rgba(0,0,0,0.5);
+    }
+    .amp-main {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 48px;
+        font-weight: 500;
+        font-style: italic;
+        margin: 12px 0;
+    }
+    .divider-main {
+        width: 60px;
+        height: 1px;
+        background: rgba(255,255,255,0.5);
+        margin: 30px auto 20px;
+    }
+    .date-main {
+        font-family: 'Jost', sans-serif;
+        font-size: 13px;
+        letter-spacing: 5px;
+        font-weight: 300;
+    }
 
-.splash-salom {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3.2rem;
-  color: #f5e8c8;
-  text-shadow: 0 2px 20px rgba(201,169,110,0.6);
-  line-height: 1.1;
-}
-.splash-sub {
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.45em;
-  color: var(--gold-light);
-  text-transform: uppercase;
-}
+    /* ========== ОСТАЛЬНЫЕ СТРАНИЦЫ ========== */
+    .page {
+        width: 100%;
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .page-2 {
+        background-image: url('https://i.postimg.cc/76n5wQxV/0ddbc97f-e57a-4b67-a0d6-796ec2c0630b.png');
+        background-size: cover;
+        background-position: center;
+    }
+    .page-3 {
+        background-image: url('https://i.postimg.cc/ZnTRCKWP/42355acd-5a82-4e6f-9741-eb6fdf134a85.png');
+        background-size: cover;
+        background-position: center;
+    }
+    .location-card {
+        background: rgba(255,255,255,0.96);
+        border-radius: 40px;
+        padding: 28px 24px;
+        text-align: center;
+        max-width: 320px;
+        width: 90%;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .location-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #8b7355;
+    }
+    .location-addr {
+        font-family: 'Jost', sans-serif;
+        font-size: 0.85rem;
+        color: #7a6b5a;
+        margin: 6px 0;
+    }
+    .location-hint {
+        font-family: 'Jost', sans-serif;
+        font-size: 0.7rem;
+        color: #c9a96e;
+        margin-bottom: 20px;
+        font-weight: 400;
+    }
+    .location-btn {
+        background: #c9a96e;
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 60px;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+        transition: transform 0.2s;
+    }
+    .location-btn:active { transform: scale(0.96); }
+    
+    .page-4 {
+        background: white;
+        min-height: 14vh;
+        height: 14vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-top: 2px solid #d4bfa8;
+        border-bottom: 2px solid #d4bfa8;
+    }
+    .marquee {
+        white-space: nowrap;
+        animation: scrollText 14s linear infinite;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 6px;
+        color: #8b7355;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+    .marquee span { margin: 0 35px; }
+    @keyframes scrollText {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+    }
+    
+    /* СТРАНИЦА 5 — ТАЙМЕР С НОВЫМ ФОТО */
+    .page-5 {
+        background-image: url('https://i.postimg.cc/Z5160p4B/pngtree-elegant-wedding-rings-and-white-rose-bouquet-image-17319559.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    .page-5 .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.75));
+        z-index: 1;
+    }
+    .timer-wrap {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+        padding: 0 1.5rem;
+    }
+    .timer-date {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #e8d5c0;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+    .timer-label {
+        font-family: 'Jost', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.85);
+        margin-bottom: 30px;
+        font-weight: 400;
+    }
+    .timer-grid {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .timer-cell {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 28px;
+        padding: 20px 16px;
+        min-width: 95px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: transform 0.3s;
+    }
+    .timer-cell:hover { transform: translateY(-5px); }
+    .timer-num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 0 15px rgba(255,215,150,0.5);
+        animation: numberGlow 2s infinite;
+    }
+    @keyframes numberGlow {
+        0%,100% { text-shadow: 0 0 5px rgba(255,215,150,0.3); }
+        50% { text-shadow: 0 0 20px rgba(255,215,150,0.8); }
+    }
+    .timer-unit {
+        font-family: 'Jost', sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+        color: rgba(255,255,255,0.7);
+        margin-top: 8px;
+        font-weight: 300;
+    }
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        filter: blur(10px);
+        transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), filter 1s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .scroll-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
 
-.splash-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--gold);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  opacity: 0.7;
-}
-.splash-divider::before, .splash-divider::after {
-  content: '';
-  width: 40px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold));
-}
-.splash-divider::after { background: linear-gradient(to left, transparent, var(--gold)); }
+    /* МОДАЛЬНОЕ ОКНО */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.94);
+        backdrop-filter: blur(16px);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s;
+    }
+    .modal.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    .modal-btn {
+        background: #c9a96e;
+        color: white;
+        padding: 16px 32px;
+        border-radius: 60px;
+        text-decoration: none;
+        font-family: 'Jost', sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        width: 80%;
+        max-width: 260px;
+        text-align: center;
+    }
+    .modal-close {
+        position: absolute;
+        top: 50px;
+        right: 30px;
+        font-size: 28px;
+        color: white;
+        cursor: pointer;
+        background: rgba(255,255,255,0.1);
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    .music-btn {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    .music-icon { font-size: 1.4rem; color: white; }
+    .music-btn.playing .music-icon { animation: musicPulse 1s infinite; }
+    @keyframes musicPulse { 50% { opacity: 0.6; transform: scale(1.1); } }
 
-.btn-open {
-  position: relative;
-  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
-  border: none;
-  cursor: pointer;
-  padding: 16px 40px;
-  border-radius: 12px;
-  font-family: 'Cinzel', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  color: white;
-  text-transform: uppercase;
-  box-shadow: 0 8px 28px rgba(45,90,61,0.45), 0 2px 0 rgba(255,255,255,0.12) inset;
-  transition: all 0.25s ease;
-  margin-top: 10px;
-  overflow: hidden;
-}
-.btn-open::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
-  border-radius: 12px;
-}
-.btn-open:active { transform: scale(0.97) translateY(0); }
+    /* СТРЕЛКА С НАДПИСЬЮ */
+    .scroll-hint {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    .scroll-hint.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .hint-text {
+        font-family: 'Jost', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+        color: rgba(255,255,255,0.7);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+    .hint-arrow {
+        width: 24px;
+        height: 24px;
+        border-left: 2px solid rgba(255,255,255,0.7);
+        border-bottom: 2px solid rgba(255,255,255,0.7);
+        transform: rotate(-45deg);
+        margin: 0 auto;
+        animation: hintBounce 1.8s infinite;
+    }
+    @keyframes hintBounce {
+        0%,100% { transform: rotate(-45deg) translateY(0); }
+        50% { transform: rotate(-45deg) translateY(6px); }
+    }
 
-.video-progress {
-  position: absolute;
-  bottom: 0; left: 0;
-  height: 2px;
-  background: linear-gradient(to right, var(--green-light), var(--gold));
-  width: 0%;
-  transition: width 0.3s linear;
-  z-index: 20;
-}
-
-#transitionScreen {
-  position: fixed;
-  inset: 0;
-  z-index: 1900;
-  background: var(--cream);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-#transitionScreen.show { opacity: 1; visibility: visible; }
-#transitionScreen.hide { opacity: 0; visibility: hidden; }
-
-.trans-img {
-  width: min(85vw, 360px);
-  border-radius: 32px;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.18);
-  transform: scale(0.88);
-  opacity: 0;
-  transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.7s ease;
-}
-#transitionScreen.show .trans-img {
-  transform: scale(1);
-  opacity: 1;
-}
-.trans-ornament {
-  font-size: 1.4rem;
-  color: var(--gold);
-  opacity: 0;
-  transition: opacity 0.6s ease 0.4s;
-}
-#transitionScreen.show .trans-ornament { opacity: 1; }
-.trans-gold-text {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.6rem;
-  color: var(--gold);
-  text-shadow: 0 0 10px rgba(201,169,110,0.5);
-  letter-spacing: 0.08em;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
-  text-align: center;
-  margin-top: -8px;
-}
-#transitionScreen.show .trans-gold-text {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#starsCanvas {
-  position: fixed;
-  inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 999;
-}
-
-#mainContent {
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-#mainContent.visible { opacity: 1; }
-
-.hero {
-  min-height: 100svh;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 24px 80px;
-}
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 30%, rgba(106,170,128,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 70%, rgba(201,116,138,0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.07) 0%, transparent 60%);
-}
-.hero-stars {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-.star {
-  position: absolute;
-  background: var(--gold);
-  border-radius: 50%;
-  animation: twinkle var(--dur, 3s) infinite alternate;
-}
-@keyframes twinkle {
-  from { opacity: 0.1; transform: scale(0.8); }
-  to { opacity: 0.7; transform: scale(1.2); }
-}
-
-.hero-img-wrap {
-  position: relative;
-  width: min(88vw, 360px);
-  margin-bottom: 32px;
-}
-.hero-img {
-  width: 100%;
-  border-radius: 48px 48px 80px 80px;
-  box-shadow: 0 30px 70px rgba(0,0,0,0.15), 0 0 0 1px rgba(201,169,110,0.2), inset 0 0 40px rgba(255,255,255,0.4);
-  display: block;
-  animation: heroFloat 4s ease-in-out infinite;
-}
-@keyframes heroFloat {
-  0%,100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-.hero-badge {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
-  color: white;
-  font-family: 'Cinzel', serif;
-  font-size: 0.5rem;
-  letter-spacing: 0.4em;
-  padding: 6px 20px;
-  border-radius: 40px;
-  white-space: nowrap;
-  box-shadow: 0 6px 20px rgba(45,90,61,0.35);
-}
-
-.hero-text { text-align: center; }
-
-.hero-names {
-  text-align: center;
-  margin: 20px 0 25px;
-}
-
-.name-line {
-  font-family: 'Great Vibes', 'Segoe UI', 'Apple Chancery', cursive;
-  font-size: 4rem;
-  font-weight: normal;
-  color: var(--green-dark);
-  text-shadow: 0 2px 12px rgba(45,90,61,0.1);
-  line-height: 1.2;
-  letter-spacing: 1px;
-}
-
-.amp-line {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  font-weight: normal;
-  color: var(--gold);
-  margin: 5px 0;
-  line-height: 1;
-}
-
-.hero-invite-new {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
-  font-size: 1rem;
-  color: var(--text-light);
-  text-align: center;
-  line-height: 1.7;
-  margin-top: 20px;
-  letter-spacing: 0.5px;
-}
-
-.hero-invite-new div {
-  margin: 3px 0;
-}
-
-.hero-invite-new div:first-child {
-  font-weight: 600;
-  color: var(--green-dark);
-  letter-spacing: 1px;
-}
-
-.hero-invite-new div:nth-child(2) {
-  font-weight: 600;
-  color: var(--green-dark);
-  margin-bottom: 12px;
-}
-
-.hero-ayat {
-  max-width: 340px;
-  margin: 30px auto 0;
-  padding: 16px 20px;
-  border-top: 1px solid rgba(201,169,110,0.4);
-  border-bottom: 1px solid rgba(201,169,110,0.4);
-  text-align: center;
-}
-.ayat-bismillah {
-  font-size: 1.4rem;
-  color: var(--green-dark);
-  margin-bottom: 8px;
-}
-.ayat-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 0.85rem;
-  color: var(--text-light);
-  line-height: 1.7;
-}
-.ayat-source {
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
-  color: var(--gold);
-  margin-top: 8px;
-  text-transform: uppercase;
-}
-
-.section {
-  padding: 60px 20px;
-  display: flex;
-  justify-content: center;
-}
-.container { max-width: 480px; width: 100%; }
-
-.cal-wrap { position: relative; }
-.cal-card {
-  background: white;
-  border-radius: 40px;
-  padding: 32px 24px 28px;
-  box-shadow: 0 16px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(201,169,110,0.15);
-  position: relative;
-  overflow: hidden;
-}
-.cal-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(to right, var(--rose-light), var(--gold), var(--green-light));
-}
-.flowers {
-  position: absolute;
-  top: 50%; transform: translateY(-50%);
-  width: 55px;
-  pointer-events: none;
-}
-.flowers.left { left: -18px; }
-.flowers.right { right: -18px; transform: translateY(-50%) scaleX(-1); }
-.flowers img { width: 100%; display: block; }
-
-.sec-label {
-  font-family: 'Cinzel', serif;
-  font-size: 0.5rem;
-  letter-spacing: 0.5em;
-  color: var(--rose);
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 10px;
-}
-.sec-h2 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: var(--green-dark);
-  text-align: center;
-  margin-bottom: 4px;
-}
-.sec-sub {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--text-light);
-  margin-bottom: 20px;
-}
-
-.cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
-  gap: 4px;
-}
-.cal-hd {
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  color: var(--rose);
-  text-align: center;
-  padding-bottom: 6px;
-  font-weight: 500;
-}
-.cal-d {
-  aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.8rem;
-  border-radius: 50%;
-  color: var(--text-light);
-}
-.cal-d.past { color: #d4b8b8; background: #fdf0f3; }
-.cal-d.special {
-  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
-  color: white;
-  font-weight: 500;
-  box-shadow: 0 4px 16px rgba(45,90,61,0.4);
-  position: relative;
-}
-.cal-d.special::after {
-  content: '📍';
-  position: absolute;
-  font-size: 10px;
-  top: -10px; right: -6px;
-}
-
-.timer-section {
-  padding: 10px 20px 60px;
-  display: flex; justify-content: center;
-}
-.timer-bg {
-  background: linear-gradient(145deg, #0e1a12, #1a2f1e);
-  border-radius: 40px;
-  padding: 32px 24px;
-  width: 100%;
-  max-width: 480px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
-}
-.timer-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(106,170,128,0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 50%, rgba(201,169,110,0.1) 0%, transparent 50%);
-}
-#timerStarCanvas, #starCanvas2 {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-}
-.timer-mosque {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  text-align: center;
-  font-size: 2.5rem;
-  opacity: 0.08;
-  pointer-events: none;
-}
-.timer-label-top {
-  font-family: 'Cinzel', serif;
-  font-size: 0.5rem;
-  letter-spacing: 0.55em;
-  color: rgba(201,169,110,0.7);
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  position: relative; z-index: 2;
-}
-.timer-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 10px;
-  position: relative; z-index: 2;
-}
-.timer-box {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(201,169,110,0.2);
-  border-radius: 20px;
-  padding: 14px 8px;
-  text-align: center;
-  backdrop-filter: blur(4px);
-}
-.timer-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.4rem;
-  color: #f0e6c8;
-  line-height: 1;
-  display: block;
-}
-.timer-unit {
-  font-size: 0.48rem;
-  letter-spacing: 0.3em;
-  color: rgba(201,169,110,0.7);
-  text-transform: uppercase;
-  margin-top: 4px;
-  display: block;
-}
-.hadis-box {
-  position: relative; z-index: 2;
-  margin-top: 24px;
-  border: 1px solid rgba(201,169,110,0.15);
-  border-radius: 20px;
-  padding: 16px 20px;
-  text-align: center;
-  background: rgba(255,255,255,0.03);
-}
-.hadis-q {
-  font-size: 1rem;
-  color: var(--gold);
-  margin-bottom: 8px;
-}
-.hadis-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 0.9rem;
-  color: rgba(245,232,200,0.8);
-  line-height: 1.6;
-}
-.hadis-src {
-  font-family: 'Cinzel', serif;
-  font-size: 0.48rem;
-  letter-spacing: 0.35em;
-  color: rgba(201,169,110,0.6);
-  margin-top: 8px;
-  text-transform: uppercase;
-}
-
-.video-section {
-  padding: 0 20px 60px;
-  display: flex; justify-content: center;
-}
-.video-card {
-  background: linear-gradient(145deg, #0a0d10, #111a12);
-  border-radius: 40px;
-  padding: 20px;
-  width: 100%; max-width: 480px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-}
-#video2 {
-  width: 100%;
-  border-radius: 24px;
-  display: block;
-  position: relative; z-index: 2;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.video-caption {
-  text-align: center;
-  color: rgba(240,230,200,0.7);
-  font-size: 0.65rem;
-  letter-spacing: 0.35em;
-  margin-top: 14px;
-  position: relative; z-index: 2;
-  text-transform: uppercase;
-}
-
-.venue-card {
-  background: white;
-  border-radius: 40px;
-  overflow: hidden;
-  box-shadow: 0 16px 50px rgba(0,0,0,0.07), 0 0 0 1px rgba(201,169,110,0.15);
-}
-.venue-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
-.venue-body {
-  padding: 28px 24px;
-}
-.venue-name {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
-  color: var(--green-dark);
-  text-align: center;
-  margin-bottom: 4px;
-}
-.venue-sub {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--text-light);
-  margin-bottom: 6px;
-}
-.venue-addr {
-  text-align: center;
-  font-size: 0.7rem;
-  color: var(--rose);
-  margin-bottom: 20px;
-}
-.map-btns {
-  display: flex; gap: 12px; justify-content: center;
-  flex-wrap: wrap;
-}
-.map-btn {
-  background: var(--green-dark);
-  color: white;
-  padding: 9px 22px;
-  border-radius: 40px;
-  text-decoration: none;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  display: flex; align-items: center; gap: 6px;
-}
-.map-btn:active { transform: scale(0.96); }
-.map-btn.alt { background: white; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
-.map-btn.navkar {
-  background: linear-gradient(135deg, #c9a96e, #b8884a);
-  border: none;
-  color: white;
-  box-shadow: 0 4px 12px rgba(185, 130, 50, 0.3);
-}
-
-.contacts-card {
-  background: white;
-  border-radius: 40px;
-  padding: 40px 24px;
-  text-align: center;
-  box-shadow: 0 16px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(201,169,110,0.12);
-  position: relative;
-  overflow: hidden;
-}
-.contacts-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(to right, var(--green-light), var(--gold), var(--rose-light));
-}
-.hat-img {
-  width: 70px;
-  height: auto;
-  display: block;
-  margin: 0 auto 16px;
-  animation: floatHat 2.5s ease-in-out infinite;
-}
-@keyframes floatHat {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-.contacts-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.8rem;
-  color: var(--green-dark);
-  margin-bottom: 8px;
-}
-.contacts-desc {
-  font-size: 0.78rem;
-  color: var(--text-light);
-  margin-bottom: 24px;
-}
-.contact-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(201,169,110,0.12);
-  font-size: 0.85rem;
-}
-.contact-item:last-of-type { border-bottom: none; }
-.contact-label {
-  font-weight: 500;
-  color: var(--green-dark);
-  min-width: 90px;
-  text-align: right;
-}
-.contact-val { color: var(--text-light); }
-
-.family-tag {
-  margin-top: 28px;
-  padding-top: 18px;
-  border-top: 1px dashed rgba(201,169,110,0.4);
-  text-align: center;
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  color: var(--gold);
-  text-transform: uppercase;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.family-tag::before,
-.family-tag::after {
-  content: "✦";
-  font-size: 0.7rem;
-  color: var(--rose-light);
-  opacity: 0.8;
-}
-.family-tag span {
-  background: rgba(201,169,110,0.12);
-  padding: 6px 16px;
-  border-radius: 40px;
-  letter-spacing: 0.3em;
-  font-weight: 500;
-  font-size: 0.7rem;
-  display: inline-block;
-  box-shadow: inset 0 0 0 1px rgba(201,169,110,0.2), 0 2px 6px rgba(0,0,0,0.02);
-}
-
-.card-section {
-  padding: 20px 20px 60px;
-  display: flex;
-  justify-content: center;
-}
-.card-wrapper {
-  max-width: 480px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-}
-
-.card-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
-  font-style: italic;
-  color: var(--text-light);
-  margin-bottom: 24px;
-  line-height: 1.6;
-  padding: 0 8px;
-}
-
-.bank-card {
-  background: linear-gradient(135deg, #1a2a1a, #0d1f0d);
-  border-radius: 28px;
-  padding: 28px 24px 24px;
-  box-shadow: 0 25px 40px rgba(0,0,0,0.25), 0 0 0 1px rgba(201,169,110,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.bank-card:active {
-  transform: scale(0.98);
-}
-.bank-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -30%;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(201,169,110,0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.bank-card::after {
-  content: '✦';
-  position: absolute;
-  bottom: 15px;
-  right: 20px;
-  font-size: 1.2rem;
-  color: rgba(201,169,110,0.3);
-  font-family: serif;
-  pointer-events: none;
-}
-
-.card-chip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 32px;
-  pointer-events: none;
-}
-.chip-icon {
-  width: 42px;
-  height: 32px;
-  background: linear-gradient(135deg, #e8c97a, #c9a96e);
-  border-radius: 8px;
-  position: relative;
-  box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 1px 3px rgba(0,0,0,0.2);
-}
-.chip-icon::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 8px;
-  width: 26px;
-  height: 20px;
-  background: repeating-linear-gradient(45deg, #b8860b, #b8860b 3px, #daa520 3px, #daa520 6px);
-  border-radius: 4px;
-}
-.card-type {
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  color: rgba(201,169,110,0.7);
-  text-transform: uppercase;
-}
-
-.card-number {
-  font-family: 'Courier New', 'SF Mono', monospace;
-  font-size: clamp(18px, 5.5vw, 26px);
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: #f0e6c8;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-  margin: 20px 0 16px;
-  word-break: break-word;
-  background: rgba(255,255,255,0.05);
-  padding: 12px 8px;
-  border-radius: 16px;
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  pointer-events: none;
-}
-
-.card-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-top: 16px;
-  pointer-events: none;
-}
-.card-holder {
-  text-align: left;
-}
-.card-label {
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  color: rgba(201,169,110,0.6);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.card-name {
-  font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #f0e6c8;
-}
-.card-valid {
-  text-align: right;
-}
-
-.copy-btn-card {
-  background: linear-gradient(135deg, var(--green-dark), var(--green-med));
-  border: none;
-  color: white;
-  padding: 14px 28px;
-  border-radius: 60px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Jost', sans-serif;
-  margin-top: 22px;
-  box-shadow: 0 4px 12px rgba(45,90,61,0.2);
-}
-.copy-btn-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(45,90,61,0.3);
-}
-.copy-btn-card:active {
-  transform: translateY(1px);
-}
-
-.card-note-bottom {
-  margin-top: 20px;
-  font-size: 0.7rem;
-  color: var(--text-light);
-  opacity: 0.7;
-  font-family: 'Jost', sans-serif;
-}
-
-.toast-card {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%) scale(0.9);
-  background: var(--green-dark);
-  color: white;
-  padding: 10px 24px;
-  border-radius: 60px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  opacity: 0;
-  transition: all 0.2s ease;
-  pointer-events: none;
-  z-index: 1100;
-  white-space: nowrap;
-  font-family: 'Jost', sans-serif;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-.toast-card.show {
-  opacity: 1;
-  transform: translateX(-50%) scale(1);
-}
-
-.music-btn {
-  position: fixed;
-  bottom: 22px; right: 18px;
-  width: 46px; height: 46px;
-  background: rgba(250,245,238,0.92);
-  backdrop-filter: blur(16px);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  border: 1.5px solid rgba(201,169,110,0.4);
-  z-index: 980;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-.music-btn:active { transform: scale(0.92); }
-.music-icon { font-size: 1.1rem; color: var(--green-dark); }
-.music-bars { display: none; gap: 2px; align-items: flex-end; height: 16px; }
-.music-btn.playing .music-icon { display: none; }
-.music-btn.playing .music-bars { display: flex; }
-.bar {
-  width: 3px; background: var(--green-dark);
-  border-radius: 2px;
-  animation: barAnim 0.6s infinite alternate;
-}
-.bar:nth-child(1) { height: 5px; }
-.bar:nth-child(2) { height: 11px; animation-delay: 0.1s; }
-.bar:nth-child(3) { height: 7px; animation-delay: 0.2s; }
-.bar:nth-child(4) { height: 13px; animation-delay: 0.05s; }
-@keyframes barAnim {
-  from { transform: scaleY(0.3); opacity: 0.5; }
-  to { transform: scaleY(1); opacity: 1; }
-}
-
-.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider, .bank-card {
-  transition-timing-function: cubic-bezier(0.2, 0.9, 0.4, 1.1);
-}
-.reveal { opacity: 0; transform: translateY(60px) scale(0.97); transition: opacity 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); will-change: transform, opacity; }
-.reveal.in { opacity: 1; transform: translateY(0) scale(1); }
-.bank-card.reveal { transform: translateY(40px) rotateX(5deg); transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 1s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-.bank-card.reveal.in { transform: translateY(0) rotateX(0deg); }
-
-#scrollBar {
-  position: fixed;
-  top: 0; left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(to right, var(--green-light), var(--gold), var(--rose));
-  z-index: 1500;
-  transition: width 0.08s linear;
-  box-shadow: 0 0 8px rgba(201,169,110,0.5);
-}
-.div-line { flex: 1; max-width: 80px; height: 1px; background: linear-gradient(to right, transparent, rgba(201,169,110,0.5)); }
-.div-line.r { background: linear-gradient(to left, transparent, rgba(201,169,110,0.5)); }
-.div-gem { font-size: 0.7rem; color: var(--gold); }
-
-@media (max-width: 400px) {
-  .flowers { width: 40px; }
-  .flowers.left { left: -12px; }
-  .flowers.right { right: -12px; }
-  .splash-salom { font-size: 2.6rem; }
-  .bank-card { padding: 20px 18px; }
-  .card-number { letter-spacing: 1.5px; font-size: 16px; }
-  .name-line { font-size: 2.8rem; }
-  .amp-line { font-size: 2rem; }
-  .hero-invite-new { font-size: 0.85rem; }
-  .family-tag span { letter-spacing: 0.2em; font-size: 0.6rem; }
-}
+    @media (max-width: 550px) {
+        .name-main { font-size: 70px; }
+        .amp-main { font-size: 35px; }
+        .timer-num { font-size: 2rem; }
+        .timer-cell { min-width: 72px; }
+        .splash-names { font-size: 2.2rem; }
+        .wedding-label { font-size: 10px; letter-spacing: 6px; }
+        .marquee { font-size: 0.7rem; letter-spacing: 4px; }
+        .hint-text { font-size: 0.6rem; letter-spacing: 2px; }
+        .timer-date { font-size: 1.2rem; }
+    }
 </style>
 </head>
 <body>
-<div id="scrollBar"></div>
-<canvas id="starsCanvas"></canvas>
 
-<div id="splash">
-  <video id="splashVideo" muted playsinline preload="auto"><source src="video1.mp4" type="video/mp4"></video>
-  <div class="splash-overlay"></div>
-  <div class="video-progress" id="videoProgress"></div>
-  <div class="splash-content">
-    <div class="splash-salom">Assalomu alaykum!</div>
-    <div class="splash-sub">Hurmatli aziz mehmonimiz!</div>
-    <div class="splash-divider">✦</div>
-    <button class="btn-open" id="openBtn">TAKLIFNOMA</button>
-  </div>
-</div>
-
-<div id="transitionScreen">
-  <img class="trans-img" src="https://i.postimg.cc/rFQtdrJ0/video-end-DNj-Ru6x-E.jpg" alt="">
-  <div class="trans-gold-text">Yangi hayot sari ilk qadam</div>
-  <div class="trans-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
-</div>
-
-<div id="mainContent">
-  <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-stars" id="heroStars"></div>
-    <div class="hero-img-wrap reveal"><div class="hero-badge">NIKOH TO'YI TAKLIFNOMASI</div><img class="hero-img" src="https://i.postimg.cc/632DZnRF/kitob.webp" alt="kitob"></div>
-    
-    <div class="hero-text reveal" style="transition-delay:0.15s">
-      <div class="hero-names">
-        <div class="name-line">Abdullaziz</div>
-        <div class="amp-line">&</div>
-        <div class="name-line">Begoyim</div>
-      </div>
-      
-      <div class="hero-invite-new">
-        <div>ASSALOMU ALAYKUM</div>
-        <div>HURMATLI AZIZ MEHMONIMIZ!</div>
-        <div>SIZNI HAYOTIMIZNING ENG GO'ZAL</div>
-        <div>VA BAXTLI ONLARIDA BIZ BILAN</div>
-        <div>BO'LISHINGIZ ISTAGIDA NIKOH</div>
-        <div>SHODIYONAMIZGA TAKLIF ETAMIZ.</div>
-      </div>
-      
-      <div class="hero-ayat reveal" style="transition-delay:0.3s">
-        <div class="ayat-bismillah">۞</div>
-        <div class="ayat-text">Va Uning belgilaridan biri — sizlar uchun o'zlaringizdan juftlar yaratganidirki, ularga sukun toping. U oraliqlaringizga muhabbat va rahmat qo'ydi.</div>
-        <div class="ayat-source">Rum surasi · 21-oyat</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-divider reveal"><div class="div-line"></div><div class="div-gem">✦</div><div class="div-line r"></div></div>
-  <div class="section"><div class="container"><div class="cal-wrap"><div class="flowers left"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div><div class="flowers right"><img src="https://i.postimg.cc/59zhN5fP/gul.webp" alt=""></div><div class="cal-card reveal"><div class="sec-label">To'y sanasi</div><div class="sec-h2">16 Iyun, 2026</div><div class="sec-sub"> Seshanba · Soat 18:00</div><div class="cal-grid"><div class="cal-hd">Du</div><div class="cal-hd">Se</div><div class="cal-hd">Ch</div><div class="cal-hd">Pa</div><div class="cal-hd">Ju</div><div class="cal-hd">Sh</div><div class="cal-hd">Ya</div><div class="cal-d past">1</div><div class="cal-d past">2</div><div class="cal-d past">3</div><div class="cal-d past">4</div><div class="cal-d past">5</div><div class="cal-d past">6</div><div class="cal-d past">7</div><div class="cal-d past">8</div><div class="cal-d past">9</div><div class="cal-d past">10</div><div class="cal-d past">11</div><div class="cal-d past">12</div><div class="cal-d past">13</div><div class="cal-d past">14</div><div class="cal-d past">15</div><div class="cal-d special">16</div><div class="cal-d">17</div><div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div><div class="cal-d">21</div><div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div><div class="cal-d">25</div><div class="cal-d">26</div><div class="cal-d">27</div><div class="cal-d">28</div><div class="cal-d">29</div><div class="cal-d">30</div></div></div></div></div></div>
-
-  <div class="timer-section"><div class="timer-bg"><canvas id="timerStarCanvas"></canvas><div class="timer-mosque">🕌</div><div class="timer-label-top">To'yga qolgan vaqt</div><div class="timer-grid"><div class="timer-box reveal"><span class="timer-num" id="days">--</span><span class="timer-unit">Kun</span></div><div class="timer-box reveal" style="transition-delay:0.1s"><span class="timer-num" id="hours">--</span><span class="timer-unit">Soat</span></div><div class="timer-box reveal" style="transition-delay:0.2s"><span class="timer-num" id="minutes">--</span><span class="timer-unit">Daqiqa</span></div><div class="timer-box reveal" style="transition-delay:0.3s"><span class="timer-num" id="seconds">--</span><span class="timer-unit">Soniya</span></div></div><div class="hadis-box reveal" style="transition-delay:0.4s"><div class="hadis-q">"</div><div class="hadis-text">Nikoh mening sunnatimdir. Kim mening sunnatimga amal qilsa, u mendan.</div><div class="hadis-src">Hadisi sharif</div></div></div></div>
-
-  <div class="video-section"><div class="video-card reveal"><canvas id="starCanvas2"></canvas><video id="video2" autoplay loop muted playsinline disablePictureInPicture><source src="video2.mp4" type="video/mp4"></video><div class="video-caption">✨ Duolar va muhabbat ila bezalgan oqshom ✨</div></div></div>
-
-  <div class="section"><div class="container"><div class="venue-card reveal"><img class="venue-img" src="https://i.postimg.cc/3Nh05JJV/toyxona.jpg" alt="Grant Elite"><div class="venue-body"><div class="sec-label">To'y o'tkaziladigan joy</div><div class="venue-name">Grant Elite</div><div class="venue-sub">To'yxonasi · Yangi hayot hokimiyati</div><div class="venue-addr">📍 Toshkent viloyati, Yangi hayot massivi</div><div class="map-btns"><a href="https://yandex.uz/maps/-/CPsgETpU" class="map-btn" target="_blank">🗺 Yandex Maps</a><a href="https://maps.app.goo.gl/8y4fjsSwWgi1m9gg6" class="map-btn alt" target="_blank">📍 Google Maps</a><a href="navkar.html" class="map-btn navkar">✨ Navkar ✨</a></div></div></div></div></div>
-
-  <div class="card-section">
-    <div class="card-wrapper">
-      <div class="card-text reveal">Sizning tashrifingiz va duolaringiz biz uchun eng katta baxtdir.</div>
-      
-      <div class="bank-card reveal" id="copyCardOnClick">
-        <div class="card-chip">
-          <div class="chip-icon"></div>
-          <span class="card-type">UZCARD</span>
+    <!-- ЗАСТАВКА -->
+    <div class="splash" id="splash">
+        <div class="splash-content">
+            <div class="splash-names">Азимбек</div>
+            <div class="splash-amp">✦ & ✦</div>
+            <div class="splash-names">Севинч</div>
+            <div class="splash-date">13 · 06 · 2026</div>
+            <button class="splash-btn" id="splashBtn">ОТКРЫТЬ</button>
         </div>
-        <div class="card-number" id="cardNumberDisplay">8600 4929 9582 2125</div>
-        <div class="card-details">
-          <div class="card-holder">
-            <div class="card-label">Karta egasi</div>
-            <div class="card-name">Abdullaziz Sodiqov</div>
-          </div>
-          <div class="card-valid">
-          </div>
-        </div>
-      </div>
-      
-      <button class="copy-btn-card" id="copyMainBtn">💳 Karta raqamini nusxalash</button>
-      
-      <div class="card-text" style="font-size:0.85rem; margin-top:20px;">Qo'shimcha ehtirom bildirmoqchi bo'lgan mehmonlar uchun karta raqami qoldirilgan.</div>
-      <div class="card-note-bottom">✨ Hurmat va ehtirom bilan ✨</div>
     </div>
-  </div>
 
-  <div class="section"><div class="container"><div class="contacts-card reveal"><img src="https://i.postimg.cc/cLTyGsds/hat.webp" alt="hat" class="hat-img"><div class="contacts-title">Bog'lanish</div><div class="contacts-desc">Savollaringiz bo'lsa, biz bilan bog'laning</div><div class="contact-item"><span class="contact-label">📱 Telegram</span><span class="contact-val">@sadikovdesigner</span></div><div class="contact-item"><span class="contact-label">📞 Telefon</span><span class="contact-val">+998998412114</span></div>
-        <div class="family-tag"><span>SADIKOVLAR OILASI</span></div>
-      </div></div></div>
-</div>
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <div class="main-content" id="mainContent">
+        <div class="page page-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="premium-text premium-delay-1"><div class="wedding-label">WEDDING INVITATION</div></div>
+                <div class="premium-text premium-delay-2"><div class="name-main">Азимбек</div></div>
+                <div class="premium-text premium-delay-3"><div class="amp-main">&</div></div>
+                <div class="premium-text premium-delay-4"><div class="name-main">Севинч</div></div>
+                <div class="premium-text premium-delay-5">
+                    <div class="divider-main"></div>
+                    <div class="date-main">13 · 06 · 2026</div>
+                </div>
+            </div>
+        </div>
+        <div class="page page-2"></div>
+        <div class="page page-3">
+            <div class="scroll-reveal">
+                <div class="location-card">
+                    <div class="location-name">📍 Golden Garden</div>
+                    <div class="location-addr">г. Бухара, ул. Мустакиллик</div>
+                    <div class="location-hint">Ориентир: Центральный парк</div>
+                    <button class="location-btn" id="locationBtn">📍 Проложить маршрут</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- БЕГУЩАЯ СТРОКА -->
+        <div class="page page-4">
+            <div class="marquee">
+                <span>✦ WEDDING DAY 13.06.2026 ✦ НАЧАЛО В 19:00 ✦</span>
+                <span>✦ WEDDING DAY 13.06.2026 ✦ НАЧАЛО В 19:00 ✦</span>
+                <span>✦ WEDDING DAY 13.06.2026 ✦ НАЧАЛО В 19:00 ✦</span>
+                <span>✦ WEDDING DAY 13.06.2026 ✦ НАЧАЛО В 19:00 ✦</span>
+            </div>
+        </div>
+        
+        <!-- СТРАНИЦА ТАЙМЕРА -->
+        <div class="page page-5">
+            <div class="overlay"></div>
+            <div class="timer-wrap">
+                <div class="scroll-reveal">
+                    <div class="timer-date">13 июня 2026 · 19:00</div>
+                </div>
+                <div class="scroll-reveal reveal-delay-1">
+                    <div class="timer-label">До начала торжества осталось</div>
+                </div>
+                <div class="scroll-reveal reveal-delay-2">
+                    <div class="timer-grid">
+                        <div class="timer-cell"><div class="timer-num" id="days">00</div><div class="timer-unit">дней</div></div>
+                        <div class="timer-cell"><div class="timer-num" id="hours">00</div><div class="timer-unit">часов</div></div>
+                        <div class="timer-cell"><div class="timer-num" id="minutes">00</div><div class="timer-unit">минут</div></div>
+                        <div class="timer-cell"><div class="timer-num" id="seconds">00</div><div class="timer-unit">секунд</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="music-btn" id="musicBtn"><span class="music-icon">♪</span></div>
+    </div>
 
-<div class="music-btn" id="musicBtn"><span class="music-icon">♪</span><div class="music-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
-<div id="toastCardMsg" class="toast-card">✅ Karta raqami nusxalandi!</div>
+    <!-- СТРЕЛКА С НАДПИСЬЮ -->
+    <div class="scroll-hint" id="scrollHint">
+        <div class="hint-text">листайте вниз</div>
+        <div class="hint-arrow"></div>
+    </div>
 
-<script>
-(async function(){
-  const MUSIC_URL = 'https://files.catbox.moe/ijpp50.mp3';
-  let isMusicPlaying = false;
-  const musicBtn = document.getElementById('musicBtn');
-  let currentAudio = null;
-  
-  function startMusic() {
-    if (currentAudio && !currentAudio.paused) return;
-    const audio = new Audio();
-    audio.loop = true;
-    audio.volume = 0.45;
-    audio.src = MUSIC_URL;
-    audio.addEventListener('canplay', () => {
-      audio.play().then(() => {
-        isMusicPlaying = true;
-        musicBtn.classList.add('playing');
-        if (currentAudio && currentAudio !== audio) currentAudio.pause();
-        currentAudio = audio;
-      }).catch(console.log);
-    });
-    audio.addEventListener('error', () => {
-      audio.src = MUSIC_URL + '?t=' + Date.now();
-      audio.load();
-    });
-    audio.load();
-  }
-  
-  function pauseMusic() {
-    if (currentAudio) {
-      currentAudio.pause();
-      isMusicPlaying = false;
-      musicBtn.classList.remove('playing');
-    }
-  }
-  
-  musicBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (isMusicPlaying) pauseMusic();
-    else startMusic();
-  });
-  
-  const REAL_CARD = "8600 4929 9582 2125";
-  const CLEAN_CARD = REAL_CARD.replace(/\s/g, '');
-  
-  const displaySpan = document.getElementById('cardNumberDisplay');
-  const copyBtn = document.getElementById('copyMainBtn');
-  const cardElement = document.getElementById('copyCardOnClick');
-  const toast = document.getElementById('toastCardMsg');
-  
-  displaySpan.textContent = REAL_CARD;
-  
-  function showCopyToast() {
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1500);
-  }
-  
-  function copyCardNumber() {
-    navigator.clipboard.writeText(CLEAN_CARD).then(() => {
-      showCopyToast();
-      if(cardElement) {
-        cardElement.style.transform = 'scale(0.98)';
-        setTimeout(() => { if(cardElement) cardElement.style.transform = ''; }, 150);
-      }
-    }).catch(() => alert("Nusxalash amalga oshmadi: " + CLEAN_CARD));
-  }
-  
-  if(cardElement) cardElement.addEventListener('click', copyCardNumber);
-  if(copyBtn) copyBtn.addEventListener('click', copyCardNumber);
-  
-  const sc = document.getElementById('starsCanvas');
-  const ctx = sc.getContext('2d');
-  let sw, sh, stars = [];
-  const starColors = ['#fff8e7', '#ffefc0', '#ffe8a3', '#f5e0a0', '#e8d5a3'];
-  
-  class FallingStar {
-    reset(){
-      this.x = Math.random() * sw;
-      this.y = -10;
-      this.size = 1.5 + Math.random() * 3;
-      this.speedY = 0.2 + Math.random() * 0.6;
-      this.speedX = (Math.random() - 0.5) * 0.2;
-      this.opacity = 0.3 + Math.random() * 0.5;
-      this.color = starColors[Math.floor(Math.random() * starColors.length)];
-      this.rotation = Math.random() * Math.PI * 2;
-      this.rotSpeed = (Math.random() - 0.5) * 0.01;
-    }
-    constructor(){ this.reset(); this.y = Math.random() * sw; }
-    update(){
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.rotation += this.rotSpeed;
-      if(this.y > sh + 20) this.reset();
-      if(this.x < -20) this.x = sw + 20;
-      if(this.x > sw + 20) this.x = -20;
-    }
-    draw(){
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation);
-      ctx.globalAlpha = this.opacity;
-      ctx.beginPath();
-      for(let i=0; i<4; i++){
-        let angle = i * Math.PI/2;
-        let x1 = Math.cos(angle) * this.size;
-        let y1 = Math.sin(angle) * this.size;
-        let x2 = Math.cos(angle + Math.PI/4) * this.size * 0.5;
-        let y2 = Math.sin(angle + Math.PI/4) * this.size * 0.5;
-        if(i===0) ctx.moveTo(x1, y1);
-        else ctx.lineTo(x1, y1);
-        ctx.lineTo(x2, y2);
-      }
-      ctx.closePath();
-      ctx.fillStyle = this.color;
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-  
-  function initStarsCanvas(){
-    sw = sc.width = window.innerWidth;
-    sh = sc.height = window.innerHeight;
-    stars = [];
-    for(let i=0;i<80;i++) stars.push(new FallingStar());
-  }
-  
-  function animateStars(){
-    ctx.clearRect(0,0,sw,sh);
-    stars.forEach(s=>{ s.update(); s.draw(); });
-    requestAnimationFrame(animateStars);
-  }
-  
-  initStarsCanvas(); animateStars();
-  window.addEventListener('resize', initStarsCanvas);
+    <div class="modal" id="mapModal">
+        <div class="modal-close" id="closeModal">✕</div>
+        <a href="https://yandex.uz/maps/-/CPwkIZ53" class="modal-btn" target="_blank">🗺 Яндекс Карты</a>
+        <a href="https://maps.app.goo.gl/sN33sbqibtg3C3ua9" class="modal-btn" target="_blank">📍 Google Maps</a>
+    </div>
 
-  const openBtn = document.getElementById('openBtn');
-  const splash = document.getElementById('splash');
-  const splashVideo = document.getElementById('splashVideo');
-  const progressBar = document.getElementById('videoProgress');
-  const transScreen = document.getElementById('transitionScreen');
-  const mainContent = document.getElementById('mainContent');
+    <script>
+        // МУЗЫКА
+        const MUSIC_URL = 'https://files.catbox.moe/fdczpg.m4a';
+        let audio = new Audio(MUSIC_URL);
+        audio.loop = true;
+        audio.volume = 0.4;
+        let isPlaying = false;
+        const musicBtn = document.getElementById('musicBtn');
+        const splash = document.getElementById('splash');
+        const mainContent = document.getElementById('mainContent');
+        const splashBtn = document.getElementById('splashBtn');
 
-  openBtn.addEventListener('click', () => {
-    startMusic();
-    splashVideo.style.transition='opacity 1.2s cubic-bezier(0.16,1,0.3,1)';
-    splashVideo.play().then(()=>{ splashVideo.style.opacity='1'; }).catch(()=>{});
-    function updateProg(){ if(splashVideo.duration) progressBar.style.width=(splashVideo.currentTime/splashVideo.duration*100)+'%'; if(!splashVideo.ended) requestAnimationFrame(updateProg); }
-    updateProg();
-    openBtn.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
-    openBtn.style.opacity='0'; openBtn.style.transform='scale(0.85) translateY(10px)';
-    setTimeout(()=>openBtn.style.display='none', 500);
-    splashVideo.onended = () => {
-      splash.style.transition='opacity 0.8s cubic-bezier(0.16,1,0.3,1)';
-      splash.style.opacity='0';
-      setTimeout(()=>{
-        splash.classList.add('hide');
-        transScreen.classList.add('show');
-        setTimeout(()=>{
-          transScreen.classList.add('hide');
-          mainContent.classList.add('visible');
-          window.scrollTo(0,0);
-          setTimeout(()=>{
-            const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider, .bank-card');
-            const getDelay = (el) => {
-              const delays = {'timer-box':130,'contact-item':80,'cal-d':20};
-              for(let [cls,d] of Object.entries(delays)) if(el.classList.contains(cls)) { const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*d; }
-              const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')||c.classList.contains('bank-card'));
-              let idx=sibs.indexOf(el); return idx>0?idx*100:0;
-            };
-            allReveal.forEach(el=>{ if(el.getBoundingClientRect().top<window.innerHeight+100) setTimeout(()=>el.classList.add('in'), getDelay(el)); });
-          },150);
-        }, 2200);
-      }, 800);
-    };
-  });
+        function startMusic() {
+            if (audio && !isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                }).catch(e => console.log('Ошибка:', e));
+            }
+        }
+        function stopMusic() {
+            if (audio && isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                musicBtn.classList.remove('playing');
+            }
+        }
+        splashBtn.addEventListener('click', () => {
+            startMusic();
+            splash.classList.add('hide');
+            mainContent.classList.add('show');
+            document.body.style.overflowY = 'auto';
+        });
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isPlaying ? stopMusic() : startMusic();
+        });
 
-  const heroStarsEl = document.getElementById('heroStars'); 
-  for(let i=0;i<22;i++){ const s=document.createElement('div'); s.className='star'; let sz=1+Math.random()*3; s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`; heroStarsEl.appendChild(s); }
-  
-  function initStarCanvas(canvasId,count){ const canvas=document.getElementById(canvasId); if(!canvas) return; const ctx=canvas.getContext('2d'); let stars=[]; function resize(){ const r=canvas.parentElement.getBoundingClientRect(); canvas.width=r.width; canvas.height=r.height; canvas.style.width=r.width+'px'; canvas.style.height=r.height+'px'; stars=[]; for(let i=0;i<count;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:0.8+Math.random()*2,a:0.3+Math.random()*0.7,sp:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}); } function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); const t=Date.now()/1000; for(const s of stars){ const tw=0.4+0.6*(Math.sin(t*s.sp+s.ph)*0.5+0.5); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,215,150,${s.a*tw})`; ctx.fill(); } requestAnimationFrame(draw); } setTimeout(()=>{resize();draw();},100); window.addEventListener('resize',resize); }
-  initStarCanvas('timerStarCanvas',120); initStarCanvas('starCanvas2',150);
-  
-  function tick(){ const target=new Date(2026,5,16,18,0,0); let diff=target-new Date(); if(diff<0) diff=0; document.getElementById('days').textContent=Math.floor(diff/864e5); document.getElementById('hours').textContent=Math.floor((diff%864e5)/36e5); document.getElementById('minutes').textContent=Math.floor((diff%36e5)/6e4); document.getElementById('seconds').textContent=Math.floor((diff%6e4)/1e3); } tick(); setInterval(tick,1000);
-  
-  const scrollBar=document.getElementById('scrollBar'); if(scrollBar){ window.addEventListener('scroll',()=>{ const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight); scrollBar.style.width=(pct*100)+'%'; },{passive:true}); }
-  
-  const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-divider, .bank-card');
-  const getStaggerDelay = (el) => { const d={'timer-box':130,'contact-item':80,'cal-d':20}; for(let [cls,delay] of Object.entries(d)) if(el.classList.contains(cls)){ const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains(cls)); return sibs.indexOf(el)*delay; } const sibs=Array.from(el.parentElement.children).filter(c=>c.classList.contains('reveal')||c.classList.contains('reveal-left')||c.classList.contains('reveal-right')||c.classList.contains('bank-card')); let idx=sibs.indexOf(el); return idx>0?idx*100:0; };
-  const observer=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ const delay=getStaggerDelay(e.target); setTimeout(()=>{ e.target.classList.add('in'); },delay); observer.unobserve(e.target); } }); },{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
-  allReveal.forEach(el=>observer.observe(el));
-  
-  const heroImgWrap = document.querySelector('.hero-img-wrap');
-  window.addEventListener('scroll', () => { const scrolled = window.scrollY; if(scrolled<window.innerHeight && heroImgWrap) heroImgWrap.style.transform = `translateY(${scrolled*0.18}px)`; }, {passive:true});
-})();
-</script>
+        // АНИМАЦИЯ ПРИ СКРОЛЛЕ
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+        const mainObserver = new MutationObserver(() => {
+            if (mainContent.classList.contains('show')) {
+                document.querySelectorAll('.scroll-reveal').forEach(el => scrollObserver.observe(el));
+                mainObserver.disconnect();
+            }
+        });
+        mainObserver.observe(mainContent, { attributes: true });
+
+        // СТРЕЛКА С НАДПИСЬЮ
+        const pages = document.querySelectorAll('.page');
+        const scrollHint = document.getElementById('scrollHint');
+        
+        function updateScrollHint() {
+            if (!mainContent.classList.contains('show')) return;
+            const scrollPos = window.scrollY + window.innerHeight;
+            const lastPageTop = pages[pages.length - 1]?.offsetTop || 0;
+            if (scrollPos >= lastPageTop + 80) {
+                scrollHint.classList.remove('show');
+            } else {
+                scrollHint.classList.add('show');
+            }
+        }
+        
+        window.addEventListener('scroll', updateScrollHint);
+        window.addEventListener('resize', updateScrollHint);
+        
+        scrollHint.addEventListener('click', () => {
+            const current = window.scrollY;
+            for (let p of pages) {
+                if (p.offsetTop > current + 50) {
+                    p.scrollIntoView({ behavior: 'smooth' });
+                    break;
+                }
+            }
+        });
+
+        // МОДАЛЬНОЕ ОКНО
+        const locBtn = document.getElementById('locationBtn');
+        const modal = document.getElementById('mapModal');
+        const closeModal = document.getElementById('closeModal');
+        if (locBtn) locBtn.onclick = () => modal.classList.add('show');
+        if (closeModal) closeModal.onclick = () => modal.classList.remove('show');
+        modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('show'); };
+
+        // ТАЙМЕР
+        const target = new Date(2026, 5, 13, 19, 0, 0);
+        function tick() {
+            const diff = target - new Date();
+            if (diff <= 0) {
+                ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).innerText = '00');
+                return;
+            }
+            document.getElementById('days').innerText = Math.floor(diff / 864e5);
+            document.getElementById('hours').innerText = Math.floor((diff % 864e5) / 36e5);
+            document.getElementById('minutes').innerText = Math.floor((diff % 36e5) / 6e4);
+            document.getElementById('seconds').innerText = Math.floor((diff % 6e4) / 1e3);
+        }
+        tick();
+        setInterval(tick, 1000);
+    </script>
 </body>
 </html>
