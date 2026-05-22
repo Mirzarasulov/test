@@ -315,11 +315,13 @@
         100% { transform: translateX(-50%); }
     }
     
-    /* СТРАНИЦА 5 — ТАЙМЕР С НОВЫМ ФОТО */
+    /* СТРАНИЦА 5 — ТАЙМЕР + ТВОЙ ТЕКСТ ПОВЕРХ ФОТО */
     .page-5 {
         background-image: url('https://i.postimg.cc/Z5160p4B/pngtree-elegant-wedding-rings-and-white-rose-bouquet-image-17319559.jpg');
         background-size: cover;
         background-position: center;
+        position: relative;
+        justify-content: space-between;
     }
     .page-5 .overlay {
         position: absolute;
@@ -333,6 +335,8 @@
         text-align: center;
         width: 100%;
         padding: 0 1.5rem;
+        margin-top: auto;
+        margin-bottom: auto;
     }
     .timer-date {
         font-family: 'Cormorant Garamond', serif;
@@ -388,6 +392,28 @@
         margin-top: 8px;
         font-weight: 300;
     }
+
+    /* ТВОЙ ТЕКСТ ПОВЕРХ ФОТО В САМОМ НИЗУ */
+    .creator-text {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 20px 0 30px;
+        font-family: 'Jost', monospace;
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 1px;
+    }
+    .creator-text a {
+        color: #c9a96e;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+    .creator-text a:hover {
+        color: #e8d5c0;
+    }
+
     .scroll-reveal {
         opacity: 0;
         transform: translateY(50px);
@@ -482,7 +508,7 @@
         z-index: 100;
         text-align: center;
         opacity: 0;
-        transition: opacity 0.4s ease;
+        transition: opacity 0.3s ease;
         pointer-events: none;
         cursor: pointer;
     }
@@ -512,33 +538,6 @@
         50% { transform: rotate(-45deg) translateY(6px); }
     }
 
-    /* ========== АВТОРСКИЙ БЛОК С TELEGRAM ========== */
-    .footer-author {
-        position: fixed;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        font-family: 'Jost', monospace;
-        font-size: 0.65rem;
-        color: rgba(255,255,255,0.4);
-        z-index: 100;
-        pointer-events: none;
-    }
-    .footer-author a {
-        color: rgba(255,255,255,0.6);
-        text-decoration: none;
-        pointer-events: auto;
-        cursor: pointer;
-        transition: color 0.2s;
-    }
-    .footer-author a:hover {
-        color: #c9a96e;
-    }
-    .footer-author span {
-        color: rgba(255,255,255,0.3);
-    }
-
     @media (max-width: 550px) {
         .name-main { font-size: 70px; }
         .amp-main { font-size: 35px; }
@@ -549,7 +548,7 @@
         .marquee { font-size: 0.7rem; letter-spacing: 4px; }
         .hint-text { font-size: 0.6rem; letter-spacing: 2px; }
         .timer-date { font-size: 1.2rem; }
-        .footer-author { font-size: 0.5rem; bottom: 15px; }
+        .creator-text { font-size: 0.55rem; padding: 15px 0 20px; }
     }
 </style>
 </head>
@@ -603,7 +602,7 @@
             </div>
         </div>
         
-        <!-- СТРАНИЦА ТАЙМЕРА -->
+        <!-- СТРАНИЦА ТАЙМЕРА + ТВОЙ ТЕКСТ ПОВЕРХ ФОТО ВНИЗУ -->
         <div class="page page-5">
             <div class="overlay"></div>
             <div class="timer-wrap">
@@ -622,7 +621,12 @@
                     </div>
                 </div>
             </div>
+            <!-- ТВОЙ ТЕКСТ ПОВЕРХ ФОТО, В САМОМ НИЗУ СТРАНИЦЫ -->
+            <div class="creator-text">
+                ⚡ created by <a href="https://t.me/Dma12r" target="_blank">@Dma12r</a>
+            </div>
         </div>
+        
         <div class="music-btn" id="musicBtn"><span class="music-icon">♪</span></div>
     </div>
 
@@ -630,11 +634,6 @@
     <div class="scroll-hint" id="scrollHint">
         <div class="hint-text">листайте вниз</div>
         <div class="hint-arrow"></div>
-    </div>
-
-    <!-- АВТОРСКИЙ БЛОК С TELEGRAM (ПРИ НАЖАТИИ ОТКРЫВАЕТСЯ TG) -->
-    <div class="footer-author">
-        <span>⚡ created: </span><a href="https://t.me/Dma12r" target="_blank">@Dma12r</a>
     </div>
 
     <div class="modal" id="mapModal">
@@ -695,15 +694,18 @@
         });
         mainObserver.observe(mainContent, { attributes: true });
 
-        // СТРЕЛКА С НАДПИСЬЮ
+        // СТРЕЛКА
         const pages = document.querySelectorAll('.page');
         const scrollHint = document.getElementById('scrollHint');
         
         function updateScrollHint() {
             if (!mainContent.classList.contains('show')) return;
+            const lastPage = pages[pages.length - 1];
+            const lastPageBottom = lastPage.offsetTop + lastPage.offsetHeight;
             const scrollPos = window.scrollY + window.innerHeight;
-            const lastPageTop = pages[pages.length - 1]?.offsetTop || 0;
-            if (scrollPos >= lastPageTop + 80) {
+            const isAtEnd = scrollPos >= lastPageBottom - 50;
+            
+            if (isAtEnd) {
                 scrollHint.classList.remove('show');
             } else {
                 scrollHint.classList.add('show');
@@ -715,11 +717,17 @@
         
         scrollHint.addEventListener('click', () => {
             const current = window.scrollY;
+            let nextPage = null;
             for (let p of pages) {
                 if (p.offsetTop > current + 50) {
-                    p.scrollIntoView({ behavior: 'smooth' });
+                    nextPage = p;
                     break;
                 }
+            }
+            if (nextPage) {
+                nextPage.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             }
         });
 
